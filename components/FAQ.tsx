@@ -2,10 +2,15 @@
 
 import React, { useState } from "react";
 import { ChevronDown, MessageCircle } from "lucide-react";
-import { faqs } from "@/data/faq";
+import { faqs, FAQItem } from "@/data/faq";
 
-export default function FAQ() {
+interface FAQProps {
+  items?: FAQItem[];
+}
+
+export default function FAQ({ items }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const displayFaqs = items && items.length > 0 ? items : faqs;
 
   const toggleAccordion = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
@@ -27,7 +32,7 @@ export default function FAQ() {
 
         {/* Accordion List */}
         <div className="divide-y divide-gray-200 dark:divide-white/10 border-y border-gray-200 dark:border-white/10">
-          {faqs.map((faq, idx) => {
+          {displayFaqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div key={idx} className="transition-colors">

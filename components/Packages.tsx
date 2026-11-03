@@ -5,8 +5,15 @@ import Image from "next/image";
 import { packages } from "@/data/packages";
 import PackageCard from "./PackageCard";
 import { CheckCircle2 } from "lucide-react";
+import { PackageItem } from "@/data/packages";
 
-export default function Packages() {
+interface PackagesProps {
+  items?: PackageItem[];
+}
+
+export default function Packages({ items }: PackagesProps) {
+  const displayPackages = items && items.length > 0 ? items : packages;
+
   return (
     <section id="packages" className="py-20 bg-[#F8F9FA] dark:bg-[#060E16] relative overflow-hidden border-b border-gray-100 dark:border-white/10 transition-colors duration-300">
       {/* Ambient background aura */}
@@ -26,7 +33,7 @@ export default function Packages() {
 
         {/* Package Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mb-16">
-          {packages.map((pkg) => (
+          {displayPackages.map((pkg) => (
             <PackageCard key={pkg.id} pkg={pkg} />
           ))}
         </div>

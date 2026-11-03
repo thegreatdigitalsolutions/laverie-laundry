@@ -9,8 +9,11 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { getCMSContent } from "@/lib/sheets";
 
-export default function Home() {
+export default async function Home() {
+  const { packages, faqs, testimonials } = await getCMSContent();
+
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-[#03070C] text-gray-900 dark:text-[#F8FAFC] transition-colors duration-300">
       {/* Top Sticky Navigation */}
@@ -23,9 +26,9 @@ export default function Home() {
         <About />
         <CoreServices />
         <StatsDark />
-        <Packages />
-        <Testimonials />
-        <FAQ />
+        <Packages items={packages} />
+        <Testimonials items={testimonials} />
+        <FAQ items={faqs} />
         <CTA />
       </main>
 
