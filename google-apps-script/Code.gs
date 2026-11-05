@@ -19,6 +19,7 @@ function doGet(e) {
         packages: getPackagesData(),
         faqs: getFaqsData(),
         testimonials: getTestimonialsData(),
+        outlets: getOutletsData(),
         timestamp: new Date().toISOString(),
       });
     }
@@ -58,11 +59,16 @@ function doPost(e) {
         packages: getPackagesData(),
         faqs: getFaqsData(),
         testimonials: getTestimonialsData(),
+        outlets: getOutletsData(),
       });
     }
 
     if (action === "updatePackages") {
       return savePackagesData(payload.packages);
+    }
+
+    if (action === "updateOutlets") {
+      return saveOutletsData(payload.outlets);
     }
 
     if (action === "updateFaqs") {
@@ -555,7 +561,206 @@ function initSpreadsheet() {
     seedDefaultTestimonials(testSheet);
   }
 
-  return "All 4 sheets (Auth, Packages, FAQs, Testimonials) initialized successfully.";
+  // Outlets sheet
+  let outletSheet = ss.getSheetByName("Outlets");
+  if (!outletSheet) {
+    outletSheet = ss.insertSheet("Outlets");
+    seedDefaultOutlets(outletSheet);
+  }
+
+  return "All 5 sheets (Auth, Packages, Outlets, FAQs, Testimonials) initialized successfully.";
+}
+
+function getOutletsSheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName("Outlets") || ss.getSheetByName("Locations");
+  if (!sheet) {
+    sheet = ss.insertSheet("Outlets");
+    seedDefaultOutlets(sheet);
+  }
+  return sheet;
+}
+
+function getOutletsData() {
+  try {
+    const sheet = getOutletsSheet();
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) {
+      seedDefaultOutlets(sheet);
+      return getDefaultOutletsList();
+    }
+    const headers = data[0].map(h => String(h).trim().toLowerCase());
+    const idIdx = headers.indexOf("id");
+    const tabNameIdx = headers.indexOf("tabname");
+    const nameIdx = headers.indexOf("name");
+    const taglineIdx = headers.indexOf("tagline");
+    const descIdx = headers.indexOf("description");
+    const addressIdx = headers.indexOf("address");
+    const hoursIdx = headers.indexOf("openinghours");
+    const dispatchIdx = headers.indexOf("dispatch");
+    const mapsUrlIdx = headers.indexOf("mapsurl");
+    const embedIdx = headers.indexOf("mapsembedurl");
+    const waIdx = headers.indexOf("whatsappmessage");
+    const statusIdx = headers.indexOf("status");
+
+    const items = [];
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      if (!row[nameIdx !== -1 ? nameIdx : 2]) continue;
+      items.push({
+        id: String(row[idIdx !== -1 ? idIdx : 0] || `outlet-${i}`),
+        tabName: String(row[tabNameIdx !== -1 ? tabNameIdx : 1] || "Location"),
+        name: String(row[nameIdx !== -1 ? nameIdx : 2] || ""),
+        tagline: String(row[taglineIdx !== -1 ? taglineIdx : 3] || ""),
+        description: String(row[descIdx !== -1 ? descIdx : 4] || ""),
+        address: String(row[addressIdx !== -1 ? addressIdx : 5] || ""),
+        openingHours: String(row[hoursIdx !== -1 ? hoursIdx : 6] || ""),
+        dispatch: String(row[dispatchIdx !== -1 ? dispatchIdx : 7] || ""),
+        mapsUrl: String(row[mapsUrlIdx !== -1 ? mapsUrlIdx : 8] || ""),
+        mapsEmbedUrl: String(row[embedIdx !== -1 ? embedIdx : 9] || ""),
+        whatsappMessage: String(row[waIdx !== -1 ? waIdx : 10] || ""),
+        status: String(row[statusIdx !== -1 ? statusIdx : 11] || "Active"),
+      });
+    }
+    return items.length > 0 ? items : getDefaultOutletsList();
+  } catch (err) {
+    return getDefaultOutletsList();
+  }
+}
+
+function saveOutletsData(outletsList) {
+  try {
+    if (!Array.isArray(outletsList) || outletsList.length === 0) {
+      return createJsonResponse({ success: false, error: "Empty or invalid outlets list." });
+    }
+    const sheet = getOutletsSheet();
+    sheet.clearContents();
+
+    const headers = [
+      "id",
+      "tabName",
+      "name",
+      "tagline",
+      "description",
+      "address",
+      "openingHours",
+      "dispatch",
+      "mapsUrl",
+      "mapsEmbedUrl",
+      "whatsappMessage",
+      "status"
+    ];
+
+    const rows = [headers];
+    outletsList.forEach((o, idx) => {
+      rows.push([
+        o.id || `outlet-${idx + 1}`,
+        o.tabName || "",
+        o.name || "",
+        o.tagline || "",
+        o.description || "",
+        o.address || "",
+        o.openingHours || "",
+        o.dispatch || "",
+        o.mapsUrl || "",
+        o.mapsEmbedUrl || "",
+        o.whatsappMessage || "",
+        o.status || "Active"
+      ]);
+    });
+
+    sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
+    return createJsonResponse({
+      success: true,
+      message: "Outlets updated successfully.",
+      count: outletsList.length,
+    });
+  } catch (err) {
+    return createJsonResponse({ success: false, error: err.toString() });
+  }
+}
+
+function seedDefaultOutlets(sheet) {
+  const headers = [
+    "id",
+    "tabName",
+    "name",
+    "tagline",
+    "description",
+    "address",
+    "openingHours",
+    "dispatch",
+    "mapsUrl",
+    "mapsEmbedUrl",
+    "whatsappMessage",
+    "status"
+  ];
+  const list = getDefaultOutletsList();
+  const rows = [headers];
+  list.forEach(o => {
+    rows.push([
+      o.id,
+      o.tabName,
+      o.name,
+      o.tagline,
+      o.description,
+      o.address,
+      o.openingHours,
+      o.dispatch,
+      o.mapsUrl,
+      o.mapsEmbedUrl,
+      o.whatsappMessage,
+      o.status
+    ]);
+  });
+  sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
+}
+
+function getDefaultOutletsList() {
+  return [
+    {
+      id: "outlet-pik",
+      tabName: "PIK, Jakarta",
+      name: "Laverie Premium Laundry PIK",
+      tagline: "Flagship Atelier & Concierge Hub",
+      description: "Conveniently situated in Pantai Indah Kapuk (PIK). Drop off your garments or coordinate express hotel lobby and villa pickup.",
+      address: "Pantai Indah Kapuk, Jakarta Utara, DKI Jakarta",
+      openingHours: "07:30 AM – 21:00 PM Daily (Express cutoff 10:00 AM)",
+      dispatch: "Available for hotels, villas, and residences around PIK & North Jakarta",
+      mapsUrl: "https://maps.app.goo.gl/aAEsvnwHZAUsbqmq9",
+      mapsEmbedUrl: "https://maps.google.com/maps?q=Laverie%20Premium%20Laundry%20PIK&t=&z=16&ie=UTF8&iwloc=&output=embed",
+      whatsappMessage: "Hello Laverie Laundry PIK! I would like to request a pickup at my location.",
+      status: "Active",
+    },
+    {
+      id: "outlet-seminyak",
+      tabName: "Seminyak, Bali",
+      name: "Laverie Suite & Villa Hub Seminyak",
+      tagline: "Resort & Boutique Villa Service",
+      description: "Dedicated express valet and gentle fabric sanitization hub catering to luxury villas and hotel suites across Seminyak & Kerobokan.",
+      address: "Jl. Kayu Aya, Seminyak, Kuta, Badung, Bali",
+      openingHours: "07:00 AM – 22:00 PM Daily (Express cutoff 10:00 AM)",
+      dispatch: "Daily concierge collection across Seminyak, Petitenget & Legian",
+      mapsUrl: "https://maps.google.com/?q=Seminyak+Bali",
+      mapsEmbedUrl: "https://maps.google.com/maps?q=Seminyak%20Bali&t=&z=15&ie=UTF8&iwloc=&output=embed",
+      whatsappMessage: "Hello Laverie Laundry Seminyak! I would like to inquire about laundry service.",
+      status: "Opening Soon",
+    },
+    {
+      id: "outlet-canggu",
+      tabName: "Canggu, Bali",
+      name: "Laverie Eco Atelier Canggu",
+      tagline: "Eco Garment Care & Express Drop-off",
+      description: "Our sustainable ozone-wash studio serving digital nomads, resident villas, and travelers throughout the Batu Bolong and Berawa coastal enclaves.",
+      address: "Jl. Pantai Batu Bolong, Canggu, Kuta Utara, Badung, Bali",
+      openingHours: "08:00 AM – 20:00 PM Daily",
+      dispatch: "Doorstep pickup covering Berawa, Batu Bolong & Pererenan",
+      mapsUrl: "https://maps.google.com/?q=Canggu+Bali",
+      mapsEmbedUrl: "https://maps.google.com/maps?q=Canggu%20Bali&t=&z=15&ie=UTF8&iwloc=&output=embed",
+      whatsappMessage: "Hello Laverie Laundry Canggu! I would like to inquire about laundry service.",
+      status: "Opening Soon",
+    },
+  ];
 }
 
 function getDefaultPackagesList() {

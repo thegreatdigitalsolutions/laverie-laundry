@@ -6,10 +6,12 @@ import {
   savePackagesToSheet,
   saveFaqsToSheet,
   saveTestimonialsToSheet,
+  saveOutletsToSheet,
 } from "@/lib/sheets";
 import { PackageItem } from "@/data/packages";
 import { FAQItem } from "@/data/faq";
 import { TestimonialItem } from "@/data/testimonials";
+import { OutletItem } from "@/data/outlets";
 import { revalidatePath } from "next/cache";
 
 export async function logoutAction() {
@@ -58,6 +60,21 @@ export async function saveTestimonialsAction(testimonialsList: TestimonialItem[]
     revalidatePath("/");
     revalidatePath("/admin");
     revalidatePath("/admin/testimonials");
+  }
+  return result;
+}
+
+export async function saveOutletsAction(outletsList: OutletItem[]) {
+  const session = await getSession();
+  if (!session) {
+    return { success: false, error: "Unauthorized. Please sign in." };
+  }
+
+  const result = await saveOutletsToSheet(outletsList);
+  if (result.success) {
+    revalidatePath("/");
+    revalidatePath("/admin");
+    revalidatePath("/admin/outlets");
   }
   return result;
 }

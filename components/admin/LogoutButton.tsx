@@ -11,12 +11,11 @@ export default function LogoutButton() {
     <button
       onClick={() => startTransition(() => logoutAction())}
       disabled={isPending}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 border border-transparent hover:border-red-200 dark:hover:border-red-900/50 transition-colors disabled:opacity-50 cursor-pointer"
-      title="Sign out of Admin CMS"
+      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-white/10 dark:hover:bg-white/15 transition-colors disabled:opacity-50 cursor-pointer"
+      title="Sign Out"
     >
       <LogOut className="w-3.5 h-3.5" />
-      <span>{isPending ? "Signing out..." : "Sign Out"}</span>
+      <span>{isPending ? "..." : "Sign Out"}</span>
     </button>
   );
 }
-

@@ -2,6 +2,7 @@ import { hashPassword } from "@/lib/auth";
 import { PackageItem, packages as defaultPackages } from "@/data/packages";
 import { FAQItem, faqs as defaultFaqs } from "@/data/faq";
 import { TestimonialItem, defaultTestimonials } from "@/data/testimonials";
+import { OutletItem, defaultOutlets } from "@/data/outlets";
 
 export interface AuthResponse {
   success: boolean;
@@ -113,19 +114,21 @@ export async function authenticateAdmin(
 }
 
 /**
- * Fetch all CMS content from Google Sheets (Packages, FAQs, Testimonials)
+ * Fetch all CMS content from Google Sheets (Packages, FAQs, Testimonials, Outlets)
  * Falls back to local default data if endpoint is unavailable or fails.
  */
 export async function getCMSContent(): Promise<{
   packages: PackageItem[];
   faqs: FAQItem[];
   testimonials: TestimonialItem[];
+  outlets: OutletItem[];
 }> {
   if (!GOOGLE_SCRIPT_URL) {
     return {
       packages: defaultPackages,
       faqs: defaultFaqs,
       testimonials: defaultTestimonials,
+      outlets: defaultOutlets,
     };
   }
 
@@ -140,6 +143,7 @@ export async function getCMSContent(): Promise<{
         packages: defaultPackages,
         faqs: defaultFaqs,
         testimonials: defaultTestimonials,
+        outlets: defaultOutlets,
       };
     }
 
@@ -151,12 +155,17 @@ export async function getCMSContent(): Promise<{
         Array.isArray(data.testimonials) && data.testimonials.length > 0
           ? data.testimonials
           : defaultTestimonials,
+      outlets:
+        Array.isArray(data.outlets) && data.outlets.length > 0
+          ? data.outlets
+          : defaultOutlets,
     };
   } catch {
     return {
       packages: defaultPackages,
       faqs: defaultFaqs,
       testimonials: defaultTestimonials,
+      outlets: defaultOutlets,
     };
   }
 }
@@ -183,6 +192,55 @@ export async function getFaqs(): Promise<FAQItem[]> {
 export async function getTestimonials(): Promise<TestimonialItem[]> {
   const content = await getCMSContent();
   return content.testimonials;
+}
+
+/**
+ * Fetch Outlets from Google Sheets
+ */
+export async function getOutlets(): Promise<OutletItem[]> {
+  const content = await getCMSContent();
+  return content.outlets;
+}
+
+/**
+ * Save Outlets to Google Sheet
+ */
+export async function saveOutletsToSheet(
+  outletsList: OutletItem[]
+): Promise<{ success: boolean; message?: string; error?: string }> {
+  if (!GOOGLE_SCRIPT_URL) {
+    return { success: false, error: "GOOGLE_SCRIPT_URL is not configured in environment variables." };
+  }
+
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify({
+        action: "updateOutlets",
+        outlets: outletsList,
+      }),
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      return { success: false, error: `Server returned status ${response.status}` };
+    }
+
+    const data = await response.json();
+    if (!data.success && data.error && data.error.includes("Unknown action")) {
+      return {
+        success: false,
+        error: "Google Apps Script Web App is running an older deployment. In Apps Script, click Deploy > Manage deployments > Edit (pencil icon) > Version: New version > Deploy.",
+      };
+    }
+    return data;
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Connection failed";
+    return { success: false, error: `Failed to save outlets: ${message}` };
+  }
 }
 
 /**
