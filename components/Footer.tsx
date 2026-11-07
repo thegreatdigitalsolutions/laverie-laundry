@@ -124,17 +124,6 @@ export default function Footer() {
           </div>
 
         </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-1 text-gray-400 hover:text-white transition-colors"
-          >
-            <span>Back to top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
-          </button>
-        </div>
       </div>
     </footer>
   );
