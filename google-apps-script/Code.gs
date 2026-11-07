@@ -97,6 +97,29 @@ function doPost(e) {
 }
 
 // ==========================================
+// TRANSLATION ENGINE (LanguageApp)
+// ==========================================
+
+function translateIdToEn(text) {
+  if (!text || typeof text !== "string") return "";
+  var clean = text.trim();
+  if (!clean) return "";
+  try {
+    return LanguageApp.translate(clean, "id", "en");
+  } catch (err) {
+    Logger.log("translateIdToEn error for '" + clean + "': " + err.toString());
+    return clean;
+  }
+}
+
+function translateListIdToEn(list) {
+  if (!Array.isArray(list)) return [];
+  return list.map(function (item) {
+    return translateIdToEn(item);
+  });
+}
+
+// ==========================================
 // AUTHENTICATION
 // ==========================================
 
@@ -229,6 +252,11 @@ function getPackagesData() {
   const popCol = headers.indexOf("popular");
   const waCol = headers.indexOf("whatsappmessage");
 
+  const turnaroundEnCol = headers.indexOf("turnaround_en");
+  const descEnCol = headers.indexOf("description_en");
+  const featuresEnCol = headers.indexOf("features_en");
+  const waEnCol = headers.indexOf("whatsappmessage_en");
+
   const packages = [];
   for (let i = 1; i < data.length; i++) {
     const row = data[i];
@@ -250,17 +278,53 @@ function getPackagesData() {
       String(isPop).toLowerCase() === "yes" ||
       String(isPop) === "1";
 
+    const turnaround = String(row[turnaroundCol !== -1 ? turnaroundCol : 5] || "").trim();
+    const description = String(row[descCol !== -1 ? descCol : 6] || "").trim();
+    const waMsg = String(row[waCol !== -1 ? waCol : 9] || "").trim();
+
+    // Localized values
+    const turnaroundEn =
+      turnaroundEnCol !== -1 && row[turnaroundEnCol]
+        ? String(row[turnaroundEnCol]).trim()
+        : translateIdToEn(turnaround);
+
+    const descEn =
+      descEnCol !== -1 && row[descEnCol]
+        ? String(row[descEnCol]).trim()
+        : translateIdToEn(description);
+
+    const waEn =
+      waEnCol !== -1 && row[waEnCol]
+        ? String(row[waEnCol]).trim()
+        : translateIdToEn(waMsg);
+
+    let featuresEn = [];
+    if (featuresEnCol !== -1 && row[featuresEnCol]) {
+      featuresEn = String(row[featuresEnCol])
+        .split("\n")
+        .map(function (f) {
+          return f.trim();
+        })
+        .filter(Boolean);
+    } else {
+      featuresEn = translateListIdToEn(featuresList);
+    }
+
     packages.push({
       id: String(row[idCol !== -1 ? idCol : 0] || "pkg-" + i).trim(),
       name: name,
       badge: String(row[badgeCol !== -1 ? badgeCol : 2] || "").trim(),
       price: String(row[priceCol !== -1 ? priceCol : 3] || "").trim(),
       unit: String(row[unitCol !== -1 ? unitCol : 4] || "/ KG").trim(),
-      turnaround: String(row[turnaroundCol !== -1 ? turnaroundCol : 5] || "").trim(),
-      description: String(row[descCol !== -1 ? descCol : 6] || "").trim(),
+      turnaround: turnaround,
+      turnaround_en: turnaroundEn,
+      description: description,
+      description_en: descEn,
       features: featuresList,
+      features_en: featuresEn,
       popular: popular,
-      whatsappMessage: String(row[waCol !== -1 ? waCol : 9] || "").trim(),
+      whatsappMessage: waMsg,
+      whatsappMessage_en: waEn,
     });
   }
 
@@ -282,10 +346,14 @@ function savePackagesData(packagesList) {
     "price",
     "unit",
     "turnaround",
+    "turnaround_en",
     "description",
+    "description_en",
     "features",
+    "features_en",
     "popular",
     "whatsappMessage",
+    "whatsappMessage_en",
   ];
 
   const rows = [headers];
@@ -295,6 +363,12 @@ function savePackagesData(packagesList) {
       ? pkg.features.join("\n")
       : String(pkg.features || "");
 
+    const featuresEnList = Array.isArray(pkg.features_en) && pkg.features_en.length > 0
+      ? pkg.features_en
+      : translateListIdToEn(Array.isArray(pkg.features) ? pkg.features : featuresStr.split("\n"));
+
+    const featuresEnStr = featuresEnList.join("\n");
+
     rows.push([
       pkg.id || "pkg-" + (i + 1),
       pkg.name || "",
@@ -302,10 +376,14 @@ function savePackagesData(packagesList) {
       pkg.price || "",
       pkg.unit || "/ KG",
       pkg.turnaround || "",
+      pkg.turnaround_en || translateIdToEn(pkg.turnaround || ""),
       pkg.description || "",
+      pkg.description_en || translateIdToEn(pkg.description || ""),
       featuresStr,
+      featuresEnStr,
       pkg.popular ? "TRUE" : "FALSE",
       pkg.whatsappMessage || "",
+      pkg.whatsappMessage_en || translateIdToEn(pkg.whatsappMessage || ""),
     ]);
   }
 
@@ -345,6 +423,8 @@ function getFaqsData() {
 
   const qCol = headers.indexOf("question");
   const aCol = headers.indexOf("answer");
+  const qEnCol = headers.indexOf("question_en");
+  const aEnCol = headers.indexOf("answer_en");
 
   const faqs = [];
   for (let i = 1; i < data.length; i++) {
@@ -352,7 +432,21 @@ function getFaqsData() {
     const question = String(row[qCol !== -1 ? qCol : 0] || "").trim();
     const answer = String(row[aCol !== -1 ? aCol : 1] || "").trim();
     if (question && answer) {
-      faqs.push({ question: question, answer: answer });
+      const qEn =
+        qEnCol !== -1 && row[qEnCol]
+          ? String(row[qEnCol]).trim()
+          : translateIdToEn(question);
+      const aEn =
+        aEnCol !== -1 && row[aEnCol]
+          ? String(row[aEnCol]).trim()
+          : translateIdToEn(answer);
+
+      faqs.push({
+        question: question,
+        question_en: qEn,
+        answer: answer,
+        answer_en: aEn,
+      });
     }
   }
 
@@ -367,12 +461,17 @@ function saveFaqsData(faqsList) {
   const sheet = getFaqsSheet();
   sheet.clearContents();
 
-  const headers = ["question", "answer"];
+  const headers = ["question", "question_en", "answer", "answer_en"];
   const rows = [headers];
 
   for (let i = 0; i < faqsList.length; i++) {
     const item = faqsList[i];
-    rows.push([item.question || "", item.answer || ""]);
+    const q = item.question || "";
+    const a = item.answer || "";
+    const qEn = item.question_en || translateIdToEn(q);
+    const aEn = item.answer_en || translateIdToEn(a);
+
+    rows.push([q, qEn, a, aEn]);
   }
 
   sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
@@ -414,6 +513,8 @@ function getTestimonialsData() {
   const hotelCol = headers.indexOf("hotel");
   const ratingCol = headers.indexOf("rating");
   const contentCol = headers.indexOf("content");
+  const roleEnCol = headers.indexOf("role_en");
+  const contentEnCol = headers.indexOf("content_en");
 
   const testimonials = [];
   for (let i = 1; i < data.length; i++) {
@@ -423,13 +524,26 @@ function getTestimonialsData() {
     if (!name || !content) continue;
 
     const ratingNum = parseInt(row[ratingCol !== -1 ? ratingCol : 3], 10);
+    const role = String(row[roleCol !== -1 ? roleCol : 1] || "").trim();
+
+    const roleEn =
+      roleEnCol !== -1 && row[roleEnCol]
+        ? String(row[roleEnCol]).trim()
+        : translateIdToEn(role);
+
+    const contentEn =
+      contentEnCol !== -1 && row[contentEnCol]
+        ? String(row[contentEnCol]).trim()
+        : translateIdToEn(content);
 
     testimonials.push({
       name: name,
-      role: String(row[roleCol !== -1 ? roleCol : 1] || "").trim(),
+      role: role,
+      role_en: roleEn,
       hotel: String(row[hotelCol !== -1 ? hotelCol : 2] || "").trim(),
       rating: isNaN(ratingNum) ? 5 : ratingNum,
       content: content,
+      content_en: contentEn,
     });
   }
 
@@ -444,17 +558,24 @@ function saveTestimonialsData(testimonialsList) {
   const sheet = getTestimonialsSheet();
   sheet.clearContents();
 
-  const headers = ["name", "role", "hotel", "rating", "content"];
+  const headers = ["name", "role", "role_en", "hotel", "rating", "content", "content_en"];
   const rows = [headers];
 
   for (let i = 0; i < testimonialsList.length; i++) {
     const item = testimonialsList[i];
+    const role = item.role || "";
+    const content = item.content || "";
+    const roleEn = item.role_en || translateIdToEn(role);
+    const contentEn = item.content_en || translateIdToEn(content);
+
     rows.push([
       item.name || "",
-      item.role || "",
+      role,
+      roleEn,
       item.hotel || "",
       item.rating || 5,
-      item.content || "",
+      content,
+      contentEn,
     ]);
   }
 
@@ -478,10 +599,14 @@ function seedDefaultPackages(sheet) {
     "price",
     "unit",
     "turnaround",
+    "turnaround_en",
     "description",
+    "description_en",
     "features",
+    "features_en",
     "popular",
     "whatsappMessage",
+    "whatsappMessage_en",
   ];
   const list = getDefaultPackagesList();
   const rows = [headers];
@@ -495,32 +620,50 @@ function seedDefaultPackages(sheet) {
       p.price,
       p.unit,
       p.turnaround,
+      p.turnaround_en || translateIdToEn(p.turnaround),
       p.description,
+      p.description_en || translateIdToEn(p.description),
       p.features.join("\n"),
+      (p.features_en || translateListIdToEn(p.features)).join("\n"),
       p.popular ? "TRUE" : "FALSE",
       p.whatsappMessage,
+      p.whatsappMessage_en || translateIdToEn(p.whatsappMessage),
     ]);
   }
   sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
 }
 
 function seedDefaultFaqs(sheet) {
-  const headers = ["question", "answer"];
+  const headers = ["question", "question_en", "answer", "answer_en"];
   const list = getDefaultFaqsList();
   const rows = [headers];
   for (let i = 0; i < list.length; i++) {
-    rows.push([list[i].question, list[i].answer]);
+    const item = list[i];
+    rows.push([
+      item.question,
+      item.question_en || translateIdToEn(item.question),
+      item.answer,
+      item.answer_en || translateIdToEn(item.answer),
+    ]);
   }
   sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
 }
 
 function seedDefaultTestimonials(sheet) {
-  const headers = ["name", "role", "hotel", "rating", "content"];
+  const headers = ["name", "role", "role_en", "hotel", "rating", "content", "content_en"];
   const list = getDefaultTestimonialsList();
   const rows = [headers];
   for (let i = 0; i < list.length; i++) {
     const t = list[i];
-    rows.push([t.name, t.role, t.hotel, t.rating, t.content]);
+    rows.push([
+      t.name,
+      t.role,
+      t.role_en || translateIdToEn(t.role),
+      t.hotel,
+      t.rating,
+      t.content,
+      t.content_en || translateIdToEn(t.content),
+    ]);
   }
   sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
 }
@@ -603,22 +746,38 @@ function getOutletsData() {
     const waIdx = headers.indexOf("whatsappmessage");
     const statusIdx = headers.indexOf("status");
 
+    const descEnIdx = headers.indexOf("description_en");
+    const dispatchEnIdx = headers.indexOf("dispatch_en");
+    const waEnIdx = headers.indexOf("whatsappmessage_en");
+
     const items = [];
     for (let i = 1; i < data.length; i++) {
       const row = data[i];
       if (!row[nameIdx !== -1 ? nameIdx : 2]) continue;
+
+      const desc = String(row[descIdx !== -1 ? descIdx : 4] || "").trim();
+      const dispatch = String(row[dispatchIdx !== -1 ? dispatchIdx : 7] || "").trim();
+      const wa = String(row[waIdx !== -1 ? waIdx : 10] || "").trim();
+
+      const descEn = descEnIdx !== -1 && row[descEnIdx] ? String(row[descEnIdx]).trim() : translateIdToEn(desc);
+      const dispatchEn = dispatchEnIdx !== -1 && row[dispatchEnIdx] ? String(row[dispatchEnIdx]).trim() : translateIdToEn(dispatch);
+      const waEn = waEnIdx !== -1 && row[waEnIdx] ? String(row[waEnIdx]).trim() : translateIdToEn(wa);
+
       items.push({
         id: String(row[idIdx !== -1 ? idIdx : 0] || `outlet-${i}`),
         tabName: String(row[tabNameIdx !== -1 ? tabNameIdx : 1] || "Location"),
         name: String(row[nameIdx !== -1 ? nameIdx : 2] || ""),
         phone: String(row[phoneIdx !== -1 ? phoneIdx : 3] || ""),
-        description: String(row[descIdx !== -1 ? descIdx : 4] || ""),
+        description: desc,
+        description_en: descEn,
         address: String(row[addressIdx !== -1 ? addressIdx : 5] || ""),
         openingHours: String(row[hoursIdx !== -1 ? hoursIdx : 6] || ""),
-        dispatch: String(row[dispatchIdx !== -1 ? dispatchIdx : 7] || ""),
+        dispatch: dispatch,
+        dispatch_en: dispatchEn,
         mapsUrl: String(row[mapsUrlIdx !== -1 ? mapsUrlIdx : 8] || ""),
         mapsEmbedUrl: String(row[embedIdx !== -1 ? embedIdx : 9] || ""),
-        whatsappMessage: String(row[waIdx !== -1 ? waIdx : 10] || ""),
+        whatsappMessage: wa,
+        whatsappMessage_en: waEn,
         status: String(row[statusIdx !== -1 ? statusIdx : 11] || "Active"),
       });
     }
@@ -642,29 +801,39 @@ function saveOutletsData(outletsList) {
       "name",
       "phone",
       "description",
+      "description_en",
       "address",
       "openingHours",
       "dispatch",
+      "dispatch_en",
       "mapsUrl",
       "mapsEmbedUrl",
       "whatsappMessage",
+      "whatsappMessage_en",
       "status"
     ];
 
     const rows = [headers];
     outletsList.forEach((o, idx) => {
+      const desc = o.description || "";
+      const dispatch = o.dispatch || "";
+      const wa = o.whatsappMessage || "";
+
       rows.push([
         o.id || `outlet-${idx + 1}`,
         o.tabName || "",
         o.name || "",
         o.phone || "",
-        o.description || "",
+        desc,
+        o.description_en || translateIdToEn(desc),
         o.address || "",
         o.openingHours || "",
-        o.dispatch || "",
+        dispatch,
+        o.dispatch_en || translateIdToEn(dispatch),
         o.mapsUrl || "",
         o.mapsEmbedUrl || "",
-        o.whatsappMessage || "",
+        wa,
+        o.whatsappMessage_en || translateIdToEn(wa),
         o.status || "Active"
       ]);
     });
@@ -687,12 +856,15 @@ function seedDefaultOutlets(sheet) {
     "name",
     "phone",
     "description",
+    "description_en",
     "address",
     "openingHours",
     "dispatch",
+    "dispatch_en",
     "mapsUrl",
     "mapsEmbedUrl",
     "whatsappMessage",
+    "whatsappMessage_en",
     "status"
   ];
   const list = getDefaultOutletsList();
@@ -704,12 +876,15 @@ function seedDefaultOutlets(sheet) {
       o.name,
       o.phone || "",
       o.description,
+      o.description_en || translateIdToEn(o.description),
       o.address,
       o.openingHours,
       o.dispatch,
+      o.dispatch_en || translateIdToEn(o.dispatch),
       o.mapsUrl,
       o.mapsEmbedUrl,
       o.whatsappMessage,
+      o.whatsappMessage_en || translateIdToEn(o.whatsappMessage),
       o.status
     ]);
   });

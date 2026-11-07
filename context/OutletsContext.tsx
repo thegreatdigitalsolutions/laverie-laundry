@@ -8,6 +8,8 @@ import {
   Coordinates,
 } from "@/lib/outletsHelper";
 import { MapPin, MessageCircle, X, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { getLocalized } from "@/lib/i18nHelper";
 
 interface OutletsContextType {
   outlets: OutletItem[];
@@ -30,6 +32,7 @@ export function OutletsProvider({
   outlets?: OutletItem[];
   children: React.ReactNode;
 }) {
+  const { locale } = useLanguage();
   const activeOutlets = outlets.filter((o) => o.status !== "Inactive");
 
   const [nearestOutlet, setNearestOutlet] = useState<OutletItem | null>(() => {
@@ -37,6 +40,24 @@ export function OutletsProvider({
   });
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+
+  const getOutletMessage = useCallback(
+    (outlet: OutletItem | null | undefined, customMessage?: string) => {
+      if (customMessage) return customMessage;
+      if (!outlet) {
+        return locale === "en"
+          ? "Hello Laverie Laundry! I would like to inquire about your laundry services."
+          : "Halo Laverie Laundry! Saya ingin bertanya tentang layanan laundry Anda.";
+      }
+      return (
+        getLocalized(outlet, "whatsappMessage", locale) ||
+        (locale === "en"
+          ? `Hello ${outlet.name}! I would like to inquire about your laundry services.`
+          : `Halo ${outlet.name}! Saya ingin bertanya tentang layanan laundry Anda.`)
+      );
+    },
+    [locale]
+  );
 
   // Auto-detect location on client mount if supported or restore saved outlet
   useEffect(() => {
@@ -81,17 +102,14 @@ export function OutletsProvider({
         localStorage.setItem(STORAGE_KEY, outlet.id);
       }
       if (openChat) {
-        const msg =
-          pendingMessage ||
-          outlet.whatsappMessage ||
-          `Hello ${outlet.name}! I would like to inquire about your laundry services.`;
+        const msg = getOutletMessage(outlet, pendingMessage || undefined);
         const url = formatWhatsAppUrl(outlet.phone, msg);
         window.open(url, "_blank", "noopener,noreferrer");
       }
       setIsPickerOpen(false);
       setPendingMessage(null);
     },
-    [pendingMessage]
+    [pendingMessage, getOutletMessage]
   );
 
   const openPicker = useCallback((pendingMsg?: string) => {
@@ -103,10 +121,7 @@ export function OutletsProvider({
     (customMessage?: string) => {
       // If we already have a saved or detected nearest outlet, open immediately
       if (nearestOutlet && typeof window !== "undefined" && localStorage.getItem(STORAGE_KEY)) {
-        const msg =
-          customMessage ||
-          nearestOutlet.whatsappMessage ||
-          `Hello ${nearestOutlet.name}! I would like to inquire about your laundry services.`;
+        const msg = getOutletMessage(nearestOutlet, customMessage);
         const url = formatWhatsAppUrl(nearestOutlet.phone, msg);
         window.open(url, "_blank", "noopener,noreferrer");
         return;
@@ -124,10 +139,7 @@ export function OutletsProvider({
             if (nearest) {
               setNearestOutlet(nearest);
               localStorage.setItem(STORAGE_KEY, nearest.id);
-              const msg =
-                customMessage ||
-                nearest.whatsappMessage ||
-                `Hello ${nearest.name}! I would like to inquire about your laundry services.`;
+              const msg = getOutletMessage(nearest, customMessage);
               const url = formatWhatsAppUrl(nearest.phone, msg);
               window.open(url, "_blank", "noopener,noreferrer");
             }
@@ -142,19 +154,16 @@ export function OutletsProvider({
         openPicker(customMessage);
       }
     },
-    [nearestOutlet, activeOutlets, openPicker]
+    [nearestOutlet, activeOutlets, openPicker, getOutletMessage]
   );
 
   const getNearestChatUrl = useCallback(
     (customMessage?: string) => {
       const target = nearestOutlet || activeOutlets[0];
-      const msg =
-        customMessage ||
-        (target ? target.whatsappMessage : "") ||
-        (target ? `Hello ${target.name}! I would like to inquire about your laundry services.` : "Hello Laverie Laundry!");
+      const msg = getOutletMessage(target, customMessage);
       return formatWhatsAppUrl(target?.phone, msg);
     },
-    [nearestOutlet, activeOutlets]
+    [nearestOutlet, activeOutlets, getOutletMessage]
   );
 
   return (

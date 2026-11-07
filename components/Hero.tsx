@@ -4,9 +4,17 @@ import React from "react";
 import Image from "next/image";
 import { MessageCircle, ArrowRight, Clock, Hotel, ShieldCheck } from "lucide-react";
 import { useOutlets } from "@/context/OutletsContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Hero() {
   const { openNearestChat, getNearestChatUrl } = useOutlets();
+  const { t, locale } = useLanguage();
+
+  const chatMessage =
+    locale === "en"
+      ? "Hello Laverie Laundry! I would like to book a laundry pickup today."
+      : "Halo Laverie Laundry! Saya ingin memesan layanan antar jemput laundry hari ini.";
+
   return (
     <section className="relative overflow-hidden bg-white dark:bg-[#03070C] pt-12 pb-20 lg:pt-20 lg:pb-28 border-b border-gray-200 dark:border-white/[0.06] transition-colors duration-300">
       {/* Ambient background gradients with soft atmospheric depth */}
@@ -21,38 +29,38 @@ export default function Hero() {
             
             {/* Main Headline */}
             <h1 className="font-extrabold text-4xl sm:text-5xl lg:text-6xl text-gray-900 dark:text-white tracking-tight leading-[1.12]">
-              Don’t waste your luggage on yesterday.
+              {t("hero.title")}
             </h1>
 
             {/* Sub-headline & High-Contrast Description */}
             <div className="space-y-3 max-w-xl">
               <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-[#5CE1D6] tracking-tight">
-                Fresh clothes. Same day.
+                {t("hero.highlight")}
               </p>
               <p className="text-base sm:text-lg text-gray-600 dark:text-slate-200 leading-relaxed font-normal">
-                Professional laundry service for your everyday life and travels. Pick up from your hotel lobby or doorstep before 10 AM and enjoy our 12-hour express laundry service delivered back the same evening.
+                {t("hero.description")}
               </p>
             </div>
 
             {/* Action Buttons - Solid White Luxury Dark Styling */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto pt-2">
               <a
-                href={getNearestChatUrl("Hello Laverie Laundry! I would like to book a laundry pickup today.")}
+                href={getNearestChatUrl(chatMessage)}
                 onClick={(e) => {
                   e.preventDefault();
-                  openNearestChat("Hello Laverie Laundry! I would like to book a laundry pickup today.");
+                  openNearestChat(chatMessage);
                 }}
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm tracking-wide transition-all duration-200 shadow-md shadow-[#00C4D4]/25 hover:shadow-lg hover:shadow-[#00C4D4]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4 fill-current text-gray-950" />
-                <span>Book via WhatsApp</span>
+                <span>{t("hero.bookBtn")}</span>
               </a>
 
               <a
                 href="#packages"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full border border-gray-200 dark:border-white/15 hover:border-gray-300 dark:hover:border-white/30 bg-white dark:bg-white/[0.06] hover:bg-gray-50 dark:hover:bg-white/[0.1] text-gray-700 dark:text-white font-semibold text-sm tracking-wide transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-xs"
               >
-                <span>View Packages</span>
+                <span>{t("hero.exploreBtn")}</span>
               </a>
             </div>
 
@@ -63,8 +71,12 @@ export default function Hero() {
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block font-bold text-gray-900 dark:text-white text-sm">12H Express</span>
-                  <span className="text-gray-500 dark:text-slate-300">Evening return</span>
+                  <span className="block font-bold text-gray-900 dark:text-white text-sm">
+                    {locale === "en" ? "12H Express" : "Kilat 12 Jam"}
+                  </span>
+                  <span className="text-gray-500 dark:text-slate-300">
+                    {locale === "en" ? "Evening return" : "Selesai sore/malam"}
+                  </span>
                 </div>
               </div>
 
@@ -73,8 +85,12 @@ export default function Hero() {
                   <Hotel className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block font-bold text-gray-900 dark:text-white text-sm">Hotel Concierge</span>
-                  <span className="text-gray-500 dark:text-slate-300">Lobby hand-off</span>
+                  <span className="block font-bold text-gray-900 dark:text-white text-sm">
+                    {locale === "en" ? "Hotel Concierge" : "Concierge Hotel"}
+                  </span>
+                  <span className="text-gray-500 dark:text-slate-300">
+                    {locale === "en" ? "Lobby hand-off" : "Serah terima di lobi"}
+                  </span>
                 </div>
               </div>
 
@@ -83,8 +99,12 @@ export default function Hero() {
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block font-bold text-gray-900 dark:text-white text-sm">Ozone Clean</span>
-                  <span className="text-gray-500 dark:text-slate-300">Fiber-safe care</span>
+                  <span className="block font-bold text-gray-900 dark:text-white text-sm">
+                    {locale === "en" ? "Ozone Clean" : "Sanitasi Ozon"}
+                  </span>
+                  <span className="text-gray-500 dark:text-slate-300">
+                    {locale === "en" ? "Fiber-safe care" : "Aman untuk serat kain"}
+                  </span>
                 </div>
               </div>
             </div>

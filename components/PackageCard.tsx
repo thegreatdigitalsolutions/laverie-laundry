@@ -4,6 +4,7 @@ import React from "react";
 import { Check, MessageCircle, Clock } from "lucide-react";
 import type { PackageItem } from "@/data/packages";
 import { useOutlets } from "@/context/OutletsContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface PackageCardProps {
   pkg: PackageItem;
@@ -11,7 +12,15 @@ interface PackageCardProps {
 
 export default function PackageCard({ pkg }: PackageCardProps) {
   const { openNearestChat, getNearestChatUrl } = useOutlets();
-  const whatsappUrl = getNearestChatUrl(pkg.whatsappMessage);
+  const { localize, t, locale } = useLanguage();
+
+  const turnaround = localize(pkg, "turnaround");
+  const description = localize(pkg, "description");
+  const rawFeatures = localize(pkg, "features");
+  const features: string[] = Array.isArray(rawFeatures) ? rawFeatures : pkg.features;
+  const whatsappMessage = localize(pkg, "whatsappMessage") || pkg.whatsappMessage;
+
+  const whatsappUrl = getNearestChatUrl(whatsappMessage);
 
   return (
     <div
@@ -42,13 +51,13 @@ export default function PackageCard({ pkg }: PackageCardProps) {
               : "bg-gray-100 dark:bg-white/[0.06] text-gray-700 dark:text-slate-200 border-gray-200/80 dark:border-white/10"
           }`}>
             <Clock className={`w-3.5 h-3.5 ${pkg.popular ? "text-[#00C4D4] dark:text-[#38D9CD]" : "text-gray-400 dark:text-slate-400"}`} />
-            <span>{pkg.turnaround}</span>
+            <span>{turnaround}</span>
           </div>
         </div>
 
         {/* Short Description */}
         <p className="text-sm sm:text-base text-gray-600 dark:text-slate-300 mb-6 leading-relaxed">
-          {pkg.description}
+          {description}
         </p>
 
         {/* Pricing Block */}
@@ -66,16 +75,16 @@ export default function PackageCard({ pkg }: PackageCardProps) {
             </span>
           </div>
           <p className="text-xs text-gray-500 dark:text-slate-400 mt-1.5">
-            *Includes eco wash, delicate dry & seal packaging
+            {locale === "en" ? "*Includes eco wash, delicate dry & seal packaging" : "*Termasuk cuci ramah lingkungan, pengeringan halus & kemasan steril"}
           </p>
         </div>
 
         {/* Feature List */}
         <div className="space-y-3.5 mb-8">
           <p className="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-slate-200">
-            What’s included:
+            {locale === "en" ? "What’s included:" : "Termasuk dalam paket:"}
           </p>
-          {pkg.features.map((feature, idx) => (
+          {features.map((feature, idx) => (
             <div key={idx} className="flex items-start gap-3">
               <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${
                 pkg.popular
@@ -97,7 +106,7 @@ export default function PackageCard({ pkg }: PackageCardProps) {
         href={whatsappUrl}
         onClick={(e) => {
           e.preventDefault();
-          openNearestChat(pkg.whatsappMessage);
+          openNearestChat(whatsappMessage);
         }}
         className={`w-full rounded-2xl flex items-center justify-center gap-2 font-bold uppercase tracking-wider transition-all duration-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer ${
           pkg.popular
@@ -106,7 +115,7 @@ export default function PackageCard({ pkg }: PackageCardProps) {
         }`}
       >
         <MessageCircle className={`w-4 h-4 ${pkg.popular ? "fill-current text-gray-950" : "fill-current"}`} />
-        <span>Order Now via WhatsApp</span>
+        <span>{t("packages.orderBtn")}</span>
       </a>
     </div>
   );

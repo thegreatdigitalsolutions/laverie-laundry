@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { OutletItem, defaultOutlets } from "@/data/outlets";
 import { useOutlets } from "@/context/OutletsContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface AboutProps {
   outlets?: OutletItem[];
@@ -23,6 +24,7 @@ interface AboutProps {
 
 export default function About({ outlets = defaultOutlets }: AboutProps) {
   const { selectOutlet, nearestOutlet } = useOutlets();
+  const { t, localize, locale } = useLanguage();
   const visibleOutlets = outlets.filter((o) => o.status !== "Inactive");
 
   const [activeOutletIndex, setActiveOutletIndex] = useState(() => {
@@ -204,7 +206,7 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                 )}
 
                 <p className="text-sm sm:text-base text-gray-600 dark:text-slate-200 leading-relaxed">
-                  {currentOutlet.description}
+                  {localize(currentOutlet, "description")}
                 </p>
               </div>
 
@@ -214,7 +216,9 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <strong className="block text-gray-900 dark:text-white font-bold text-sm sm:text-base">Address</strong>
+                    <strong className="block text-gray-900 dark:text-white font-bold text-sm sm:text-base">
+                      {t("about.addressLabel")}
+                    </strong>
                     <span className="text-xs sm:text-sm text-gray-600 dark:text-slate-300">{currentOutlet.address}</span>
                   </div>
                 </div>
@@ -224,7 +228,9 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                     <Clock className="w-4 h-4" />
                   </div>
                   <div>
-                    <strong className="block text-gray-900 dark:text-white font-bold text-sm sm:text-base">Opening Hours</strong>
+                    <strong className="block text-gray-900 dark:text-white font-bold text-sm sm:text-base">
+                      {t("about.hoursLabel")}
+                    </strong>
                     <span className="text-xs sm:text-sm text-gray-600 dark:text-slate-300">{currentOutlet.openingHours}</span>
                   </div>
                 </div>
@@ -234,8 +240,12 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                     <Truck className="w-4 h-4" />
                   </div>
                   <div>
-                    <strong className="block text-gray-900 dark:text-white font-bold text-sm sm:text-base">Concierge Dispatch</strong>
-                    <span className="text-xs sm:text-sm text-gray-600 dark:text-slate-300">{currentOutlet.dispatch}</span>
+                    <strong className="block text-gray-900 dark:text-white font-bold text-sm sm:text-base">
+                      {t("about.dispatchLabel")}
+                    </strong>
+                    <span className="text-xs sm:text-sm text-gray-600 dark:text-slate-300">
+                      {localize(currentOutlet, "dispatch")}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -249,14 +259,18 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-xs sm:text-sm transition-all duration-200 shadow-md shadow-[#00C4D4]/20 hover:shadow-lg hover:shadow-[#00C4D4]/30 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                 >
                   <MapPin className="w-4 h-4 text-gray-950" />
-                  <span>Open in Google Maps</span>
+                  <span>{t("about.openMaps")}</span>
                   <ExternalLink className="w-3.5 h-3.5 text-gray-950" />
                 </a>
 
                 {(() => {
                   const rawPhone = (currentOutlet.phone || "").replace(/[^0-9]/g, "");
                   const cleanPhone = rawPhone.startsWith("0") ? "62" + rawPhone.slice(1) : rawPhone;
-                  const chatMsg = currentOutlet.whatsappMessage || `Hello ${currentOutlet.name}! I want to ask about your laundry services and pickup.`;
+                  const chatMsg =
+                    localize(currentOutlet, "whatsappMessage") ||
+                    (locale === "en"
+                      ? `Hello ${currentOutlet.name}! I want to ask about your laundry services and pickup.`
+                      : `Halo ${currentOutlet.name}! Saya ingin bertanya tentang layanan laundry dan penjemputan.`);
                   const waUrl = cleanPhone
                     ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(chatMsg)}`
                     : `https://wa.me/?text=${encodeURIComponent(chatMsg)}`;
@@ -268,7 +282,7 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 dark:border-white/15 hover:border-gray-300 dark:hover:border-white/30 bg-white dark:bg-white/[0.06] hover:bg-gray-50 dark:hover:bg-white/[0.1] text-gray-700 dark:text-white font-semibold text-xs sm:text-sm transition-all duration-200 cursor-pointer"
                     >
                       <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                      <span>Chat</span>
+                      <span>{t("about.chatHub")}</span>
                     </a>
                   );
                 })()}
