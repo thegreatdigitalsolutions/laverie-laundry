@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import { useOutlets } from "@/context/OutletsContext";
 
 export default function Navbar() {
+  const { openNearestChat, getNearestChatUrl } = useOutlets();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -90,10 +92,12 @@ export default function Navbar() {
           <ThemeToggle />
 
           <a
-            href="https://wa.me/?text=Hello%20Laverie%20Laundry!%20I%20would%20like%20to%20inquire%20about%20your%20laundry%20service."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm transition-all duration-200 shadow-sm shadow-[#00C4D4]/20 hover:shadow hover:-translate-y-0.5 active:translate-y-0"
+            href={getNearestChatUrl()}
+            onClick={(e) => {
+              e.preventDefault();
+              openNearestChat();
+            }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm transition-all duration-200 shadow-sm shadow-[#00C4D4]/20 hover:shadow hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
             <MessageCircle className="w-4 h-4 fill-current text-gray-950" />
             <span>WhatsApp Us</span>
@@ -105,10 +109,12 @@ export default function Navbar() {
           <ThemeToggle />
 
           <a
-            href="https://wa.me/?text=Hello%20Laverie%20Laundry!%20I%20would%20like%20to%20inquire%20about%20your%20laundry%20service."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full bg-[#00C4D4] text-gray-950 shadow-sm"
+            href={getNearestChatUrl()}
+            onClick={(e) => {
+              e.preventDefault();
+              openNearestChat();
+            }}
+            className="p-2 rounded-full bg-[#00C4D4] text-gray-950 shadow-sm cursor-pointer"
             aria-label="WhatsApp"
           >
             <MessageCircle className="w-4 h-4 fill-current" />
@@ -139,11 +145,13 @@ export default function Navbar() {
             ))}
             <div className="pt-2">
                 <a
-                  href="https://wa.me/?text=Hello%20Laverie%20Laundry!%20I%20would%20like%20to%20inquire%20about%20your%20laundry%20service."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm shadow-md shadow-[#00C4D4]/20"
+                  href={getNearestChatUrl()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    openNearestChat();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm shadow-md shadow-[#00C4D4]/20 cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 fill-current text-gray-950" />
                   <span>WhatsApp Us</span>

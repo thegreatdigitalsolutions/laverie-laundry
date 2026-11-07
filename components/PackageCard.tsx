@@ -3,13 +3,15 @@
 import React from "react";
 import { Check, MessageCircle, Clock } from "lucide-react";
 import type { PackageItem } from "@/data/packages";
+import { useOutlets } from "@/context/OutletsContext";
 
 interface PackageCardProps {
   pkg: PackageItem;
 }
 
 export default function PackageCard({ pkg }: PackageCardProps) {
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(pkg.whatsappMessage)}`;
+  const { openNearestChat, getNearestChatUrl } = useOutlets();
+  const whatsappUrl = getNearestChatUrl(pkg.whatsappMessage);
 
   return (
     <div
@@ -94,9 +96,11 @@ export default function PackageCard({ pkg }: PackageCardProps) {
       {/* Order CTA Button - Solid White vs Glass Styling */}
       <a
         href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`w-full rounded-2xl flex items-center justify-center gap-2 font-bold uppercase tracking-wider transition-all duration-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 ${
+        onClick={(e) => {
+          e.preventDefault();
+          openNearestChat(pkg.whatsappMessage);
+        }}
+        className={`w-full rounded-2xl flex items-center justify-center gap-2 font-bold uppercase tracking-wider transition-all duration-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer ${
           pkg.popular
             ? "py-4 px-5 text-sm bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 shadow-lg shadow-[#00C4D4]/30 hover:shadow-[#00C4D4]/50"
             : "py-3.5 px-4 text-xs bg-gray-900 hover:bg-black text-white dark:bg-white/[0.08] dark:hover:bg-white/[0.14] dark:text-white dark:border dark:border-white/15"

@@ -4,8 +4,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, MapPin, Clock, ArrowUp } from "lucide-react";
+import { useOutlets } from "@/context/OutletsContext";
 
 export default function Footer() {
+  const { openNearestChat, getNearestChatUrl } = useOutlets();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -56,10 +58,12 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://wa.me/?text=Hello%20Laverie%20Laundry!"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00C4D4] hover:text-white text-gray-300 flex items-center justify-center transition-colors border border-white/10"
+                href={getNearestChatUrl("Hello Laverie Laundry!")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openNearestChat("Hello Laverie Laundry!");
+                }}
+                className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00C4D4] hover:text-white text-gray-300 flex items-center justify-center transition-colors border border-white/10 cursor-pointer"
                 aria-label="WhatsApp Contact"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />

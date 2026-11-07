@@ -3,12 +3,14 @@
 import React, { useState } from "react";
 import { ChevronDown, MessageCircle } from "lucide-react";
 import { faqs, FAQItem } from "@/data/faq";
+import { useOutlets } from "@/context/OutletsContext";
 
 interface FAQProps {
   items?: FAQItem[];
 }
 
 export default function FAQ({ items }: FAQProps) {
+  const { openNearestChat, getNearestChatUrl } = useOutlets();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const displayFaqs = items && items.length > 0 ? items : faqs;
 
@@ -72,13 +74,15 @@ export default function FAQ({ items }: FAQProps) {
             </p>
           </div>
           <a
-            href="https://wa.me/?text=Hello%20Laverie%20Concierge!%20I%20have%20a%20question%20about%20pickup."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 text-xs font-bold uppercase tracking-wider transition-all shrink-0 shadow-md shadow-[#00C4D4]/20 hover:shadow-lg hover:shadow-[#00C4D4]/35 hover:-translate-y-0.5 active:translate-y-0"
+            href={getNearestChatUrl("Hello Laverie Concierge! I have a question about pickup.")}
+            onClick={(e) => {
+              e.preventDefault();
+              openNearestChat("Hello Laverie Concierge! I have a question about pickup.");
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 text-xs font-bold uppercase tracking-wider transition-all shrink-0 shadow-md shadow-[#00C4D4]/20 hover:shadow-lg hover:shadow-[#00C4D4]/35 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
             <MessageCircle className="w-4 h-4 fill-current text-gray-950" />
-            <span>Chat With Concierge</span>
+            <span>Chat With Us</span>
           </a>
         </div>
 

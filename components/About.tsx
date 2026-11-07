@@ -11,6 +11,7 @@ import {
   ExternalLink,
   Clock,
   Phone,
+  Truck,
   MessageCircle,
 } from "lucide-react";
 import { OutletItem, defaultOutlets } from "@/data/outlets";
@@ -127,9 +128,6 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
           
           {/* Header Title & Menu Tab directly below */}
           <div className="mb-8">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#00C4D4] dark:text-[#5CE1D6]">
-              Locations & Hubs
-            </span>
             <h3 className="font-extrabold text-2xl sm:text-3xl text-gray-900 dark:text-white tracking-tight mt-1 mb-6">
               Our Outlets
             </h3>
@@ -175,9 +173,10 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                   {currentOutlet.name}
                 </h4>
 
-                {currentOutlet.tagline && (
-                  <p className="text-xs font-semibold text-[#00C4D4] dark:text-[#5CE1D6] mb-3">
-                    {currentOutlet.tagline}
+                {currentOutlet.phone && (
+                  <p className="text-xs font-semibold text-[#00C4D4] dark:text-[#5CE1D6] mb-3 flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 shrink-0" />
+                    <span>{currentOutlet.phone}</span>
                   </p>
                 )}
 
@@ -209,7 +208,7 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
 
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 rounded-lg bg-[#E0F7FA] dark:bg-[#163642] text-[#00C4D4] dark:text-[#5CE1D6] flex items-center justify-center shrink-0 mt-0.5">
-                    <Phone className="w-4 h-4" />
+                    <Truck className="w-4 h-4" />
                   </div>
                   <div>
                     <strong className="block text-gray-900 dark:text-white font-bold text-sm sm:text-base">Concierge Dispatch</strong>
@@ -224,22 +223,32 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                   href={currentOutlet.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-xs sm:text-sm transition-all duration-200 shadow-md shadow-[#00C4D4]/20 hover:shadow-lg hover:shadow-[#00C4D4]/30 hover:-translate-y-0.5 active:translate-y-0"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-xs sm:text-sm transition-all duration-200 shadow-md shadow-[#00C4D4]/20 hover:shadow-lg hover:shadow-[#00C4D4]/30 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                 >
                   <MapPin className="w-4 h-4 text-gray-950" />
                   <span>Open in Google Maps</span>
                   <ExternalLink className="w-3.5 h-3.5 text-gray-950" />
                 </a>
 
-                <a
-                  href={`https://wa.me/?text=${encodeURIComponent(currentOutlet.whatsappMessage)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 dark:border-white/15 hover:border-gray-300 dark:hover:border-white/30 bg-white dark:bg-white/[0.06] hover:bg-gray-50 dark:hover:bg-white/[0.1] text-gray-700 dark:text-white font-semibold text-xs sm:text-sm transition-all duration-200"
-                >
-                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                  <span>Request Pickup</span>
-                </a>
+                {(() => {
+                  const rawPhone = (currentOutlet.phone || "").replace(/[^0-9]/g, "");
+                  const cleanPhone = rawPhone.startsWith("0") ? "62" + rawPhone.slice(1) : rawPhone;
+                  const chatMsg = currentOutlet.whatsappMessage || `Hello ${currentOutlet.name}! I want to ask about your laundry services and pickup.`;
+                  const waUrl = cleanPhone
+                    ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(chatMsg)}`
+                    : `https://wa.me/?text=${encodeURIComponent(chatMsg)}`;
+                  return (
+                    <a
+                      href={waUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 dark:border-white/15 hover:border-gray-300 dark:hover:border-white/30 bg-white dark:bg-white/[0.06] hover:bg-gray-50 dark:hover:bg-white/[0.1] text-gray-700 dark:text-white font-semibold text-xs sm:text-sm transition-all duration-200 cursor-pointer"
+                    >
+                      <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                      <span>Chat</span>
+                    </a>
+                  );
+                })()}
               </div>
             </div>
 

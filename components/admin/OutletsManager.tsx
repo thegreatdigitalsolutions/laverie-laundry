@@ -7,6 +7,7 @@ import {
   MapPin,
   Clock,
   Phone,
+  Truck,
   Plus,
   Trash2,
   Edit3,
@@ -55,7 +56,7 @@ export default function OutletsManager({ initialOutlets }: OutletsManagerProps) 
       id: `outlet-${Date.now()}`,
       tabName: "New Location",
       name: "Laverie Outlet",
-      tagline: "Laundry & Concierge Hub",
+      phone: "+62 812-3456-7890",
       description: "Express laundry care and concierge handoff for boutique hotels and villas.",
       address: "Street Address, City, Province",
       openingHours: "07:30 AM – 21:00 PM Daily",
@@ -201,9 +202,10 @@ export default function OutletsManager({ initialOutlets }: OutletsManagerProps) 
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
                 {outlet.name}
               </h3>
-              {outlet.tagline && (
-                <p className="text-xs font-semibold text-[#00C4D4] dark:text-[#5CE1D6] mb-3">
-                  {outlet.tagline}
+              {outlet.phone && (
+                <p className="text-xs font-semibold text-[#00C4D4] dark:text-[#5CE1D6] mb-3 flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 shrink-0" />
+                  <span>{outlet.phone}</span>
                 </p>
               )}
 
@@ -221,7 +223,7 @@ export default function OutletsManager({ initialOutlets }: OutletsManagerProps) 
                   <span>{outlet.openingHours}</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Phone className="w-3.5 h-3.5 text-[#00C4D4] shrink-0 mt-0.5" />
+                  <Truck className="w-3.5 h-3.5 text-[#00C4D4] shrink-0 mt-0.5" />
                   <span>{outlet.dispatch}</span>
                 </div>
               </div>
@@ -310,13 +312,13 @@ export default function OutletsManager({ initialOutlets }: OutletsManagerProps) 
 
             <div>
               <label className="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">
-                Tagline / Subheading
+                WhatsApp Phone Number
               </label>
               <input
                 type="text"
-                value={editForm.tagline || ""}
-                onChange={(e) => setEditForm({ ...editForm, tagline: e.target.value })}
-                placeholder="e.g. Flagship Atelier & Concierge Hub"
+                value={editForm.phone || ""}
+                onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })}
+                placeholder="e.g. +62 812-3456-7890"
                 className="w-full px-3 py-2 rounded-xl text-xs bg-gray-50 dark:bg-[#13222E] border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white"
               />
             </div>
@@ -385,7 +387,7 @@ export default function OutletsManager({ initialOutlets }: OutletsManagerProps) 
 
             <div>
               <label className="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">
-                Google Maps Embed URL (iframe src)
+                Google Maps Embed URL
               </label>
               <input
                 type="text"

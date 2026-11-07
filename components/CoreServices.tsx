@@ -2,8 +2,10 @@
 
 import React from "react";
 import { Clock, Shirt, Sparkles, BedDouble, ArrowUpRight } from "lucide-react";
+import { useOutlets } from "@/context/OutletsContext";
 
 export default function CoreServices() {
+  const { openNearestChat, getNearestChatUrl } = useOutlets();
   const services = [
     {
       icon: Clock,
@@ -52,10 +54,12 @@ export default function CoreServices() {
 
           <div className="mt-4 md:mt-0">
             <a
-              href="https://wa.me/?text=Hello%20Laverie%20Laundry!%20I%20have%20a%20question%20about%20your%20services."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-gray-900 dark:text-[#5CE1D6] hover:text-[#00C4D4] dark:hover:text-[#80EFE7] transition-colors"
+              href={getNearestChatUrl("Hello Laverie Laundry! I have a question about your services.")}
+              onClick={(e) => {
+                e.preventDefault();
+                openNearestChat("Hello Laverie Laundry! I have a question about your services.");
+              }}
+              className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-gray-900 dark:text-[#5CE1D6] hover:text-[#00C4D4] dark:hover:text-[#80EFE7] transition-colors cursor-pointer"
             >
               <span>Consult with our garment specialist</span>
               <ArrowUpRight className="w-4 h-4" />

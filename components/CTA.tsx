@@ -2,8 +2,10 @@
 
 import React from "react";
 import { MessageCircle, ArrowRight, Clock, MapPin } from "lucide-react";
+import { useOutlets } from "@/context/OutletsContext";
 
 export default function CTA() {
+  const { openNearestChat, getNearestChatUrl } = useOutlets();
   return (
     <section className="py-24 bg-white dark:bg-[#020508] text-gray-900 dark:text-white relative overflow-hidden border-b border-gray-100 dark:border-transparent transition-colors duration-300">
       {/* Ambient background aura */}
@@ -24,14 +26,15 @@ export default function CTA() {
         {/* Primary Action Button - Solid White Luxury Dark Styling */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="https://wa.me/?text=Hello%20Laverie%20Laundry!%20I%20am%20ready%20to%20book%20a%20pickup."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-md shadow-[#00C4D4]/25 hover:shadow-lg hover:shadow-[#00C4D4]/40 hover:-translate-y-0.5 active:translate-y-0"
+            href={getNearestChatUrl("Hello Laverie Laundry! I am ready to book a pickup.")}
+            onClick={(e) => {
+              e.preventDefault();
+              openNearestChat("Hello Laverie Laundry! I am ready to book a pickup.");
+            }}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-md shadow-[#00C4D4]/25 hover:shadow-lg hover:shadow-[#00C4D4]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
             <MessageCircle className="w-5 h-5 fill-current text-gray-950" />
             <span>Book via WhatsApp</span>
-            <ArrowRight className="w-4 h-4 text-gray-950" />
           </a>
 
           <a

@@ -3,8 +3,10 @@
 import React from "react";
 import Image from "next/image";
 import { MessageCircle, ArrowRight, Clock, Hotel, ShieldCheck } from "lucide-react";
+import { useOutlets } from "@/context/OutletsContext";
 
 export default function Hero() {
+  const { openNearestChat, getNearestChatUrl } = useOutlets();
   return (
     <section className="relative overflow-hidden bg-white dark:bg-[#03070C] pt-12 pb-20 lg:pt-20 lg:pb-28 border-b border-gray-200 dark:border-white/[0.06] transition-colors duration-300">
       {/* Ambient background gradients with soft atmospheric depth */}
@@ -35,14 +37,15 @@ export default function Hero() {
             {/* Action Buttons - Solid White Luxury Dark Styling */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto pt-2">
               <a
-                href="https://wa.me/?text=Hello%20Laverie%20Laundry!%20I%20would%20like%20to%20book%20a%20laundry%20pickup%20today."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm tracking-wide transition-all duration-200 shadow-md shadow-[#00C4D4]/25 hover:shadow-lg hover:shadow-[#00C4D4]/40 hover:-translate-y-0.5 active:translate-y-0"
+                href={getNearestChatUrl("Hello Laverie Laundry! I would like to book a laundry pickup today.")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openNearestChat("Hello Laverie Laundry! I would like to book a laundry pickup today.");
+                }}
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm tracking-wide transition-all duration-200 shadow-md shadow-[#00C4D4]/25 hover:shadow-lg hover:shadow-[#00C4D4]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4 fill-current text-gray-950" />
                 <span>Book via WhatsApp</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
 
               <a

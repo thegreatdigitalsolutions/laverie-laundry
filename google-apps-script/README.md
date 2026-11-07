@@ -7,8 +7,9 @@ Follow these steps to connect your Google Sheet to the admin portal:
 - Sheets tabs managed by the CMS:
   1. **`Auth`** — Admin users (`email`, `password`, `name`)
   2. **`Packages`** — Laundry service packages (`id`, `name`, `badge`, `price`, `unit`, `turnaround`, `description`, `features`, `popular`, `whatsappMessage`)
-  3. **`FAQs`** — Customer Q&A accordions (`question`, `answer`)
-  4. **`Testimonials`** — Customer reviews (`name`, `role`, `hotel`, `rating`, `content`)
+  3. **`Outlets`** — Store branches & hubs (`id`, `tabName`, `name`, `phone`, `description`, `address`, `openingHours`, `dispatch`, `mapsUrl`, `mapsEmbedUrl`, `whatsappMessage`, `status`)
+  4. **`FAQs`** — Customer Q&A accordions (`question`, `answer`)
+  5. **`Testimonials`** — Customer reviews (`name`, `role`, `hotel`, `rating`, `content`)
 
 *(All sheets are automatically created and seeded when you deploy the script!)*
 
