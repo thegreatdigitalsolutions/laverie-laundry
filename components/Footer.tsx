@@ -127,17 +127,6 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-          <div className="flex items-center gap-3">
-            <p>© 2026 Laverie Laundry. All rights reserved.</p>
-            <span className="text-gray-700">·</span>
-            <Link
-              href="/admin"
-              className="text-gray-400 hover:text-[#00C4D4] transition-colors"
-            >
-              Admin CMS
-            </Link>
-          </div>
-          
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1 text-gray-400 hover:text-white transition-colors"
