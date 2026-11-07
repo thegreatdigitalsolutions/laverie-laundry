@@ -32,7 +32,7 @@ export const packages: PackageItem[] = [
   {
     id: "express",
     name: "12H Hotel Express",
-    badge: "MOST POPULAR",
+    badge: "FEATURED",
     price: "Rp 25.000",
     unit: "/ KG",
     turnaround: "Same Day (12 Hours)",

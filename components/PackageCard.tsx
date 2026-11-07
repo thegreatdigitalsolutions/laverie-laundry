@@ -22,12 +22,11 @@ export default function PackageCard({ pkg }: PackageCardProps) {
       }`}
     >
       <div>
-        {/* Most Popular Tag for Center Card */}
+        {/* Featured Tag for Center Card */}
         {pkg.popular && (
           <div className="mb-3">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-[#00C4D4]/15 dark:bg-[#00C4D4]/20 text-[#00838F] dark:text-[#38D9CD] border border-[#00C4D4]/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00C4D4] animate-pulse"></span>
-              Most Popular • Same-Day Express
+            <span className="inline-flex items-center text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-[#00C4D4]/15 dark:bg-[#00C4D4]/20 text-[#00838F] dark:text-[#38D9CD] border border-[#00C4D4]/30">
+              Featured
             </span>
           </div>
         )}
