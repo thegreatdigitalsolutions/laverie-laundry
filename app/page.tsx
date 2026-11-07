@@ -35,7 +35,7 @@ export default async function Home() {
         </main>
 
         {/* Footer */}
-        <Footer />
+        <Footer outlets={outlets} />
       </div>
     </OutletsProvider>
   );

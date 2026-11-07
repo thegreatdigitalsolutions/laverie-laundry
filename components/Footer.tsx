@@ -3,14 +3,24 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MessageCircle, MapPin, Clock, ArrowUp } from "lucide-react";
+import { MessageCircle, MapPin, Clock, Phone } from "lucide-react";
 import { useOutlets } from "@/context/OutletsContext";
+import { OutletItem, defaultOutlets } from "@/data/outlets";
 
-export default function Footer() {
-  const { openNearestChat, getNearestChatUrl } = useOutlets();
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+interface FooterProps {
+  outlets?: OutletItem[];
+}
+
+export default function Footer({ outlets }: FooterProps) {
+  const { nearestOutlet, activeOutlets: ctxActiveOutlets, selectOutlet, openNearestChat, getNearestChatUrl } = useOutlets();
+
+  const activeOutlets = (outlets && outlets.length > 0)
+    ? outlets.filter((o) => o.status !== "Inactive")
+    : (ctxActiveOutlets && ctxActiveOutlets.length > 0)
+    ? ctxActiveOutlets
+    : defaultOutlets;
+
+  const currentOutlet = nearestOutlet || activeOutlets[0] || defaultOutlets[0];
 
   return (
     <footer className="bg-[#020406] text-gray-400 pt-16 pb-12 border-t border-white/[0.06]">
@@ -100,30 +110,86 @@ export default function Footer() {
             <h4 className="font-bold text-sm text-white uppercase tracking-wider">
               Contact & Hours
             </h4>
-            <div className="space-y-2.5 text-sm">
+
+            {/* Active Outlets Switcher if more than 1 outlet */}
+            {activeOutlets.length > 1 && (
+              <div className="flex flex-wrap gap-1.5 pb-1">
+                {activeOutlets.map((outlet) => {
+                  const isSelected = outlet.id === currentOutlet?.id;
+                  return (
+                    <button
+                      key={outlet.id}
+                      type="button"
+                      onClick={() => selectOutlet(outlet)}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                        isSelected
+                          ? "bg-[#00C4D4] text-gray-950 font-semibold shadow-xs"
+                          : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/5"
+                      }`}
+                    >
+                      {outlet.tabName}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            <div key={currentOutlet.id} className="space-y-3 text-sm animate-outlet-change">
+              {/* Operating Hours */}
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-[#00C4D4] mt-0.5 shrink-0" />
                 <div>
                   <span className="text-white block font-medium">Daily Operations</span>
-                  <span className="text-xs text-gray-400">07:30 AM - 21:00 PM WITA</span>
-                  <span className="text-xs text-[#00C4D4] block mt-0.5">Express Cutoff: 10:00 AM for Same-Day</span>
+                  <span className="text-xs text-gray-400 block mt-0.5">
+                    {currentOutlet.openingHours}
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2.5 pt-1">
+              {/* Outlet Location & Coverage */}
+              <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#00C4D4] mt-0.5 shrink-0" />
                 <div>
-                  <a
-                    href="https://maps.app.goo.gl/aAEsvnwHZAUsbqmq9"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white block font-medium hover:text-[#00C4D4] transition-colors"
-                  >
-                    Laverie PIK Outlet ↗
-                  </a>
-                  <span className="text-xs text-gray-400">Pantai Indah Kapuk, Jakarta Utara. Complimentary hotel lobby & doorstep pickup.</span>
+                  {currentOutlet.mapsUrl ? (
+                    <a
+                      href={currentOutlet.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white block font-medium hover:text-[#00C4D4] transition-colors"
+                    >
+                      {currentOutlet.name}
+                    </a>
+                  ) : (
+                    <span className="text-white block font-medium">
+                      {currentOutlet.name}
+                    </span>
+                  )}
+                  <span className="text-xs text-gray-400 block mt-0.5">
+                    {currentOutlet.address}
+                  </span>
+                  {currentOutlet.dispatch && (
+                    <span className="text-[11px] text-[#00C4D4] block mt-0.5">
+                      {currentOutlet.dispatch}
+                    </span>
+                  )}
                 </div>
               </div>
+
+              {/* Phone / Contact */}
+              {currentOutlet.phone && (
+                <div className="flex items-start gap-2.5">
+                  <Phone className="w-4 h-4 text-[#00C4D4] mt-0.5 shrink-0" />
+                  <div>
+                    <span className="text-white block font-medium">Concierge & Inquiries</span>
+                    <a
+                      href={`tel:${currentOutlet.phone.replace(/[^0-9+]/g, "")}`}
+                      className="text-xs text-gray-400 hover:text-[#00C4D4] transition-colors block mt-0.5"
+                    >
+                      {currentOutlet.phone}
+                    </a>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

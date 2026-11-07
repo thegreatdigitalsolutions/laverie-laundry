@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Clock, Shirt, Sparkles, BedDouble, ArrowUpRight } from "lucide-react";
+import { Clock, Shirt, Sparkles, BedDouble } from "lucide-react";
 import { useOutlets } from "@/context/OutletsContext";
 
 export default function CoreServices() {
@@ -62,7 +62,6 @@ export default function CoreServices() {
               className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-gray-900 dark:text-[#5CE1D6] hover:text-[#00C4D4] dark:hover:text-[#80EFE7] transition-colors cursor-pointer"
             >
               <span>Consult with our garment specialist</span>
-              <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
         </div>

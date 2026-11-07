@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   Sparkles,
@@ -15,16 +15,33 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { OutletItem, defaultOutlets } from "@/data/outlets";
+import { useOutlets } from "@/context/OutletsContext";
 
 interface AboutProps {
   outlets?: OutletItem[];
 }
 
 export default function About({ outlets = defaultOutlets }: AboutProps) {
-  const [activeOutletIndex, setActiveOutletIndex] = useState(0);
-
-  // Active outlets are visible, Inactive are hidden
+  const { selectOutlet, nearestOutlet } = useOutlets();
   const visibleOutlets = outlets.filter((o) => o.status !== "Inactive");
+
+  const [activeOutletIndex, setActiveOutletIndex] = useState(() => {
+    if (nearestOutlet) {
+      const idx = visibleOutlets.findIndex((o) => o.id === nearestOutlet.id);
+      if (idx !== -1) return idx;
+    }
+    return 0;
+  });
+
+  useEffect(() => {
+    if (nearestOutlet) {
+      const idx = visibleOutlets.findIndex((o) => o.id === nearestOutlet.id);
+      if (idx !== -1 && idx !== activeOutletIndex) {
+        setActiveOutletIndex(idx);
+      }
+    }
+  }, [nearestOutlet, visibleOutlets, activeOutletIndex]);
+
   const currentOutlet = visibleOutlets[activeOutletIndex] || visibleOutlets[0] || outlets[0];
 
   const features = [
@@ -141,7 +158,10 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                     <button
                       key={outlet.id}
                       type="button"
-                      onClick={() => setActiveOutletIndex(idx)}
+                      onClick={() => {
+                        setActiveOutletIndex(idx);
+                        selectOutlet(outlet);
+                      }}
                       className={`group relative pb-3.5 text-sm sm:text-base font-bold tracking-tight transition-colors shrink-0 cursor-pointer ${
                         isActive
                           ? "text-gray-900 dark:text-white"
@@ -165,7 +185,10 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
           </div>
 
           {/* Selected Outlet Details Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div
+            key={currentOutlet.id}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center animate-outlet-change"
+          >
             {/* Left: Location Details */}
             <div className="lg:col-span-5 space-y-5">
               <div>

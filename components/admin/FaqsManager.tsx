@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { FAQItem } from "@/data/faq";
 import { saveFaqsAction } from "@/app/admin/actions";
 import {
@@ -9,6 +9,7 @@ import {
   Trash2,
   Edit3,
   Save,
+  RotateCcw,
   Check,
   AlertCircle,
   X,
@@ -20,12 +21,31 @@ interface FaqsManagerProps {
 }
 
 export default function FaqsManager({ initialFaqs }: FaqsManagerProps) {
+  const [savedFaqs, setSavedFaqs] = useState<FAQItem[]>(initialFaqs);
   const [faqsList, setFaqsList] = useState<FAQItem[]>(initialFaqs);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editForm, setEditForm] = useState<FAQItem | null>(null);
   const [deletingIndex, setDeletingIndex] = useState<number | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  useEffect(() => {
+    setSavedFaqs(initialFaqs);
+    setFaqsList(initialFaqs);
+  }, [initialFaqs]);
+
+  const currentList = useMemo(() => {
+    if (editingIndex !== null && editForm !== null) {
+      const updated = [...faqsList];
+      updated[editingIndex] = editForm;
+      return updated;
+    }
+    return faqsList;
+  }, [faqsList, editingIndex, editForm]);
+
+  const hasChanges = useMemo(() => {
+    return JSON.stringify(currentList) !== JSON.stringify(savedFaqs);
+  }, [currentList, savedFaqs]);
 
   const startEdit = (index: number) => {
     setEditingIndex(index);
@@ -67,12 +87,25 @@ export default function FaqsManager({ initialFaqs }: FaqsManagerProps) {
     setDeletingIndex(null);
   };
 
+  const handleReset = () => {
+    setFaqsList(savedFaqs);
+    setEditingIndex(null);
+    setEditForm(null);
+    setStatusMessage(null);
+  };
+
   const handleSave = async () => {
+    if (!hasChanges || isSaving) return;
     setIsSaving(true);
     setStatusMessage(null);
     try {
-      const res = await saveFaqsAction(faqsList);
+      const listToSave = currentList;
+      const res = await saveFaqsAction(listToSave);
       if (res.success) {
+        setFaqsList(listToSave);
+        setSavedFaqs(listToSave);
+        setEditingIndex(null);
+        setEditForm(null);
         setStatusMessage({
           type: "success",
           text: "FAQs successfully saved!",
@@ -114,11 +147,30 @@ export default function FaqsManager({ initialFaqs }: FaqsManagerProps) {
             <span>Add FAQ</span>
           </button>
 
+          {hasChanges && (
+            <button
+              type="button"
+              onClick={handleReset}
+              disabled={isSaving}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-white/[0.06] hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950/30 dark:hover:text-red-400 border border-gray-200 dark:border-white/[0.08] hover:border-red-200 dark:hover:border-red-900/50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              title="Reset all changes back to last saved version"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset</span>
+            </button>
+          )}
+
           <button
             type="button"
             onClick={handleSave}
-            disabled={isSaving}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold text-gray-950 bg-[#00C4D4] hover:bg-[#00B4C3] active:scale-[0.99] disabled:opacity-60 shadow-md shadow-[#00C4D4]/20 transition-all cursor-pointer"
+            disabled={!hasChanges || isSaving}
+            className={`inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold transition-all ${
+              !hasChanges
+                ? "bg-gray-200/80 dark:bg-white/[0.06] text-gray-400 dark:text-gray-500 cursor-not-allowed shadow-none"
+                : isSaving
+                ? "text-gray-950 bg-[#00C4D4] opacity-70 cursor-not-allowed shadow-none"
+                : "text-gray-950 bg-[#00C4D4] hover:bg-[#00B4C3] active:scale-[0.99] shadow-md shadow-[#00C4D4]/20 cursor-pointer"
+            }`}
           >
             {isSaving ? (
               <>

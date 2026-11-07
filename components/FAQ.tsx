@@ -41,11 +41,12 @@ export default function FAQ({ items }: FAQProps) {
                 <button
                   type="button"
                   onClick={() => toggleAccordion(idx)}
-                  className="w-full py-6 text-left flex items-center justify-between gap-4 font-semibold text-base sm:text-lg text-gray-900 dark:text-white hover:text-[#00C4D4] dark:hover:text-[#5CE1D6] transition-colors"
+                  className="w-full py-6 text-left flex items-center justify-between gap-4 font-semibold text-base sm:text-lg text-gray-900 dark:text-white hover:text-[#00C4D4] dark:hover:text-[#5CE1D6] transition-colors cursor-pointer"
+                  aria-expanded={isOpen}
                 >
                   <span>{faq.question}</span>
                   <span
-                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-slate-300 ${
+                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ease-out bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-slate-300 ${
                       isOpen ? "rotate-180 text-[#00C4D4] dark:text-[#5CE1D6]" : ""
                     }`}
                   >
@@ -53,11 +54,19 @@ export default function FAQ({ items }: FAQProps) {
                   </span>
                 </button>
 
-                {isOpen && (
-                  <div className="pb-6 pt-1 text-sm sm:text-base text-gray-600 dark:text-slate-200 leading-relaxed animate-in fade-in duration-150">
-                    <p>{faq.answer}</p>
+                <div
+                  className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pb-6 pt-1 text-sm sm:text-base text-gray-600 dark:text-slate-200 leading-relaxed">
+                      <p>{faq.answer}</p>
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}
