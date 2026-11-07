@@ -1,28 +1,43 @@
 "use client";
 
 import React from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function StatsDark() {
+  const { locale } = useLanguage();
+
   const metrics = [
     {
       value: "12H",
-      label: "Same-Day Express",
-      description: "Pick up before 10 AM, returned before evening dinner.",
+      label: locale === "en" ? "Same-Day Express" : "Kilat Hari yang Sama",
+      description:
+        locale === "en"
+          ? "Pick up before 10 AM, returned before evening dinner."
+          : "Dijemput sebelum jam 10 pagi, diantar kembali sebelum makan malam.",
     },
     {
       value: "15,000+",
-      label: "Garments Treated",
-      description: "From delicate couture silks to everyday laundry.",
+      label: locale === "en" ? "Garments Treated" : "Pakaian Ditangani",
+      description:
+        locale === "en"
+          ? "From delicate couture silks to everyday laundry."
+          : "Mulai dari sutra halus gaun pesta hingga pakaian kasual harian.",
     },
     {
       value: "25+",
-      label: "Partner Hotels",
-      description: "Trusted by boutique villas & luxury suites.",
+      label: locale === "en" ? "Partner Hotels" : "Hotel & Villa Mitra",
+      description:
+        locale === "en"
+          ? "Trusted by boutique villas & luxury suites."
+          : "Dipercaya oleh villa butik & kamar hotel berbintang.",
     },
     {
       value: "99.8%",
-      label: "On-Time Dispatch",
-      description: "Reliable coordination right to your concierge.",
+      label: locale === "en" ? "On-Time Dispatch" : "Ketepatan Waktu",
+      description:
+        locale === "en"
+          ? "Reliable coordination right to your concierge."
+          : "Koordinasi terpercaya tepat waktu langsung ke concierge Anda.",
     },
   ];
 
@@ -39,10 +54,12 @@ export default function StatsDark() {
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
           <h2 className="font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white">
-            Our numbers speak for themselves
+            {locale === "en" ? "Our numbers speak for themselves" : "Kualitas Nyata Berdasarkan Angka"}
           </h2>
           <p className="mt-3 text-base sm:text-lg text-slate-300 font-normal">
-            Built on punctuality, fabric integrity, and seamless hotel coordination.
+            {locale === "en"
+              ? "Built on punctuality, fabric integrity, and seamless hotel coordination."
+              : "Berlandaskan ketepatan waktu, perlindungan serat kain, dan koordinasi hotel yang mulus."}
           </p>
         </div>
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, MapPin, Clock, Phone } from "lucide-react";
 import { useOutlets } from "@/context/OutletsContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { OutletItem, defaultOutlets } from "@/data/outlets";
 
 interface FooterProps {
@@ -13,6 +14,7 @@ interface FooterProps {
 
 export default function Footer({ outlets }: FooterProps) {
   const { nearestOutlet, activeOutlets: ctxActiveOutlets, selectOutlet, openNearestChat, getNearestChatUrl } = useOutlets();
+  const { t, locale, localize } = useLanguage();
 
   const activeOutlets = (outlets && outlets.length > 0)
     ? outlets.filter((o) => o.status !== "Inactive")
@@ -21,6 +23,11 @@ export default function Footer({ outlets }: FooterProps) {
     : defaultOutlets;
 
   const currentOutlet = nearestOutlet || activeOutlets[0] || defaultOutlets[0];
+
+  const chatMessage =
+    locale === "en"
+      ? "Hello Laverie Laundry! I would like to ask about your services."
+      : "Halo Laverie Laundry! Saya ingin bertanya tentang layanan Anda.";
 
   return (
     <footer className="bg-[#020406] text-gray-400 pt-16 pb-12 border-t border-white/[0.06]">
@@ -49,7 +56,9 @@ export default function Footer({ outlets }: FooterProps) {
             </Link>
 
             <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
-              Don’t waste your luggage on yesterday. Professional same-day hotel express and bespoke fabric care, crafted for seamless living and effortless travel.
+              {locale === "en"
+                ? "Don’t waste your luggage on yesterday. Professional same-day hotel express and bespoke fabric care, crafted for seamless living and effortless travel."
+                : "Jangan habiskan liburan Anda untuk mencuci baju kemarin. Layanan kilat express hotel di hari yang sama dan perawatan pakaian premium untuk keseharian praktis dan perjalanan tanpa beban."}
             </p>
 
             <div className="flex items-center gap-3 pt-2">
@@ -68,10 +77,10 @@ export default function Footer({ outlets }: FooterProps) {
               </a>
 
               <a
-                href={getNearestChatUrl("Hello Laverie Laundry!")}
+                href={getNearestChatUrl(chatMessage)}
                 onClick={(e) => {
                   e.preventDefault();
-                  openNearestChat("Hello Laverie Laundry!");
+                  openNearestChat(chatMessage);
                 }}
                 className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00C4D4] hover:text-white text-gray-300 flex items-center justify-center transition-colors border border-white/10 cursor-pointer"
                 aria-label="WhatsApp Contact"
@@ -84,23 +93,23 @@ export default function Footer({ outlets }: FooterProps) {
           {/* Navigation Links */}
           <div className="md:col-span-3 space-y-3">
             <h4 className="font-bold text-sm text-white uppercase tracking-wider">
-              Quick Navigation
+              {t("footer.quickLinks")}
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <a href="#about" className="hover:text-[#00C4D4] transition-colors">About Laverie</a>
+                <a href="#about" className="hover:text-[#00C4D4] transition-colors">{t("nav.about")}</a>
               </li>
               <li>
-                <a href="#process" className="hover:text-[#00C4D4] transition-colors">How It Works</a>
+                <a href="#process" className="hover:text-[#00C4D4] transition-colors">{t("nav.process")}</a>
               </li>
               <li>
-                <a href="#services" className="hover:text-[#00C4D4] transition-colors">Core Services</a>
+                <a href="#services" className="hover:text-[#00C4D4] transition-colors">{t("nav.services")}</a>
               </li>
               <li>
-                <a href="#packages" className="hover:text-[#00C4D4] transition-colors">Laundry Packages</a>
+                <a href="#packages" className="hover:text-[#00C4D4] transition-colors">{t("nav.packages")}</a>
               </li>
               <li>
-                <a href="#faq" className="hover:text-[#00C4D4] transition-colors">Frequently Asked Questions</a>
+                <a href="#faq" className="hover:text-[#00C4D4] transition-colors">{t("nav.faq")}</a>
               </li>
             </ul>
           </div>
@@ -108,7 +117,7 @@ export default function Footer({ outlets }: FooterProps) {
           {/* Location & Operating Hours */}
           <div className="md:col-span-4 space-y-3">
             <h4 className="font-bold text-sm text-white uppercase tracking-wider">
-              Contact & Hours
+              {t("footer.contact")}
             </h4>
 
             {/* Active Outlets Switcher if more than 1 outlet */}
@@ -139,7 +148,9 @@ export default function Footer({ outlets }: FooterProps) {
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-[#00C4D4] mt-0.5 shrink-0" />
                 <div>
-                  <span className="text-white block font-medium">Daily Operations</span>
+                  <span className="text-white block font-medium">
+                    {locale === "en" ? "Daily Operations" : "Operasional Harian"}
+                  </span>
                   <span className="text-xs text-gray-400 block mt-0.5">
                     {currentOutlet.openingHours}
                   </span>
@@ -169,7 +180,7 @@ export default function Footer({ outlets }: FooterProps) {
                   </span>
                   {currentOutlet.dispatch && (
                     <span className="text-[11px] text-[#00C4D4] block mt-0.5">
-                      {currentOutlet.dispatch}
+                      {localize(currentOutlet, "dispatch")}
                     </span>
                   )}
                 </div>
@@ -180,7 +191,9 @@ export default function Footer({ outlets }: FooterProps) {
                 <div className="flex items-start gap-2.5">
                   <Phone className="w-4 h-4 text-[#00C4D4] mt-0.5 shrink-0" />
                   <div>
-                    <span className="text-white block font-medium">Concierge & Inquiries</span>
+                    <span className="text-white block font-medium">
+                      {locale === "en" ? "Concierge & Inquiries" : "Concierge & Informasi"}
+                    </span>
                     <a
                       href={`tel:${currentOutlet.phone.replace(/[^0-9+]/g, "")}`}
                       className="text-xs text-gray-400 hover:text-[#00C4D4] transition-colors block mt-0.5"
@@ -193,6 +206,12 @@ export default function Footer({ outlets }: FooterProps) {
             </div>
           </div>
 
+        </div>
+
+        {/* Bottom Copyright */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+          <p>© {new Date().getFullYear()} Laverie Laundry. {t("footer.copyright")}</p>
+          <p>{locale === "en" ? "Premium Hotel Express & Bespoke Fabric Care" : "Layanan Laundry Hotel Express & Perawatan Kain Premium"}</p>
         </div>
       </div>
     </footer>

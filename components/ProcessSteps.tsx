@@ -2,36 +2,47 @@
 
 import React from "react";
 import { MessageSquarePlus, Sparkles, Wind, PackageCheck } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProcessSteps() {
+  const { locale } = useLanguage();
+
   const steps = [
     {
       number: "01",
       icon: MessageSquarePlus,
-      title: "Schedule via WhatsApp",
+      title: locale === "en" ? "Schedule via WhatsApp" : "Jadwalkan via WhatsApp",
       description:
-        "Message us in under 30 seconds with your hotel room number or doorstep location before 10:00 AM.",
+        locale === "en"
+          ? "Message us in under 30 seconds with your hotel room number or doorstep location before 10:00 AM."
+          : "Kirim pesan dalam kurang dari 30 detik berisi nomor kamar hotel atau alamat penjemputan sebelum pukul 10:00 pagi.",
     },
     {
       number: "02",
       icon: Sparkles,
-      title: "Gentle Eco & Ozone Care",
+      title: locale === "en" ? "Gentle Eco & Ozone Care" : "Pembersihan Lembut & Ozon",
       description:
-        "Fabric inspection, dermatological eco-detergents, and low-temperature ozone sanitization for complete freshness.",
+        locale === "en"
+          ? "Fabric inspection, dermatological eco-detergents, and low-temperature ozone sanitization for complete freshness."
+          : "Pemeriksaan pakaian, deterjen ramah lingkungan teruji dermatologis, dan sanitasi ozon suhu rendah untuk kesegaran maksimal.",
     },
     {
       number: "03",
       icon: Wind,
-      title: "Artisan Steam & Crisp Fold",
+      title: locale === "en" ? "Artisan Steam & Crisp Fold" : "Setrika Uap & Lipatan Rapi",
       description:
-        "Wrinkle-release finishing, crisp hotel-grade folding, or hanger preparation with breathable dust covers.",
+        locale === "en"
+          ? "Wrinkle-release finishing, crisp hotel-grade folding, or hanger preparation with breathable dust covers."
+          : "Perapian anti-kusut presisi, lipatan standar hotel, atau opsi gantungan pelindung debu bersirkulasi udara.",
     },
     {
       number: "04",
       icon: PackageCheck,
-      title: "Evening Delivery (12H)",
+      title: locale === "en" ? "Evening Delivery (12H)" : "Diantar Malam Hari (12 Jam)",
       description:
-        "Delivered back directly to your hotel concierge or residence the very same evening, ready to wear or pack.",
+        locale === "en"
+          ? "Delivered back directly to your hotel concierge or residence the very same evening, ready to wear or pack."
+          : "Diantar kembali langsung ke concierge hotel atau kediaman Anda di malam hari yang sama, siap dipakai atau disimpan.",
     },
   ];
 
@@ -42,10 +53,12 @@ export default function ProcessSteps() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white tracking-tight">
-            Fresh Clothes In 4 Simple Steps
+            {locale === "en" ? "Fresh Clothes In 4 Simple Steps" : "Pakaian Bersih Segar dalam 4 Langkah Mudah"}
           </h2>
           <p className="mt-3 text-base sm:text-lg text-gray-600 dark:text-slate-200">
-            Designed for busy professionals and travelers who value their time and wardrobe.
+            {locale === "en"
+              ? "Designed for busy professionals and travelers who value their time and wardrobe."
+              : "Dirancang khusus bagi kaum profesional dan wisatawan yang menghargai waktu dan kualitas pakaian."}
           </p>
         </div>
 

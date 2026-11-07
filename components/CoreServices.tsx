@@ -3,39 +3,67 @@
 import React from "react";
 import { Clock, Shirt, Sparkles, BedDouble } from "lucide-react";
 import { useOutlets } from "@/context/OutletsContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function CoreServices() {
   const { openNearestChat, getNearestChatUrl } = useOutlets();
+  const { locale, t } = useLanguage();
+
   const services = [
     {
       icon: Clock,
-      title: "12-Hour Hotel Express",
+      title: locale === "en" ? "12-Hour Hotel Express" : "Kilat Hotel 12 Jam",
       description:
-        "Specifically designed for travelers and business itineraries. Picked up before 10 AM, returned fresh before 10 PM.",
-      features: ["Lobby pickup & delivery", "Ozone antibacterial wash", "Evening return guarantee"],
+        locale === "en"
+          ? "Specifically designed for travelers and business itineraries. Picked up before 10 AM, returned fresh before 10 PM."
+          : "Dirancang khusus untuk tamu hotel dan perjalanan bisnis. Dijemput sebelum 10:00 pagi, diantar kembali segar sebelum 22:00 malam.",
+      features:
+        locale === "en"
+          ? ["Lobby pickup & delivery", "Ozone antibacterial wash", "Evening return guarantee"]
+          : ["Antar jemput lobi hotel", "Cuci antibakteri ozon", "Jaminan selesai sore/malam"],
     },
     {
       icon: Shirt,
-      title: "Wash, Dry & Fold",
+      title: locale === "en" ? "Wash, Dry & Fold" : "Cuci, Kering & Lipat",
       description:
-        "The ultimate everyday convenience. Temperature-controlled wash, delicate tumble dry, and hotel-crisp folding.",
-      features: ["Color sorting", "Dermatological detergent", "Sealed hygienic bundles"],
+        locale === "en"
+          ? "The ultimate everyday convenience. Temperature-controlled wash, delicate tumble dry, and hotel-crisp folding."
+          : "Solusi praktis pakaian sehari-hari. Pencucian dengan suhu terkontrol, pengeringan halus, dan lipatan rapi standar hotel.",
+      features:
+        locale === "en"
+          ? ["Color sorting", "Dermatological detergent", "Sealed hygienic bundles"]
+          : ["Pemisahan warna kain", "Deterjen ramah kulit", "Kemasan steril higienis"],
     },
     {
       icon: Sparkles,
-      title: "Delicate & Dry Cleaning",
+      title: locale === "en" ? "Delicate & Dry Cleaning" : "Pakaian Halus & Dry Clean",
       description:
-        "Artisan hand-pressing and gentle solvent-free dry care for suits, silk dresses, cashmere, and designer garments.",
-      features: ["Individual stain treatment", "Hand steam finishing", "Delivered on hangers"],
+        locale === "en"
+          ? "Artisan hand-pressing and gentle solvent-free dry care for suits, silk dresses, cashmere, and designer garments."
+          : "Setrika uap manual presisi dan perawatan lembut bebas pelarut keras untuk jas, gaun sutra, kasmir, dan pakaian pesta.",
+      features:
+        locale === "en"
+          ? ["Individual stain treatment", "Hand steam finishing", "Delivered on hangers"]
+          : ["Penanganan noda khusus", "Setrika uap manual presisi", "Diantar dengan hanger & cover"],
     },
     {
       icon: BedDouble,
-      title: "Linen & Duvet Care",
+      title: locale === "en" ? "Linen & Duvet Care" : "Perawatan Linen & Selimut",
       description:
-        "Deep thermal sanitization for bed linens, fluffy towels, duvets, and blankets restoring fresh loft and softness.",
-      features: ["High-capacity equipment", "Aroma-free hypoallergenic", "Vacuum packaging available"],
+        locale === "en"
+          ? "Deep thermal sanitization for bed linens, fluffy towels, duvets, and blankets restoring fresh loft and softness."
+          : "Sanitasi termal mendalam untuk sprei, handuk tebal, duvet, dan selimut, mengembalikan kelembutan dan kesegaran serat.",
+      features:
+        locale === "en"
+          ? ["High-capacity equipment", "Aroma-free hypoallergenic", "Vacuum packaging available"]
+          : ["Mesin kapasitas besar", "Formula hipoalergenik", "Tersedia kemasan vakum"],
     },
   ];
+
+  const chatMessage =
+    locale === "en"
+      ? "Hello Laverie Laundry! I have a question about your services."
+      : "Halo Laverie Laundry! Saya ingin bertanya tentang layanan Anda.";
 
   return (
     <section id="services" className="py-20 bg-white dark:bg-[#020508] border-b border-gray-100 dark:border-white/[0.06] transition-colors duration-300">
@@ -45,23 +73,25 @@ export default function CoreServices() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
           <div className="max-w-xl">
             <h2 className="font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white tracking-tight">
-              Core Service
+              {locale === "en" ? "Core Services" : "Layanan Utama"}
             </h2>
             <p className="mt-3 text-base sm:text-lg text-gray-600 dark:text-slate-200">
-              Expert garment treatment and laundry solutions for every textile requirement.
+              {locale === "en"
+                ? "Expert garment treatment and laundry solutions for every textile requirement."
+                : "Perawatan pakaian profesional dan solusi laundry untuk setiap jenis serat kain."}
             </p>
           </div>
 
           <div className="mt-4 md:mt-0">
             <a
-              href={getNearestChatUrl("Hello Laverie Laundry! I have a question about your services.")}
+              href={getNearestChatUrl(chatMessage)}
               onClick={(e) => {
                 e.preventDefault();
-                openNearestChat("Hello Laverie Laundry! I have a question about your services.");
+                openNearestChat(chatMessage);
               }}
               className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-gray-900 dark:text-[#5CE1D6] hover:text-[#00C4D4] dark:hover:text-[#80EFE7] transition-colors cursor-pointer"
             >
-              <span>Consult with our garment specialist</span>
+              <span>{locale === "en" ? "Consult with our garment specialist" : "Konsultasi dengan spesialis laundry kami"}</span>
             </a>
           </div>
         </div>
