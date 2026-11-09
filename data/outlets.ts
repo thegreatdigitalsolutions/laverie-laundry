@@ -13,7 +13,7 @@ export interface OutletItem {
   mapsEmbedUrl: string;
   whatsappMessage: string;
   whatsappMessage_en?: string;
-  status?: string; // "Active" | "Inactive"
+  status?: string;
 }
 
 export const defaultOutlets: OutletItem[] = [
@@ -21,66 +21,46 @@ export const defaultOutlets: OutletItem[] = [
     id: "outlet-pik",
     tabName: "PIK, Jakarta",
     name: "Laverie Premium Laundry PIK",
-    phone: "+62 811-1907-8899",
+    phone: "08170078883",
     description:
-      "Berlokasi strategis di Pantai Indah Kapuk (PIK). Antar langsung pakaian Anda atau atur layanan antar jemput express di lobi hotel dan villa.",
+      "Berlokasi di kawasan Pantai Indah Kapuk (PIK), Jakarta Utara. Pelanggan dapat mengantarkan pakaian langsung ke outlet atau mengatur layanan penjemputan ekspres dari lobi hotel, vila, dan hunian di sekitar PIK dan Jakarta Utara.",
     description_en:
-      "Conveniently situated in Pantai Indah Kapuk (PIK). Drop off your garments or coordinate express hotel lobby and villa pickup.",
-    address: "Pantai Indah Kapuk, Jakarta Utara, DKI Jakarta",
-    openingHours: "07:30 AM – 21:00 PM Daily (Express cutoff 10:00 AM)",
-    dispatch: "Tersedia untuk hotel, villa, dan residensial di sekitar PIK & Jakarta Utara",
-    dispatch_en: "Available for hotels, villas, and residences around PIK & North Jakarta",
-    mapsUrl: "https://maps.app.goo.gl/aAEsvnwHZAUsbqmq9",
+      "Located in Pantai Indah Kapuk (PIK), North Jakarta. Customers can drop off garments or arrange express pickup from hotel lobbies, villas, and residences around PIK and North Jakarta.",
+    address: "Pantai Indah Kapuk (PIK), Jakarta Utara, DKI Jakarta",
+    openingHours: "07:30 AM – 09:00 PM Daily (Express cutoff 10:00 AM)",
+    dispatch: "Tersedia untuk hotel, vila, dan hunian di sekitar PIK dan Jakarta Utara.",
+    dispatch_en: "Available for hotels, villas, and residences around PIK and North Jakarta.",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Laverie+Premium+Laundry+PIK+Jakarta",
     mapsEmbedUrl:
-      "https://maps.google.com/maps?q=Laverie%20Premium%20Laundry%20PIK&t=&z=16&ie=UTF8&iwloc=&output=embed",
+      "https://maps.google.com/maps?q=Laverie%20Premium%20Laundry%20PIK%20Jakarta&t=&z=16&ie=UTF8&iwloc=&output=embed",
     whatsappMessage:
       "Halo Laverie Premium Laundry PIK! Saya ingin bertanya mengenai layanan laundry dan penjemputan.",
     whatsappMessage_en:
-      "Hello Laverie Premium Laundry PIK! I want to ask about your laundry services and pickup.",
+      "Hello Laverie Premium Laundry PIK! I would like to ask about your laundry and pickup services.",
     status: "Active",
   },
   {
-    id: "outlet-seminyak",
-    tabName: "Seminyak, Bali",
-    name: "Laverie Suite & Villa Hub Seminyak",
-    phone: "+62 812-3890-1234",
+    id: "outlet-greenbay",
+    tabName: "GreenBay",
+    name: "Laverie Premium Laundry GreenBay",
+    phone: "08170078884",
     description:
-      "Pusat layanan express valet dan sanitasi kain lembut yang melayani villa mewah dan hotel suite di seluruh Seminyak & Kerobokan.",
+      "Pusat layanan valet ekspres dan sanitasi pakaian dengan perawatan lembut, khusus melayani vila, hotel, apartemen, dan hunian di kawasan GreenBay Pluit serta Jakarta Utara.",
     description_en:
-      "Dedicated express valet and gentle fabric sanitization hub catering to luxury villas and hotel suites across Seminyak & Kerobokan.",
-    address: "Jl. Kayu Aya, Seminyak, Kuta, Badung, Bali",
-    openingHours: "07:00 AM – 22:00 PM Daily (Express cutoff 10:00 AM)",
-    dispatch: "Penjemputan concierge setiap hari di area Seminyak, Petitenget & Legian",
-    dispatch_en: "Daily concierge collection across Seminyak, Petitenget & Legian",
-    mapsUrl: "https://maps.google.com/?q=Seminyak+Bali",
+      "An express valet and garment sanitization hub providing gentle fabric care for villas, hotels, apartments, and residences around GreenBay Pluit and North Jakarta.",
+    address:
+      "Bay Walk Mall, Jl. Pluit Karang Ayu Barat LGMF 3, RT.20/RW.2, Pluit, Penjaringan, Jakarta Utara, DKI Jakarta 14450",
+    openingHours: "07:00 AM – 10:00 PM Daily (Express cutoff 10:00 AM)",
+    dispatch: "Layanan penjemputan harian di seluruh area layanan GreenBay Pluit dan sekitarnya.",
+    dispatch_en: "Daily pickup service throughout the GreenBay Pluit service area and surrounding neighborhoods.",
+    mapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=Bay+Walk+Mall%2C+Pluit+Karang+Ayu+Barat%2C+Jakarta+14450",
     mapsEmbedUrl:
-      "https://maps.google.com/maps?q=Seminyak%20Bali&t=&z=15&ie=UTF8&iwloc=&output=embed",
+      "https://maps.google.com/maps?q=Bay%20Walk%20Mall%2C%20Pluit%20Karang%20Ayu%20Barat%2C%20Jakarta%2014450&t=&z=16&ie=UTF8&iwloc=&output=embed",
     whatsappMessage:
-      "Halo Laverie Suite & Villa Hub Seminyak! Saya ingin bertanya mengenai layanan laundry dan penjemputan.",
+      "Halo Laverie Premium Laundry GreenBay! Saya ingin bertanya mengenai layanan laundry dan penjemputan.",
     whatsappMessage_en:
-      "Hello Laverie Suite & Villa Hub Seminyak! I want to ask about your laundry services and pickup.",
-    status: "Active",
-  },
-  {
-    id: "outlet-canggu",
-    tabName: "Canggu, Bali",
-    name: "Laverie Eco Atelier Canggu",
-    phone: "+62 813-5300-5678",
-    description:
-      "Studio cuci ozon ramah lingkungan kami melayani digital nomad, penghuni villa, dan wisatawan di kawasan pesisir Batu Bolong dan Berawa.",
-    description_en:
-      "Our sustainable ozone-wash studio serving digital nomads, resident villas, and travelers throughout the Batu Bolong and Berawa coastal enclaves.",
-    address: "Jl. Pantai Batu Bolong, Canggu, Kuta Utara, Badung, Bali",
-    openingHours: "08:00 AM – 20:00 PM Daily",
-    dispatch: "Penjemputan depan pintu mencakup area Berawa, Batu Bolong & Pererenan",
-    dispatch_en: "Doorstep pickup covering Berawa, Batu Bolong & Pererenan",
-    mapsUrl: "https://maps.google.com/?q=Canggu+Bali",
-    mapsEmbedUrl:
-      "https://maps.google.com/maps?q=Canggu%20Bali&t=&z=15&ie=UTF8&iwloc=&output=embed",
-    whatsappMessage:
-      "Halo Laverie Eco Atelier Canggu! Saya ingin bertanya mengenai layanan laundry dan penjemputan.",
-    whatsappMessage_en:
-      "Hello Laverie Eco Atelier Canggu! I want to ask about your laundry services and pickup.",
+      "Hello Laverie Premium Laundry GreenBay! I would like to ask about your laundry and pickup services.",
     status: "Active",
   },
 ];

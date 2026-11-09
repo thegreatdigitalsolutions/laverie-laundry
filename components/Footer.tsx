@@ -111,6 +111,11 @@ export default function Footer({ outlets }: FooterProps) {
               <li>
                 <a href="#faq" className="hover:text-[#00C4D4] transition-colors">{t("nav.faq")}</a>
               </li>
+              <li>
+                <Link href="/laundry-premium-jakarta" className="hover:text-[#00C4D4] transition-colors">
+                  Laundry Premium Jakarta
+                </Link>
+              </li>
             </ul>
           </div>
 
