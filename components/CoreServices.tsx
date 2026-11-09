@@ -60,10 +60,7 @@ export default function CoreServices() {
     },
   ];
 
-  const chatMessage =
-    locale === "en"
-      ? "Hello Laverie Laundry! I have a question about your services."
-      : "Halo Laverie Laundry! Saya ingin bertanya tentang layanan Anda.";
+  const chatMessage = t("common.chatPrompt");
 
   return (
     <section id="services" className="py-20 bg-white dark:bg-[#020508] border-b border-gray-100 dark:border-white/[0.06] transition-colors duration-300">

@@ -46,8 +46,8 @@ export function OutletsProvider({
       if (customMessage) return customMessage;
       if (!outlet) {
         return locale === "en"
-          ? "Hello Laverie Laundry! I would like to inquire about your laundry services."
-          : "Halo Laverie Laundry! Saya ingin bertanya tentang layanan laundry Anda.";
+          ? "Hello Laverie Laundry! I would like to book a laundry pickup today."
+          : "Halo Laverie Laundry! Saya ingin memesan layanan antar jemput laundry hari ini.";
       }
       const directLocalized =
         locale === "en" ? outlet.whatsappMessage_en : outlet.whatsappMessage;
@@ -55,8 +55,8 @@ export function OutletsProvider({
         directLocalized ||
         getLocalized(outlet, "whatsappMessage", locale) ||
         (locale === "en"
-          ? `Hello ${outlet.name}! I would like to inquire about your laundry services.`
-          : `Halo ${outlet.name}! Saya ingin bertanya tentang layanan laundry Anda.`)
+          ? "Hello Laverie Laundry! I would like to book a laundry pickup today."
+          : "Halo Laverie Laundry! Saya ingin memesan layanan antar jemput laundry hari ini.")
       );
     },
     [locale]

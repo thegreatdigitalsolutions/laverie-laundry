@@ -88,10 +88,10 @@ export default function FAQ({ items }: FAQProps) {
             </p>
           </div>
           <a
-            href={getNearestChatUrl(t("faq.chatMsg"))}
+            href={getNearestChatUrl(t("common.chatPrompt"))}
             onClick={(e) => {
               e.preventDefault();
-              openNearestChat(t("faq.chatMsg"));
+              openNearestChat(t("common.chatPrompt"));
             }}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 text-xs font-bold uppercase tracking-wider transition-all shrink-0 shadow-md shadow-[#00C4D4]/20 hover:shadow-lg hover:shadow-[#00C4D4]/35 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >

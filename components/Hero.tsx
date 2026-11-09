@@ -10,10 +10,7 @@ export default function Hero() {
   const { openNearestChat, getNearestChatUrl } = useOutlets();
   const { t, locale } = useLanguage();
 
-  const chatMessage =
-    locale === "en"
-      ? "Hello Laverie Laundry! I would like to book a laundry pickup today."
-      : "Halo Laverie Laundry! Saya ingin memesan layanan antar jemput laundry hari ini.";
+  const chatMessage = t("common.chatPrompt");
 
   return (
     <section className="relative overflow-hidden bg-white dark:bg-[#03070C] pt-12 pb-20 lg:pt-20 lg:pb-28 border-b border-gray-200 dark:border-white/[0.06] transition-colors duration-300">

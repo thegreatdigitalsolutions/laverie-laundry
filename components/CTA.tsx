@@ -17,10 +17,7 @@ export default function CTA() {
   const { openNearestChat, getNearestChatUrl } = useOutlets();
   const { t, locale } = useLanguage();
 
-  const chatMessage =
-    locale === "en"
-      ? "Hello Laverie Laundry! I am ready to book a pickup."
-      : "Halo Laverie Laundry! Saya siap memesan layanan antar jemput laundry.";
+  const chatMessage = t("common.chatPrompt");
 
   return (
     <section className="py-24 bg-white dark:bg-[#020508] text-gray-900 dark:text-white relative overflow-hidden border-b border-gray-100 dark:border-transparent transition-colors duration-300">

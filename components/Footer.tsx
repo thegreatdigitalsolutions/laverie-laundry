@@ -24,10 +24,7 @@ export default function Footer({ outlets }: FooterProps) {
 
   const currentOutlet = nearestOutlet || activeOutlets[0] || defaultOutlets[0];
 
-  const chatMessage =
-    locale === "en"
-      ? "Hello Laverie Laundry! I would like to ask about your services."
-      : "Halo Laverie Laundry! Saya ingin bertanya tentang layanan Anda.";
+  const chatMessage = t("common.chatPrompt");
 
   return (
     <footer className="bg-[#020406] text-gray-400 pt-16 pb-12 border-t border-white/[0.06]">

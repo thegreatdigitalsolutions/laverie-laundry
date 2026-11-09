@@ -14,6 +14,7 @@ export default function Navbar() {
   const { t, locale } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const chatMessage = t("common.chatPrompt");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,10 +97,10 @@ export default function Navbar() {
           <ThemeToggle />
 
           <a
-            href={getNearestChatUrl()}
+            href={getNearestChatUrl(chatMessage)}
             onClick={(e) => {
               e.preventDefault();
-              openNearestChat();
+              openNearestChat(chatMessage);
             }}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm transition-all duration-200 shadow-sm shadow-[#00C4D4]/20 hover:shadow hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
@@ -114,10 +115,10 @@ export default function Navbar() {
           <ThemeToggle />
 
           <a
-            href={getNearestChatUrl()}
+            href={getNearestChatUrl(chatMessage)}
             onClick={(e) => {
               e.preventDefault();
-              openNearestChat();
+              openNearestChat(chatMessage);
             }}
             className="p-2 rounded-full bg-[#00C4D4] text-gray-950 shadow-sm cursor-pointer"
             aria-label="WhatsApp"
@@ -150,11 +151,11 @@ export default function Navbar() {
             ))}
             <div className="pt-2">
                 <a
-                  href={getNearestChatUrl()}
+                  href={getNearestChatUrl(chatMessage)}
                   onClick={(e) => {
                     e.preventDefault();
                     setMobileMenuOpen(false);
-                    openNearestChat();
+                    openNearestChat(chatMessage);
                   }}
                   className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm shadow-md shadow-[#00C4D4]/20 cursor-pointer"
                 >
