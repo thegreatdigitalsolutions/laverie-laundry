@@ -18,7 +18,12 @@ export default function PackageCard({ pkg }: PackageCardProps) {
   const description = localize(pkg, "description");
   const rawFeatures = localize(pkg, "features");
   const features: string[] = Array.isArray(rawFeatures) ? rawFeatures : pkg.features;
-  const whatsappMessage = localize(pkg, "whatsappMessage") || pkg.whatsappMessage;
+  const whatsappMessage =
+    (locale === "en" ? pkg.whatsappMessage_en : pkg.whatsappMessage) ||
+    localize(pkg, "whatsappMessage") ||
+    (locale === "en"
+      ? `Hello Laverie! I would like to order the ${pkg.name} package.`
+      : `Halo Laverie! Saya ingin memesan paket ${pkg.name}.`);
 
   const whatsappUrl = getNearestChatUrl(whatsappMessage);
 
@@ -35,7 +40,7 @@ export default function PackageCard({ pkg }: PackageCardProps) {
         {pkg.popular && (
           <div className="mb-3">
             <span className="inline-flex items-center text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-[#00C4D4]/15 dark:bg-[#00C4D4]/20 text-[#00838F] dark:text-[#38D9CD] border border-[#00C4D4]/30">
-              Featured
+              {t("packages.featuredBadge")}
             </span>
           </div>
         )}

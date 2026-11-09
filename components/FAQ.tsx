@@ -88,15 +88,15 @@ export default function FAQ({ items }: FAQProps) {
             </p>
           </div>
           <a
-            href={getNearestChatUrl("Hello Laverie Concierge! I have a question about pickup.")}
+            href={getNearestChatUrl(t("faq.chatMsg"))}
             onClick={(e) => {
               e.preventDefault();
-              openNearestChat("Hello Laverie Concierge! I have a question about pickup.");
+              openNearestChat(t("faq.chatMsg"));
             }}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 text-xs font-bold uppercase tracking-wider transition-all shrink-0 shadow-md shadow-[#00C4D4]/20 hover:shadow-lg hover:shadow-[#00C4D4]/35 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
             <MessageCircle className="w-4 h-4 fill-current text-gray-950" />
-            <span>Chat With Us</span>
+            <span>{t("faq.chatBtn")}</span>
           </a>
         </div>
 

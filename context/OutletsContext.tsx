@@ -49,7 +49,10 @@ export function OutletsProvider({
           ? "Hello Laverie Laundry! I would like to inquire about your laundry services."
           : "Halo Laverie Laundry! Saya ingin bertanya tentang layanan laundry Anda.";
       }
+      const directLocalized =
+        locale === "en" ? outlet.whatsappMessage_en : outlet.whatsappMessage;
       return (
+        directLocalized ||
         getLocalized(outlet, "whatsappMessage", locale) ||
         (locale === "en"
           ? `Hello ${outlet.name}! I would like to inquire about your laundry services.`

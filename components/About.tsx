@@ -266,7 +266,10 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
                 {(() => {
                   const rawPhone = (currentOutlet.phone || "").replace(/[^0-9]/g, "");
                   const cleanPhone = rawPhone.startsWith("0") ? "62" + rawPhone.slice(1) : rawPhone;
+                  const directMsg =
+                    locale === "en" ? currentOutlet.whatsappMessage_en : currentOutlet.whatsappMessage;
                   const chatMsg =
+                    directMsg ||
                     localize(currentOutlet, "whatsappMessage") ||
                     (locale === "en"
                       ? `Hello ${currentOutlet.name}! I want to ask about your laundry services and pickup.`

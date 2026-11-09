@@ -55,6 +55,8 @@ export interface TranslationDictionary {
     tag: string;
     title: string;
     subtitle: string;
+    chatBtn: string;
+    chatMsg: string;
   };
   testimonials: {
     tag: string;
@@ -163,6 +165,8 @@ export const translations: Record<Locale, TranslationDictionary> = {
       tag: "Tanya Jawab",
       title: "Pertanyaan yang Sering Diajukan",
       subtitle: "Semua informasi penting seputar layanan antar jemput, estimasi waktu, dan perawatan pakaian.",
+      chatBtn: "Chat via WhatsApp",
+      chatMsg: "Halo Laverie Concierge! Saya ingin bertanya seputar penjemputan laundry.",
     },
     testimonials: {
       tag: "Ulasan Pelanggan",
@@ -271,6 +275,8 @@ export const translations: Record<Locale, TranslationDictionary> = {
       tag: "Frequently Asked Questions",
       title: "Frequently Asked Questions",
       subtitle: "Everything you need to know about our express hotel turnaround, garment care, and pickup process.",
+      chatBtn: "Chat With Us",
+      chatMsg: "Hello Laverie Concierge! I have a question about pickup.",
     },
     testimonials: {
       tag: "Guest Testimonials",
