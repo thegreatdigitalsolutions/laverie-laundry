@@ -21,7 +21,7 @@ export default function FAQ({ items }: FAQProps) {
   };
 
   return (
-    <section id="faq" className="py-20 bg-white dark:bg-[#03070C] border-b border-gray-100 dark:border-white/[0.06] transition-colors duration-300">
+    <section id="faq" className="py-20 bg-white dark:bg-[#03070C] transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

@@ -42,7 +42,7 @@ export default function StatsDark() {
   ];
 
   return (
-    <section className="py-24 bg-[#081219] dark:bg-[#020508] text-white relative overflow-hidden transition-colors duration-300 border-b border-gray-800 dark:border-white/10">
+    <section className="py-24 bg-[#081219] dark:bg-[#020508] text-white relative overflow-hidden transition-colors duration-300">
       {/* Ambient center aura */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(0,196,212,0.12),transparent_70%)] blur-3xl pointer-events-none" />
 

@@ -14,7 +14,7 @@ export default function Testimonials({ items }: TestimonialsProps) {
   const reviews = items && items.length > 0 ? items : defaultTestimonials;
 
   return (
-    <section className="py-20 bg-white dark:bg-[#020508] border-b border-gray-100 dark:border-white/[0.06] transition-colors duration-300">
+    <section className="py-20 bg-white dark:bg-[#020508] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
