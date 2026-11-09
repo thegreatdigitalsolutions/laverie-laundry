@@ -76,7 +76,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/logo/laverie-logo.png",
+    icon: "/logo/laverie-icon.png",
+    shortcut: "/logo/laverie-icon.png",
+    apple: "/logo/laverie-icon.png",
   },
   verification: {
     google: "2X7rjRsxv6UETDTSsI76m5HaislNdE5uGmAob0UyeTI",

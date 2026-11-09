@@ -36,22 +36,26 @@ export default function AdminShell({ children }: AdminShellProps) {
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 group"
+            className="flex items-center group"
             title="View Website"
           >
-            <div className="relative w-9 h-9 rounded-lg overflow-hidden bg-[#0D161E] p-1 border border-gray-200 dark:border-white/15 shadow-xs group-hover:border-[#00C4D4]/50 transition-colors">
+            <div className="relative h-9 w-[186px] transition-transform duration-200 group-hover:scale-[1.02]">
               <Image
-                src="/logo/laverie-logo.png"
-                alt="Laverie Logo"
+                src="/logo/laverie-logo-light.png"
+                alt="Laverie Premium Laundry"
                 fill
-                className="object-contain"
+                sizes="186px"
+                className="object-contain object-left dark:hidden"
                 priority
               />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-xl tracking-tight text-gray-900 dark:text-white leading-none">
-                LAVERIE LAUNDRY
-              </span>
+              <Image
+                src="/logo/laverie-logo-dark.png"
+                alt="Laverie Premium Laundry"
+                fill
+                sizes="186px"
+                className="object-contain object-left hidden dark:block"
+                priority
+              />
             </div>
           </Link>
 

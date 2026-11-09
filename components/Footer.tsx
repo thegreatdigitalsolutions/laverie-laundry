@@ -33,22 +33,15 @@ export default function Footer({ outlets }: FooterProps) {
           
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-9 h-9 rounded-lg overflow-hidden bg-white/10 p-1 border border-white/10">
+            <Link href="/" className="inline-block group" aria-label="Laverie Premium Laundry">
+              <div className="relative h-10 w-[207px] transition-transform duration-200 group-hover:scale-[1.02]">
                 <Image
-                  src="/logo/laverie-logo.png"
-                  alt="Laverie Logo"
+                  src="/logo/laverie-logo-dark.png"
+                  alt="Laverie Premium Laundry"
                   fill
-                  className="object-contain"
+                  sizes="207px"
+                  className="object-contain object-left"
                 />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-extrabold text-xl tracking-tight text-white leading-none">
-                  LAVERIE
-                </span>
-                <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold mt-0.5">
-                  Premium Laundry
-                </span>
               </div>
             </Link>
 

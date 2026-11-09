@@ -21,7 +21,7 @@ export default function LoginForm() {
         <Link href="/" className="inline-flex items-center gap-3 mb-2">
           <div className="relative w-11 h-11 rounded-2xl overflow-hidden shadow-md bg-[#0D161E] p-1.5 border border-white/10">
             <Image
-              src="/logo/laverie-logo.png"
+              src="/logo/laverie-icon.png"
               alt="Laverie Laundry"
               fill
               className="object-contain p-1"
