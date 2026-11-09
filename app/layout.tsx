@@ -1,11 +1,48 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Libre_Baskerville, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 
 const SITE_URL = "https://www.laveriepremiumlaundry.com";
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const libreBaskerville = Libre_Baskerville({
+  variable: "--font-headline",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
+const canela = localFont({
+  src: [
+    {
+      path: "./fonts/Canela-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Canela-Light.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Canela-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-subheadline",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -94,7 +131,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={`${jakarta.variable} h-full`}>
+    <html
+      lang="id"
+      className={`${libreBaskerville.variable} ${canela.variable} ${manrope.variable} ${jakarta.variable} h-full`}
+    >
       <body className="min-h-full flex flex-col font-sans antialiased transition-colors duration-300">
         {/* Google Tag Manager fallback for browsers with JavaScript disabled */}
         <noscript>
