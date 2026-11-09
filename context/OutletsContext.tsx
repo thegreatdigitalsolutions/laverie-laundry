@@ -188,10 +188,10 @@ export function OutletsProvider({
               <div>
                 <h3 className="font-bold text-base text-gray-900 dark:text-white flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-[#00C4D4]" />
-                  <span>Select Nearest Outlet</span>
+                  <span>{locale === "en" ? "Select Nearest Outlet" : "Pilih Outlet Terdekat"}</span>
                 </h3>
                 <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">
-                  Connect with the closest Laverie atelier to your location:
+                  {locale === "en" ? "Connect with the closest Laverie atelier to your location:" : "Hubungi atelier Laverie terdekat dari lokasi Anda:"}
                 </p>
               </div>
               <button
@@ -227,7 +227,7 @@ export function OutletsProvider({
                         </span>
                         {isSelected && (
                           <span className="text-[10px] font-bold text-[#00838F] dark:text-[#38D9CD]">
-                            • Current
+                            • {locale === "en" ? "Current" : "Aktif"}
                           </span>
                         )}
                       </div>
@@ -250,7 +250,9 @@ export function OutletsProvider({
             </div>
 
             <p className="text-[11px] text-gray-400 dark:text-slate-500 text-center pt-2">
-              You will be directed straight to WhatsApp chat with the selected outlet.
+              {locale === "en"
+                ? "You will be directed straight to WhatsApp chat with the selected outlet."
+                : "Anda akan langsung diarahkan ke percakapan WhatsApp dengan outlet yang dipilih."}
             </p>
           </div>
         </div>

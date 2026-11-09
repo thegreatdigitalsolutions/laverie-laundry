@@ -122,7 +122,7 @@ export default function Footer({ outlets }: FooterProps) {
           {/* Location & Operating Hours */}
           <div className="md:col-span-4 space-y-3">
             <h4 className="font-bold text-sm text-white uppercase tracking-wider">
-              {t("footer.contact")}
+              {t("footer.locations")}
             </h4>
 
             {/* Active Outlets Switcher if more than 1 outlet */}
