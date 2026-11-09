@@ -54,20 +54,20 @@ export default function Packages({ items }: PackagesProps) {
 
           <div className="lg:col-span-8 space-y-4">
             <h3 className="font-extrabold text-2xl sm:text-3xl text-gray-900 dark:text-white tracking-tight">
-              Every garment returned crisp, fragrant, and sealed.
+              {t("packages.showcaseTitle")}
             </h3>
             <p className="text-base sm:text-lg text-gray-600 dark:text-slate-200 leading-relaxed font-normal">
-              We never return your clothing in flimsy generic plastic bags. Laverie wraps every clean order in anti-dust, breathable sealed packaging, complete with custom garment tags and collar supports, so your wardrobe travels effortlessly.
+              {t("packages.showcaseDesc")}
             </p>
             <div className="flex flex-wrap gap-4 pt-2 text-sm text-gray-700 dark:text-slate-200">
               <span className="flex items-center gap-1.5 font-semibold">
-                <CheckCircle2 className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> Anti-dust dust bag
+                <CheckCircle2 className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> {t("packages.showcaseCheck1")}
               </span>
               <span className="flex items-center gap-1.5 font-semibold">
-                <CheckCircle2 className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> Wooden & velvet hangers upon request
+                <CheckCircle2 className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> {t("packages.showcaseCheck2")}
               </span>
               <span className="flex items-center gap-1.5 font-semibold">
-                <CheckCircle2 className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> Eco-certified biodegradable liners
+                <CheckCircle2 className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> {t("packages.showcaseCheck3")}
               </span>
             </div>
           </div>

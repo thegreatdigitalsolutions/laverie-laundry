@@ -45,6 +45,11 @@ export interface TranslationDictionary {
     startingAt: string;
     perUnit: string;
     orderBtn: string;
+    showcaseTitle: string;
+    showcaseDesc: string;
+    showcaseCheck1: string;
+    showcaseCheck2: string;
+    showcaseCheck3: string;
   };
   faq: {
     tag: string;
@@ -60,6 +65,19 @@ export interface TranslationDictionary {
     tag: string;
     title: string;
     subtitle: string;
+    storyTitle: string;
+    storyP1: string;
+    storyP2: string;
+    check1: string;
+    check2: string;
+    check3: string;
+    check4: string;
+    feat1Title: string;
+    feat1Desc: string;
+    feat2Title: string;
+    feat2Desc: string;
+    feat3Title: string;
+    feat3Desc: string;
     hubsTitle: string;
     hubsSubtitle: string;
     addressLabel: string;
@@ -134,6 +152,12 @@ export const translations: Record<Locale, TranslationDictionary> = {
       startingAt: "Mulai dari",
       perUnit: "/ KG",
       orderBtn: "Pesan via WhatsApp",
+      showcaseTitle: "Setiap pakaian dikembalikan bersih rapi, harum, dan tertutup rapat.",
+      showcaseDesc:
+        "Kami tidak pernah mengembalikan pakaian Anda dengan kantong plastik tipis biasa. Laverie membungkus setiap pesanan bersih dalam kemasan bersegel tahan debu dan sirkulasi optimal, lengkap dengan label pakaian khusus dan penyangga kerah agar pakaian Anda selalu siap dibawa bepergian.",
+      showcaseCheck1: "Pelindung pakaian anti-debu",
+      showcaseCheck2: "Gantungan kayu & beludru sesuai permintaan",
+      showcaseCheck3: "Lapisan biodegradable bersertifikat ramah lingkungan",
     },
     faq: {
       tag: "Tanya Jawab",
@@ -149,6 +173,21 @@ export const translations: Record<Locale, TranslationDictionary> = {
       tag: "Tentang Laverie Laundry",
       title: "Standar Baru Kenyamanan & Higienitas",
       subtitle: "Kami menggabungkan teknologi pembersihan modern dengan keramahan layanan valet hotel.",
+      storyTitle: "Perawatan laundry, dibuat sederhana.",
+      storyP1:
+        "Lahir dari tingginya ritme perjalanan modern dan kenyamanan perhotelan butik, Laverie mendefinisikan ulang standar perawatan pakaian. Kami percaya waktu berharga Anda seharusnya digunakan untuk menjelajah, berbisnis, atau bersantai—tanpa terbebani urusan mencuci baju atau keterlambatan pakaian hotel.",
+      storyP2:
+        "Mulai dari linen harian hingga gaun malam istimewa, perawatan presisi kami memadukan detergen bersertifikat ramah lingkungan, pengeringan ozon bersuhu rendah yang lembut, serta penyetrikaan uap artisan untuk melindungi serat kain dan menjaga kesegaran pakaian.",
+      check1: "Layanan Kilat 12 Jam Selesai",
+      check2: "Koordinasi Resepsionis & Concierge Hotel",
+      check3: "Kemasan Rapi Tertutup & Bebas Kusut",
+      check4: "Formula Ramah Lingkungan & Hipoalergenik",
+      feat1Title: "Perawatan Berkualitas",
+      feat1Desc: "Pemeriksaan jenis bahan kain, formula pH seimbang, dan penyetrikaan uap teliti.",
+      feat2Title: "Proses Higienis",
+      feat2Desc: "Sterilisasi berstandar perhotelan yang membunuh 99,9% bakteri tanpa merusak warna pakaian.",
+      feat3Title: "Layanan Mudah & Praktis",
+      feat3Desc: "Antar jemput langsung ke depan pintu dengan estimasi 12 jam selesai sebelum jam makan malam Anda.",
       hubsTitle: "Lokasi Outlet Kami",
       hubsSubtitle: "Kunjungi atau pesan layanan antar jemput dari hub terdekat di area Anda.",
       addressLabel: "Alamat",
@@ -221,6 +260,12 @@ export const translations: Record<Locale, TranslationDictionary> = {
       startingAt: "Starting at",
       perUnit: "/ KG",
       orderBtn: "Order via WhatsApp",
+      showcaseTitle: "Every garment returned crisp, fragrant, and sealed.",
+      showcaseDesc:
+        "We never return your clothing in flimsy generic plastic bags. Laverie wraps every clean order in anti-dust, breathable sealed packaging, complete with custom garment tags and collar supports, so your wardrobe travels effortlessly.",
+      showcaseCheck1: "Anti-dust dust bag",
+      showcaseCheck2: "Wooden & velvet hangers upon request",
+      showcaseCheck3: "Eco-certified biodegradable liners",
     },
     faq: {
       tag: "Frequently Asked Questions",
@@ -236,6 +281,21 @@ export const translations: Record<Locale, TranslationDictionary> = {
       tag: "About Laverie Laundry",
       title: "A New Standard in Convenience & Hygiene",
       subtitle: "We combine modern textile care technology with the luxury attentiveness of hotel concierge services.",
+      storyTitle: "Laundry care, made simple.",
+      storyP1:
+        "Born from the demanding pace of modern travel and boutique hospitality, Laverie redefines garment care. We believe you should spend your valuable hours exploring, conducting business, or relaxing—never burdened with laundry chores or compromised hotel wardrobe delays.",
+      storyP2:
+        "From everyday linens to bespoke evening wear, our precision care combines eco-certified detergents, gentle low-heat ozone drying, and hand-finished steam pressing to protect fibers and restore crispness.",
+      check1: "12-Hour Express Turnaround",
+      check2: "Hotel Concierge Coordination",
+      check3: "Sealed & Anti-Crease Packaging",
+      check4: "Hypoallergenic Eco Formulations",
+      feat1Title: "Quality Care",
+      feat1Desc: "Individual fabric assessment, pH-balanced formulas, and meticulous steam pressing.",
+      feat2Title: "Hygienic Process",
+      feat2Desc: "Hospitality-grade sterilization that removes 99.9% of bacteria without damaging colors.",
+      feat3Title: "Easy Service",
+      feat3Desc: "Seamless door-to-door handoff with 12-hour turnaround before your evening dinner.",
       hubsTitle: "Our Outlet Hubs",
       hubsSubtitle: "Visit in person or dispatch express courier services from our nearest hub.",
       addressLabel: "Address",

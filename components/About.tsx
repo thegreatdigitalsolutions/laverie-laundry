@@ -49,18 +49,18 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
   const features = [
     {
       icon: Sparkles,
-      title: "Quality Care",
-      description: "Individual fabric assessment, pH-balanced formulas, and meticulous steam pressing.",
+      title: t("about.feat1Title"),
+      description: t("about.feat1Desc"),
     },
     {
       icon: ShieldCheck,
-      title: "Hygienic Process",
-      description: "Hospitality-grade sterilization that removes 99.9% of bacteria without damaging colors.",
+      title: t("about.feat2Title"),
+      description: t("about.feat2Desc"),
     },
     {
       icon: Zap,
-      title: "Easy Service",
-      description: "Seamless door-to-door handoff with 12-hour turnaround before your evening dinner.",
+      title: t("about.feat3Title"),
+      description: t("about.feat3Desc"),
     },
   ];
 
@@ -89,25 +89,25 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
           {/* Right: Content Structure */}
           <div className="lg:col-span-6 flex flex-col space-y-5">
             <h2 className="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-gray-900 dark:text-white leading-tight tracking-tight">
-              Laundry care, made simple.
+              {t("about.storyTitle")}
             </h2>
 
             <div className="space-y-4 text-base sm:text-lg text-gray-700 dark:text-slate-200 leading-relaxed font-normal">
               <p>
-                Born from the demanding pace of modern travel and boutique hospitality, <strong className="text-gray-900 dark:text-white font-bold">Laverie</strong> redefines garment care. We believe you should spend your valuable hours exploring, conducting business, or relaxing—never burdened with laundry chores or compromised hotel wardrobe delays.
+                {t("about.storyP1")}
               </p>
               <p>
-                From everyday linens to bespoke evening wear, our precision care combines eco-certified detergents, gentle low-heat ozone drying, and hand-finished steam pressing to protect fibers and restore crispness.
+                {t("about.storyP2")}
               </p>
             </div>
 
             {/* Checklist items with high contrast */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {[
-                "12-Hour Express Turnaround",
-                "Hotel Concierge Coordination",
-                "Sealed & Anti-Crease Packaging",
-                "Hypoallergenic Eco Formulations",
+                t("about.check1"),
+                t("about.check2"),
+                t("about.check3"),
+                t("about.check4"),
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-2.5 text-sm sm:text-base font-semibold text-gray-800 dark:text-slate-100">
                   <CheckCircle2 className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6] shrink-0" />
@@ -148,7 +148,7 @@ export default function About({ outlets = defaultOutlets }: AboutProps) {
           {/* Header Title & Menu Tab directly below */}
           <div className="mb-8">
             <h3 className="font-extrabold text-2xl sm:text-3xl text-gray-900 dark:text-white tracking-tight mt-1 mb-6">
-              Our Outlets
+              {t("about.hubsTitle")}
             </h3>
 
             {/* Menu Tabs for Outlets - directly below Our Outlets */}
