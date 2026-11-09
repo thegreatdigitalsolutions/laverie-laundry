@@ -77,7 +77,7 @@ export default function CTA() {
             <MapPin className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> {locale === "en" ? "Selected Hotels & Doorstep Areas" : "Area Hotel & Penjemputan Pilihan"}
           </span>
           <span className="flex items-center gap-2">
-            <WhatsAppIcon className="w-4 h-4 text-[#25D366] shrink-0" /> {locale === "en" ? "Instant WhatsApp Confirmation" : "Konfirmasi Cepat via WhatsApp"}
+            <WhatsAppIcon className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6] shrink-0" /> {locale === "en" ? "Instant WhatsApp Confirmation" : "Konfirmasi Cepat via WhatsApp"}
           </span>
         </div>
       </div>
