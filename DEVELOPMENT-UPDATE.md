@@ -23,3 +23,16 @@
 - Added restrained editorial entrance motion, subtle card lift, icon micro-interactions, and reduced-motion support.
 - Refined remaining cyan navigation/FAQ/hero accents to the existing sage palette for a more cohesive premium look.
 - Preserved native page scrolling and the V4 section order.
+
+
+## V6 — Remove services closing CTA
+- Removed the dark green “Lebih banyak ketenangan / More time for the moments that matter” banner from the bottom of the Services section, matching the user's screenshot.
+- Kept all seven horizontal service cards and their navigation intact.
+
+
+## V7 — Ambient music, cleaner copy & automatic service loop
+- Added the supplied Elegant Audio track as a looping background soundtrack, with an unobtrusive sound toggle.
+- The app attempts audio playback on initial load; when browser autoplay policy blocks sound, playback resumes on the visitor's first interaction. This fallback is necessary because browsers do not guarantee audible autoplay.
+- Removed the “Pengalaman Laverie · 01” eyebrow and “Jelajahi layanan kami / Geser untuk melihat lainnya” helper text and controls.
+- Replaced generic, overly stylized service-section copy with more direct customer-facing wording.
+- Service cards now move continuously in a seamless horizontal loop by default; no swiping or arrow controls are required. The loop pauses on hover/focus and respects reduced-motion preferences.
