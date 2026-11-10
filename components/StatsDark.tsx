@@ -42,7 +42,7 @@ export default function StatsDark() {
   ];
 
   return (
-    <section className="py-24 bg-[#081219] dark:bg-[#020508] text-white relative overflow-hidden transition-colors duration-300 border-b border-gray-800 dark:border-white/10">
+    <section className="py-24 bg-[#081219] dark:bg-[#020508] text-white relative overflow-hidden transition-colors duration-300">
       {/* Ambient center aura */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(0,196,212,0.12),transparent_70%)] blur-3xl pointer-events-none" />
 
@@ -52,11 +52,11 @@ export default function StatsDark() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16">
-          <h2 className="font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white">
+        <div data-aos="fade-down" className="max-w-3xl mb-16">
+          <h2 className="font-headline font-[family-name:var(--font-headline)] font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white">
             {locale === "en" ? "Our numbers speak for themselves" : "Kualitas Nyata Berdasarkan Angka"}
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-slate-300 font-normal">
+          <p className="mt-3 font-subheadline font-[family-name:var(--font-subheadline)] text-lg sm:text-xl text-slate-300 font-normal">
             {locale === "en"
               ? "Built on punctuality, fabric integrity, and seamless hotel coordination."
               : "Berlandaskan ketepatan waktu, perlindungan serat kain, dan koordinasi hotel yang mulus."}
@@ -64,10 +64,12 @@ export default function StatsDark() {
         </div>
 
         {/* Metrics row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-white/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-white/10 font-body font-[family-name:var(--font-body)]">
           {metrics.map((item, idx) => (
             <div
               key={idx}
+              data-aos="zoom-in-up"
+              data-aos-delay={(idx + 1) * 100}
               className={`flex flex-col justify-start ${
                 idx === 0
                   ? "lg:pr-8"
@@ -76,13 +78,13 @@ export default function StatsDark() {
                   : "lg:px-8"
               } border-b border-white/10 lg:border-b-0 pb-6 lg:pb-0 last:border-b-0`}
             >
-              <div className="font-extrabold text-3xl sm:text-4xl lg:text-4xl xl:text-5xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-[#5CE1D6] mb-2 leading-none py-1">
+              <div className="font-subheadline font-[family-name:var(--font-subheadline)] font-bold text-3xl sm:text-4xl lg:text-4xl xl:text-5xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-[#5CE1D6] mb-2 leading-none py-1">
                 {item.value}
               </div>
-              <p className="text-base sm:text-lg font-bold text-white tracking-wide mb-1.5 mt-1">
+              <p className="font-subheadline font-[family-name:var(--font-subheadline)] text-base sm:text-lg font-medium text-white tracking-wide mb-1.5 mt-1">
                 {item.label}
               </p>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="font-body font-[family-name:var(--font-body)] text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
                 {item.description}
               </p>
             </div>

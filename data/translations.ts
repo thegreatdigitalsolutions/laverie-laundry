@@ -2,9 +2,12 @@ export type Locale = "id" | "en";
 
 export interface TranslationDictionary {
   nav: {
+    home: string;
+    philosophy: string;
     about: string;
     process: string;
     services: string;
+    products: string;
     packages: string;
     faq: string;
     bookWhatsapp: string;
@@ -63,6 +66,17 @@ export interface TranslationDictionary {
     title: string;
     subtitle: string;
   };
+  philosophy: {
+    tag: string;
+    headline: string;
+    subheadline: string;
+    p1: string;
+    p2: string;
+    p3: string;
+    tagline: string;
+    brand: string;
+    brandTagline: string;
+  };
   about: {
     tag: string;
     title: string;
@@ -110,10 +124,13 @@ export interface TranslationDictionary {
 export const translations: Record<Locale, TranslationDictionary> = {
   id: {
     nav: {
-      about: "Tentang",
+      home: "Beranda",
+      philosophy: "Filosofi Kami",
+      about: "Filosofi Kami",
       process: "Cara Kerja",
       services: "Layanan",
-      packages: "Paket",
+      products: "Pilihan Paket",
+      packages: "Pilihan Paket",
       faq: "FAQ",
       bookWhatsapp: "Pesan via WhatsApp",
       selectOutlet: "Pilih Outlet",
@@ -173,6 +190,17 @@ export const translations: Record<Locale, TranslationDictionary> = {
       title: "Apa Kata Mereka Tentang Laverie",
       subtitle: "Dipercaya oleh wisatawan, tamu hotel berbintang, dan residen lokal yang mengutamakan kerapian.",
     },
+    philosophy: {
+      tag: "OUR PHILOSOPHY",
+      headline: "Simplify Your Day.",
+      subheadline: "Hidup selayaknya dinikmati, bukan dihabiskan untuk rutinitas tanpa henti.",
+      p1: "Kami percaya kemewahan sejati adalah memiliki lebih banyak waktu untuk hal-hal yang benar-benar bermakna. Momen tenang, hubungan yang hangat, kesenangan kecil, dan kebebasan menikmati setiap hari tanpa kekhawatiran tak perlu.",
+      p2: "Di Laverie, kami merawat setiap detail agar keseharian Anda terasa lebih ringan. Dari pakaian sehari-hari hingga busana paling istimewa, setiap helai kain dirawat dengan perhatian penuh dan keahlian terbaik.",
+      p3: "Karena kami memahami bahwa merawat pakaian Anda juga tentang merawat waktu berharga Anda.",
+      tagline: "Lebih sedikit kekhawatiran. Lebih banyak kenikmatan. Lebih banyak ruang untuk hidup.",
+      brand: "LAVERIE PREMIUM LAUNDRY",
+      brandTagline: "Simplify Your Day.",
+    },
     about: {
       tag: "Tentang Laverie Laundry",
       title: "Standar Baru Kenyamanan & Higienitas",
@@ -220,12 +248,15 @@ export const translations: Record<Locale, TranslationDictionary> = {
   },
   en: {
     nav: {
-      about: "About",
+      home: "Home",
+      philosophy: "Our Philosophy",
+      about: "Our Philosophy",
       process: "How It Works",
       services: "Services",
+      products: "Packages",
       packages: "Packages",
       faq: "FAQ",
-      bookWhatsapp: "Book via WhatsApp",
+      bookWhatsapp: "Order via WhatsApp",
       selectOutlet: "Select Outlet",
     },
     hero: {
@@ -282,6 +313,17 @@ export const translations: Record<Locale, TranslationDictionary> = {
       tag: "Guest Testimonials",
       title: "Here’s what people are saying",
       subtitle: "Trusted by travelers, hotel guests, and local residents who demand immaculate fabric care.",
+    },
+    philosophy: {
+      tag: "OUR PHILOSOPHY",
+      headline: "Simplify Your Day.",
+      subheadline: "Life is meant to be lived, not spent on endless routines.",
+      p1: "We believe that the finest luxury is having more time for what truly matters. The quiet moments, the meaningful connections, the little pleasures, and the freedom to enjoy each day without unnecessary worries.",
+      p2: "At Laverie, we take care of the details that make everyday life feel lighter. From your everyday essentials to your most delicate garments, every piece receives thoughtful attention and considered care.",
+      p3: "Because we understand that taking care of your clothes is also about taking care of your time.",
+      tagline: "Less to worry about. More to enjoy. More room for life.",
+      brand: "LAVERIE PREMIUM LAUNDRY",
+      brandTagline: "Simplify Your Day.",
     },
     about: {
       tag: "About Laverie Laundry",

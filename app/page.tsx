@@ -1,14 +1,14 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import ProcessSteps from "@/components/ProcessSteps";
-import About from "@/components/About";
+import Philosophy from "@/components/Philosophy";
+import OutletsSection from "@/components/OutletsSection";
 import CoreServices from "@/components/CoreServices";
 import StatsDark from "@/components/StatsDark";
 import Packages from "@/components/Packages";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
-import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import SectionDivider from "@/components/SectionDivider";
 import { getCMSContent } from "@/lib/sheets";
 import { OutletsProvider } from "@/context/OutletsContext";
 
@@ -96,14 +96,16 @@ export default async function Home() {
         <Navbar />
         <main className="flex-1">
           <Hero />
-          <ProcessSteps />
-          <About outlets={outlets} />
+          <Philosophy />
           <CoreServices />
-          <StatsDark />
+          <SectionDivider />
           <Packages items={packages} />
-          <Testimonials items={testimonials} />
+          <SectionDivider />
           <FAQ items={faqs} />
-          <CTA />
+          <SectionDivider />
+          <OutletsSection outlets={outlets} />
+          <Testimonials items={testimonials} />
+          <StatsDark />
         </main>
         <Footer outlets={outlets} />
       </div>

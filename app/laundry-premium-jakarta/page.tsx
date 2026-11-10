@@ -67,7 +67,7 @@ export default function LaundryPremiumJakartaPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white text-slate-900 dark:bg-[#03070C] dark:text-white">
+    <main className="min-h-screen bg-white text-slate-900 dark:bg-[#03070C] dark:text-white font-body font-[family-name:var(--font-body)]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -85,7 +85,7 @@ export default function LaundryPremiumJakartaPage() {
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#00AEBB]">
             Laverie Premium Laundry · Jakarta Utara
           </p>
-          <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+          <h1 className="font-headline font-[family-name:var(--font-headline)] text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
             Laundry Premium Jakarta dengan Layanan di PIK & GreenBay Pluit
           </h1>
           <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
@@ -101,7 +101,7 @@ export default function LaundryPremiumJakartaPage() {
         <section className="mt-14 grid gap-6 md:grid-cols-2" aria-label="Lokasi outlet Laverie Jakarta">
           {branches.map((branch) => (
             <article key={branch.name} className="rounded-3xl border border-slate-200 p-7 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
-              <h2 className="text-2xl font-bold">{branch.name}</h2>
+              <h2 className="font-subheadline font-[family-name:var(--font-subheadline)] text-2xl font-semibold">{branch.name}</h2>
               <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">{branch.service}</p>
               <dl className="mt-6 space-y-4 text-sm">
                 <div>
