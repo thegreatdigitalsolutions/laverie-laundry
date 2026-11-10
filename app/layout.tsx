@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Libre_Baskerville, Manrope } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
-import "./globals.css";\nimport BackgroundMusic from "@/components/BackgroundMusic";
+import "./globals.css";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 const SITE_URL = "https://www.laveriepremiumlaundry.com";
 const jakarta = Plus_Jakarta_Sans({

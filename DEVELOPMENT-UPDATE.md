@@ -36,3 +36,10 @@
 - Removed the “Pengalaman Laverie · 01” eyebrow and “Jelajahi layanan kami / Geser untuk melihat lainnya” helper text and controls.
 - Replaced generic, overly stylized service-section copy with more direct customer-facing wording.
 - Service cards now move continuously in a seamless horizontal loop by default; no swiping or arrow controls are required. The loop pauses on hover/focus and respects reduced-motion preferences.
+
+
+## V7.1 — Vercel build syntax fix
+- Fixed `app/layout.tsx` where the BackgroundMusic import had an accidental literal `\\n` sequence appended after the global stylesheet import.
+- Kept the BackgroundMusic component mounted inside the existing ThemeProvider and LanguageProvider.
+- Confirmed the referenced audio asset exists at `public/audio/laverie-elegant.mp3`.
+- Confirmed no other `\\nimport` / `\\nexport` literal sequences remain in TypeScript/JavaScript source files.
