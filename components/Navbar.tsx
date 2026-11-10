@@ -159,7 +159,7 @@ export default function Navbar() {
 
                 {/* Cyan active indicator underline from reference image */}
                 {isActive && (
-                  <span className="absolute -bottom-2 left-0 right-0 h-[2.5px] bg-[#00C4D4] dark:bg-[#5CE1D6] rounded-full" />
+                  <span className="absolute -bottom-2 left-0 right-0 h-[2.5px] bg-[#78958F] dark:bg-[#9CC8BE] rounded-full" />
                 )}
               </a>
             );
@@ -193,7 +193,7 @@ export default function Navbar() {
               e.preventDefault();
               openNearestChat(chatMessage);
             }}
-            className="p-2 text-gray-950 dark:text-white hover:text-[#00C4D4] dark:hover:text-[#5CE1D6] active:scale-90 transition-transform cursor-pointer"
+            className="p-2 text-gray-950 dark:text-white hover:text-[#78958F] dark:hover:text-[#9CC8BE] active:scale-90 transition-transform cursor-pointer"
             aria-label="Order via WhatsApp"
           >
             <WhatsAppIcon className="w-5 h-5" />
@@ -222,13 +222,13 @@ export default function Navbar() {
                   onClick={(e) => handleSmoothScroll(e, link.href, link.id)}
                   className={`px-3 py-2.5 text-base font-semibold rounded-xl transition-all flex items-center justify-between ${
                     isActive
-                      ? "text-[#00838F] dark:text-[#5CE1D6] bg-[#00C4D4]/10 font-bold"
+                      ? "text-[#607F78] dark:text-[#9CC8BE] bg-[#78958F]/10 font-bold"
                       : "text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-white/5"
                   }`}
                 >
                   <span>{link.name}</span>
                   {isActive && (
-                    <span className="w-2 h-2 rounded-full bg-[#00C4D4] dark:bg-[#5CE1D6]" />
+                    <span className="w-2 h-2 rounded-full bg-[#78958F] dark:bg-[#9CC8BE]" />
                   )}
                 </a>
               );

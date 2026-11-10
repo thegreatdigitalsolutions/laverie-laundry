@@ -65,7 +65,7 @@ export default function Hero() {
 
           {/* Sub-headline & Description — Canela & Manrope */}
           <div className="space-y-3 max-w-xl">
-            <p className="font-subheadline font-[family-name:var(--font-subheadline)] text-2xl sm:text-3xl font-medium sm:font-normal text-gray-950 dark:text-[#5CE1D6] tracking-tight">
+            <p className="font-subheadline font-[family-name:var(--font-subheadline)] text-2xl sm:text-3xl font-medium sm:font-normal text-gray-950 dark:text-[#9CC8BE] tracking-tight">
               {t("hero.highlight")}
             </p>
             <p className="font-body font-[family-name:var(--font-body)] text-base sm:text-lg text-gray-900 dark:text-slate-100 leading-relaxed font-medium sm:font-normal">
@@ -100,7 +100,7 @@ export default function Hero() {
                   e.preventDefault();
                   openNearestChat(chatMessage);
                 }}
-                className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#00838F] hover:bg-[#0096A4] active:bg-[#00707B] text-white text-sm font-semibold tracking-wide transition-all duration-200 shadow-md shadow-[#00838F]/25 hover:shadow-lg hover:shadow-[#00838F]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#607F78] hover:bg-[#0096A4] active:bg-[#00707B] text-white text-sm font-semibold tracking-wide transition-all duration-200 shadow-md shadow-[#607F78]/25 hover:shadow-lg hover:shadow-[#607F78]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
                 <WhatsAppIcon className="w-4 h-4 text-white group-hover:scale-110 transition-transform duration-200" />
                 <span>{t("hero.bookBtn")}</span>
@@ -134,7 +134,7 @@ export default function Hero() {
         <button
           type="button"
           onClick={scrollToNextSection}
-          className="text-[#00C4D4] dark:text-[#5CE1D6] hover:opacity-80 transition-opacity cursor-pointer animate-scroll-bounce p-2"
+          className="text-[#78958F] dark:text-[#9CC8BE] hover:opacity-80 transition-opacity cursor-pointer animate-scroll-bounce p-2"
           title="Scroll down"
           aria-label="Scroll down"
         >

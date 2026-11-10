@@ -61,7 +61,7 @@ export default function FAQ({ items }: FAQProps) {
                   <span>{question}</span>
                   <span
                     className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ease-out bg-[#E9ECE5] dark:bg-white/10 text-[#78958F] dark:text-slate-300 ${
-                      isOpen ? "rotate-180 text-[#00C4D4] dark:text-[#5CE1D6]" : ""
+                      isOpen ? "rotate-180 text-[#78958F] dark:text-[#9CC8BE]" : ""
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />

@@ -14,3 +14,12 @@
 ## Validation
 - A production build was not run because dependency installation (`npm ci`) timed out in the execution environment.
 - Run `npm ci` and `npm run build` in the deployment environment before publishing.
+
+
+## V5 — Service taxonomy & refined motion
+- Rebuilt the Services section from the supplied Laverie price list into seven clear service families: everyday garments; batik and delicate/formal wear; bags and accessories; home linen and bedding; footwear; baby gear; curtains and home textiles.
+- Each service family has its own Lucide icon and example items grounded in the supplied price list.
+- Replaced the static service grid with a horizontally scrollable, snap-aligned service rail, with accessible previous/next controls and touch scrolling.
+- Added restrained editorial entrance motion, subtle card lift, icon micro-interactions, and reduced-motion support.
+- Refined remaining cyan navigation/FAQ/hero accents to the existing sage palette for a more cohesive premium look.
+- Preserved native page scrolling and the V4 section order.
