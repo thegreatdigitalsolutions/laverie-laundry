@@ -47,7 +47,9 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
   }, [currentOutlet.id]);
 
   return (
-    <section id="outlets" className="relative overflow-hidden bg-[#F6F5F1] py-24 transition-colors duration-500 dark:bg-[#071018] sm:py-28">
+    <section id="outlets" className="relative isolate overflow-hidden bg-[#F6F5F1] py-24 transition-colors duration-500 dark:bg-[#071018] sm:py-28">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-[0.15] dark:opacity-[0.10]" style={{ backgroundImage: "url('/images/hero/laverie-luggage-express.jpg')" }} />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-[#F6F5F1]/90 via-[#F6F5F1]/95 to-[#F6F5F1]/90 dark:from-[#071018]/90 dark:via-[#071018]/95 dark:to-[#071018]/90" />
       <div className="pointer-events-none absolute -right-40 top-0 h-[520px] w-[520px] rounded-full bg-[#B9D9D5]/25 blur-[110px] dark:bg-[#1A5960]/15" />
       <div className="pointer-events-none absolute -left-40 bottom-0 h-[420px] w-[420px] rounded-full bg-[#D8C8AE]/20 blur-[100px] dark:bg-[#243A42]/20" />
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

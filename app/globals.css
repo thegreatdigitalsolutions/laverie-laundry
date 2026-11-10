@@ -226,3 +226,19 @@ body {
     transition: none !important;
   }
 }
+
+/* V4: stable native scrolling. Reveal attributes are presentation-only to prevent
+   hidden content, staggered layout jumps and scroll-order confusion. */
+html { scroll-behavior: smooth; }
+[data-aos],
+[data-aos].aos-animate {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  visibility: visible !important;
+  will-change: auto !important;
+}
+
+/* Keep the long-form brand story in natural document order. */
+html, body { scroll-snap-type: none !important; }
+main > section { position: relative; }

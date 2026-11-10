@@ -16,9 +16,11 @@ export default function CoreServices() {
   ];
   const chatMessage = t("common.chatPrompt");
   return (
-    <section id="services" className="relative overflow-hidden bg-[#F3F1EA] py-24 text-[#26312E] transition-colors duration-500 dark:bg-[#0B1719] dark:text-[#F3F2EC] sm:py-32">
+    <section id="services" className="relative isolate overflow-hidden bg-[#F3F1EA] py-24 text-[#26312E] transition-colors duration-500 dark:bg-[#0B1719] dark:text-[#F3F2EC] sm:py-32">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-[0.16] dark:opacity-[0.10]" style={{ backgroundImage: "url('/images/about/laverie-atelier.jpg')" }} />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#F3F1EA]/90 via-[#F3F1EA]/95 to-[#F3F1EA]/90 dark:from-[#0B1719]/90 dark:via-[#0B1719]/95 dark:to-[#0B1719]/90" />
       <div className="pointer-events-none absolute -right-40 top-20 h-[500px] w-[500px] rounded-full bg-[#B9C9B9]/25 blur-[120px] dark:bg-[#28524B]/20" />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 border-b border-[#D8D9CF] pb-12 dark:border-white/10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-20">
           <div data-aos="fade-up"><span className="mb-5 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.28em] text-[#78958F] dark:text-[#9CC8BE]"><span className="h-px w-9 bg-current" />{locale === "en" ? "The Laverie experience · 01" : "Pengalaman Laverie · 01"}</span>
             <h2 className="font-headline text-4xl font-light leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">{locale === "en" ? <>Care begins with <em className="text-[#78958F] dark:text-[#9CC8BE]">understanding.</em></> : <>Setiap perawatan dimulai dari <em className="text-[#78958F] dark:text-[#9CC8BE]">memahami.</em></>}</h2></div>

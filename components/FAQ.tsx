@@ -21,8 +21,10 @@ export default function FAQ({ items }: FAQProps) {
   };
 
   return (
-    <section id="faq" className="relative overflow-hidden py-24 sm:py-32 bg-[#F8F7F2] dark:bg-[#0A1417] transition-colors duration-500">
-      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="relative isolate overflow-hidden py-24 sm:py-32 bg-[#F8F7F2] dark:bg-[#0A1417] transition-colors duration-500">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-[0.17] dark:opacity-[0.10]" style={{ backgroundImage: "url('/images/hero/laverie-hero-clean.jpg')" }} />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-[#F8F7F2]/90 via-[#F8F7F2]/95 to-[#F8F7F2]/90 dark:from-[#0A1417]/90 dark:via-[#0A1417]/95 dark:to-[#0A1417]/90" />
+      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div data-aos="fade-down" className="mx-auto mb-14 grid max-w-4xl gap-5 text-center md:grid-cols-[0.85fr_1.15fr] md:items-end md:text-left">

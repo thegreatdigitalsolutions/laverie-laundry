@@ -15,7 +15,9 @@ export default function Packages({ items }: PackagesProps) {
   const displayPackages = items && items.length > 0 ? items : packages;
 
   return (
-    <section id="packages" className="py-24 sm:py-32 bg-[#E9E6DC] dark:bg-[#101C1D] relative overflow-hidden transition-colors duration-500">
+    <section id="packages" className="py-24 sm:py-32 bg-[#E9E6DC] dark:bg-[#101C1D] relative isolate overflow-hidden transition-colors duration-500">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-[0.20] dark:opacity-[0.12]" style={{ backgroundImage: "url('/images/packages/laverie-packaging.jpg')" }} />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-[#E9E6DC]/90 via-[#E9E6DC]/95 to-[#E9E6DC]/90 dark:from-[#101C1D]/90 dark:via-[#101C1D]/95 dark:to-[#101C1D]/90" />
       {/* Ambient background aura */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(120,149,143,0.12),transparent_70%)] blur-3xl pointer-events-none" />
 
