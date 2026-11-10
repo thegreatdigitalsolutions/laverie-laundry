@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Libre_Baskerville, Manrope } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
+import AOSInit from "@/components/AOSInit";
 import "./globals.css";
 
 const SITE_URL = "https://www.laveriepremiumlaundry.com";
@@ -170,7 +171,10 @@ export default function RootLayout({
         />
 
         <ThemeProvider>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            <AOSInit />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

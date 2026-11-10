@@ -23,10 +23,10 @@ export default function ThemeToggle({ className = "" }: ThemeToggleProps) {
       type="button"
       onClick={toggleTheme}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className={`w-9 h-9 rounded-full transition-all duration-200 border flex items-center justify-center cursor-pointer ${
+      className={`w-9 h-9 rounded-full transition-all duration-200 border flex items-center justify-center cursor-pointer shadow-xs ${
         isDark
-          ? "bg-white/[0.07] hover:bg-white/[0.12] text-slate-200 border-white/20 hover:border-white/30 shadow-xs hover:scale-105 active:scale-95"
-          : "bg-transparent hover:bg-black/5 text-gray-950 border-gray-400/80 hover:border-gray-700 shadow-xs hover:scale-105 active:scale-95"
+          ? "bg-white/[0.08] hover:bg-white/[0.18] backdrop-blur-md text-slate-200 border-white/30 hover:border-white/50"
+          : "bg-white/60 hover:bg-white/90 backdrop-blur-md text-gray-950 border-gray-400/70 hover:border-gray-600"
       } ${className}`}
     >
       {isDark ? (

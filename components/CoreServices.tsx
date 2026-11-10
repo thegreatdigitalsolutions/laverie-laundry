@@ -67,39 +67,28 @@ export default function CoreServices() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
-          <div className="max-w-xl">
-            <h2 className="font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white tracking-tight">
-              {locale === "en" ? "Core Services" : "Layanan Utama"}
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-gray-600 dark:text-slate-200">
-              {locale === "en"
-                ? "Expert garment treatment and laundry solutions for every textile requirement."
-                : "Perawatan pakaian profesional dan solusi laundry untuk setiap jenis serat kain."}
-            </p>
-          </div>
-
-          <div className="mt-4 md:mt-0">
-            <a
-              href={getNearestChatUrl(chatMessage)}
-              onClick={(e) => {
-                e.preventDefault();
-                openNearestChat(chatMessage);
-              }}
-              className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-gray-900 dark:text-[#5CE1D6] hover:text-[#00C4D4] dark:hover:text-[#80EFE7] transition-colors cursor-pointer"
-            >
-              <span>{locale === "en" ? "Consult with our garment specialist" : "Konsultasi dengan spesialis laundry kami"}</span>
-            </a>
-          </div>
+        <div data-aos="fade-down" className="max-w-2xl mb-16">
+          <h2 className="font-headline font-[family-name:var(--font-headline)] font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 dark:text-white tracking-tight">
+            {locale === "en" ? "Core Services" : "Layanan Utama"}
+          </h2>
+          <p className="mt-3 font-subheadline font-[family-name:var(--font-subheadline)] text-lg sm:text-xl text-gray-700 dark:text-slate-200">
+            {locale === "en"
+              ? "Expert garment treatment and laundry solutions for every textile requirement."
+              : "Perawatan pakaian profesional dan solusi laundry untuk setiap jenis serat kain."}
+          </p>
         </div>
 
         {/* 4 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 font-body font-[family-name:var(--font-body)]">
           {services.map((svc, idx) => {
             const Icon = svc.icon;
+            const delay = (idx + 1) * 100;
+            const animType = idx === 0 ? "fade-up-right" : idx === 3 ? "fade-up-left" : "fade-up";
             return (
               <div
                 key={idx}
+                data-aos={animType}
+                data-aos-delay={delay}
                 className="group relative bg-[#F8F9FA] dark:bg-gradient-to-b dark:from-[#132431] dark:to-[#0E1A24] hover:bg-white dark:hover:from-[#172B3A] dark:hover:to-[#11202C] rounded-2xl p-7 border border-gray-200/80 dark:border-white/[0.06] hover:border-gray-300 dark:hover:border-white/[0.14] transition-all duration-300 hover:shadow-xl dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_10px_30px_-10px_rgba(0,0,0,0.5)] dark:hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_20px_40px_-15px_rgba(0,0,0,0.7)] flex flex-col justify-between hover:-translate-y-1"
               >
                 <div>
@@ -107,11 +96,11 @@ export default function CoreServices() {
                     <Icon className="w-6 h-6" />
                   </div>
 
-                  <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-3 group-hover:text-[#00C4D4] dark:group-hover:text-[#5CE1D6] transition-colors">
+                  <h3 className="font-subheadline font-[family-name:var(--font-subheadline)] font-medium text-xl sm:text-2xl text-gray-900 dark:text-white mb-3 group-hover:text-[#00C4D4] dark:group-hover:text-[#5CE1D6] transition-colors tracking-tight">
                     {svc.title}
                   </h3>
 
-                  <p className="text-sm text-gray-600 dark:text-slate-300 leading-relaxed mb-6">
+                  <p className="text-sm text-gray-600 dark:text-slate-300 leading-relaxed mb-6 font-normal">
                     {svc.description}
                   </p>
                 </div>

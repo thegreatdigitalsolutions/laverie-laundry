@@ -25,28 +25,34 @@ export default function FAQ({ items }: FAQProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-xl mx-auto mb-16">
-          <h2 className="font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white tracking-tight">
+        <div data-aos="fade-down" className="text-center max-w-xl mx-auto mb-16">
+          <h2 className="font-headline font-[family-name:var(--font-headline)] font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 dark:text-white tracking-tight">
             {t("faq.title")}
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-gray-600 dark:text-slate-200">
+          <p className="mt-3 font-subheadline font-[family-name:var(--font-subheadline)] text-lg sm:text-xl text-gray-700 dark:text-slate-200">
             {t("faq.subtitle")}
           </p>
         </div>
 
         {/* Accordion List */}
-        <div className="divide-y divide-gray-200 dark:divide-white/10 border-y border-gray-200 dark:border-white/10">
+        <div data-aos="fade-up" data-aos-delay="100" className="divide-y divide-gray-200 dark:divide-white/10 border-y border-gray-200 dark:border-white/10 font-body font-[family-name:var(--font-body)]">
           {displayFaqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             const question = localize(faq, "question");
             const answer = localize(faq, "answer");
+            const delay = Math.min((idx + 1) * 70, 400);
 
             return (
-              <div key={idx} className="transition-colors">
+              <div
+                key={idx}
+                data-aos="fade-up"
+                data-aos-delay={delay}
+                className="transition-colors"
+              >
                 <button
                   type="button"
                   onClick={() => toggleAccordion(idx)}
-                  className="w-full py-6 text-left flex items-center justify-between gap-4 font-semibold text-base sm:text-lg text-gray-900 dark:text-white hover:text-[#00C4D4] dark:hover:text-[#5CE1D6] transition-colors cursor-pointer"
+                  className="w-full py-6 text-left flex items-center justify-between gap-4 font-subheadline font-[family-name:var(--font-subheadline)] font-medium text-lg sm:text-xl text-gray-900 dark:text-white hover:text-[#00C4D4] dark:hover:text-[#5CE1D6] transition-colors cursor-pointer tracking-tight"
                   aria-expanded={isOpen}
                 >
                   <span>{question}</span>
@@ -75,29 +81,6 @@ export default function FAQ({ items }: FAQProps) {
               </div>
             );
           })}
-        </div>
-
-        {/* Support Banner */}
-        <div className="mt-14 p-7 rounded-3xl bg-[#F8F9FA] dark:bg-gradient-to-b dark:from-[#132431] dark:to-[#0E1A24] border border-gray-200 dark:border-white/[0.06] shadow-sm dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_10px_30px_-10px_rgba(0,0,0,0.5)] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div>
-            <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
-              {locale === "en" ? "Have a special garment or custom hotel request?" : "Punya permintaan khusus pakaian atau penjemputan hotel?"}
-            </h4>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-slate-300 mt-1">
-              {locale === "en" ? "Our concierge team is available on WhatsApp daily from 07:30 to 21:00." : "Tim concierge kami siap melayani di WhatsApp setiap hari mulai pukul 07:30 hingga 21:00."}
-            </p>
-          </div>
-          <a
-            href={getNearestChatUrl(t("common.chatPrompt"))}
-            onClick={(e) => {
-              e.preventDefault();
-              openNearestChat(t("common.chatPrompt"));
-            }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 text-xs font-bold uppercase tracking-wider transition-all shrink-0 shadow-md shadow-[#00C4D4]/20 hover:shadow-lg hover:shadow-[#00C4D4]/35 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
-          >
-            <MessageCircle className="w-4 h-4 fill-current text-gray-950" />
-            <span>{t("faq.chatBtn")}</span>
-          </a>
         </div>
 
       </div>

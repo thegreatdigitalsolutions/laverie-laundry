@@ -8,6 +8,8 @@ import Packages from "@/components/Packages";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import SectionDivider from "@/components/SectionDivider";
+import SlideShowScrollManager from "@/components/SlideShowScrollManager";
 import { getCMSContent } from "@/lib/sheets";
 import { OutletsProvider } from "@/context/OutletsContext";
 
@@ -92,16 +94,21 @@ export default async function Home() {
         }}
       />
       <div className="min-h-screen flex flex-col bg-white dark:bg-[#03070C] text-gray-900 dark:text-[#F8FAFC] transition-colors duration-300">
+        <SlideShowScrollManager />
         <Navbar />
         <main className="flex-1">
           <Hero />
           <Philosophy />
           <OutletsSection outlets={outlets} />
+          <SectionDivider />
           <CoreServices />
           <StatsDark />
           <Packages items={packages} />
+          <SectionDivider />
           <Testimonials items={testimonials} />
+          <SectionDivider />
           <FAQ items={faqs} />
+          <SectionDivider />
         </main>
         <Footer outlets={outlets} />
       </div>

@@ -18,11 +18,7 @@ export default function LanguageToggle({ className = "", variant = "pill" }: Lan
         type="button"
         onClick={toggleLocale}
         aria-label={`Switch to ${locale === "id" ? "English" : "Indonesian"}`}
-        className={`h-9 px-3 rounded-full border transition-all duration-200 flex items-center gap-1.5 text-xs font-bold cursor-pointer ${
-          locale === "en"
-            ? "bg-[#00C4D4]/20 border-[#00C4D4] text-gray-950 dark:text-[#5CE1D6]"
-            : "bg-transparent dark:bg-white/[0.07] border-gray-400/80 dark:border-white/20 text-gray-950 dark:text-slate-200 hover:border-gray-600 dark:hover:border-white/30"
-        } hover:scale-105 active:scale-95 ${className}`}
+        className={`h-9 px-3 rounded-full border border-gray-400/70 dark:border-white/30 bg-white/60 dark:bg-white/[0.08] backdrop-blur-md text-gray-950 dark:text-white hover:bg-white/90 dark:hover:bg-white/[0.18] transition-all duration-200 flex items-center gap-1.5 text-xs font-bold cursor-pointer shadow-xs ${className}`}
       >
         <Globe className="w-3.5 h-3.5 shrink-0 text-[#00C4D4]" />
         <span>{locale.toUpperCase()}</span>
@@ -34,12 +30,12 @@ export default function LanguageToggle({ className = "", variant = "pill" }: Lan
     <div
       role="group"
       aria-label="Language selection"
-      className={`inline-flex items-center p-0.5 rounded-full border border-gray-400/80 dark:border-white/20 bg-transparent dark:bg-white/[0.06] backdrop-blur-xs shadow-xs ${className}`}
+      className={`h-9 inline-flex items-center p-1 rounded-full border border-gray-400/70 hover:border-gray-600 dark:border-white/30 dark:hover:border-white/50 bg-white/60 dark:bg-white/[0.08] backdrop-blur-md shadow-xs transition-all duration-200 ${className}`}
     >
       <button
         type="button"
         onClick={() => setLocale("id")}
-        className={`px-2.5 py-1 text-xs font-bold rounded-full transition-all duration-200 cursor-pointer ${
+        className={`h-7 px-2.5 text-xs font-bold rounded-full transition-all duration-200 cursor-pointer flex items-center justify-center ${
           locale === "id"
             ? "bg-[#00C4D4] text-gray-950 shadow-xs"
             : "text-gray-900 dark:text-gray-300 hover:text-black dark:hover:text-white"
@@ -51,7 +47,7 @@ export default function LanguageToggle({ className = "", variant = "pill" }: Lan
       <button
         type="button"
         onClick={() => setLocale("en")}
-        className={`px-2.5 py-1 text-xs font-bold rounded-full transition-all duration-200 cursor-pointer ${
+        className={`h-7 px-2.5 text-xs font-bold rounded-full transition-all duration-200 cursor-pointer flex items-center justify-center ${
           locale === "en"
             ? "bg-[#00C4D4] text-gray-950 shadow-xs"
             : "text-gray-900 dark:text-gray-300 hover:text-black dark:hover:text-white"

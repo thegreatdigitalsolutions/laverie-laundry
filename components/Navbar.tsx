@@ -30,7 +30,7 @@ function WhatsAppIcon({ className = "w-4 h-4" }: { className?: string }) {
 
 export default function Navbar() {
   const { openNearestChat, getNearestChatUrl } = useOutlets();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -61,23 +61,19 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Requested navbar list:
-  // - Home (Scroll to hero)
-  // - Our Philosophy (Renamed from About)
-  // - Services
-  // - Products (Packages & pricing)
-  // - FAQ
+  // Requested navbar list with dynamic translation
   const navLinks = [
-    { name: t("nav.home") || "Home", href: "#hero", id: "hero" },
-    { name: t("nav.philosophy") || "Our Philosophy", href: "#about", id: "about" },
-    { name: t("nav.services") || "Services", href: "#services", id: "services" },
-    { name: t("nav.products") || "Products", href: "#packages", id: "packages" },
+    { name: t("nav.home") || (locale === "en" ? "Home" : "Beranda"), href: "#hero", id: "hero" },
+    { name: t("nav.philosophy") || (locale === "en" ? "Our Philosophy" : "Filosofi Kami"), href: "#about", id: "about" },
+    { name: t("nav.services") || (locale === "en" ? "Services" : "Layanan"), href: "#services", id: "services" },
+    { name: t("nav.packages") || t("nav.products") || (locale === "en" ? "Packages" : "Pilihan Paket"), href: "#packages", id: "packages" },
     { name: t("nav.faq") || "FAQ", href: "#faq", id: "faq" },
   ];
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {
     if (href.startsWith("#")) {
       e.preventDefault();
+      window.dispatchEvent(new CustomEvent("laverie-nav-scroll"));
       const targetId = href.replace("#", "");
 
       if (targetId === "hero") {
@@ -106,10 +102,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 py-3.5 sm:py-4 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 py-3.5 sm:py-4 transition-colors duration-300 font-body font-[family-name:var(--font-body)] ${
+        isScrolled || mobileMenuOpen
           ? "bg-white/95 dark:bg-[#03070C]/90 backdrop-blur-md shadow-sm"
-          : "bg-gradient-to-b from-white/75 via-white/40 to-transparent dark:from-black/75 dark:via-black/40 dark:to-transparent backdrop-blur-[1.5px] shadow-none"
+          : "bg-transparent shadow-none"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -170,7 +166,7 @@ export default function Navbar() {
         </nav>
 
         {/* Desktop Right Side: Controls & Outlined Glassy WhatsApp Pill */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-2.5">
           <LanguageToggle />
           <ThemeToggle />
 
@@ -181,26 +177,25 @@ export default function Navbar() {
               e.preventDefault();
               openNearestChat(chatMessage);
             }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer border border-gray-400/80 dark:border-white/30 bg-white/60 dark:bg-white/[0.08] backdrop-blur-md hover:bg-white/90 dark:hover:bg-white/[0.18] text-gray-950 dark:text-white shadow-xs hover:shadow-sm"
+            className="h-9 inline-flex items-center gap-2 px-4.5 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer border border-gray-400/70 hover:border-gray-600 dark:border-white/30 dark:hover:border-white/50 bg-white/60 hover:bg-white/90 dark:bg-white/[0.08] dark:hover:bg-white/[0.18] backdrop-blur-md text-gray-950 dark:text-white shadow-xs hover:shadow-sm"
           >
             <WhatsAppIcon className="w-4 h-4 text-gray-950 dark:text-white" />
-            <span>{t("nav.bookWhatsapp") || "Order via WhatsApp"}</span>
+            <span>{t("nav.bookWhatsapp") || (locale === "en" ? "Order via WhatsApp" : "Pesan via WhatsApp")}</span>
           </a>
         </div>
 
-        {/* Mobile Header Bar: Clean WhatsApp Pill + Menu Toggle */}
-        <div className="flex md:hidden items-center gap-2.5">
+        {/* Mobile Header Bar: WhatsApp Icon (no text, no background) + Menu Toggle */}
+        <div className="flex md:hidden items-center gap-1">
           <a
             href={getNearestChatUrl(chatMessage)}
             onClick={(e) => {
               e.preventDefault();
               openNearestChat(chatMessage);
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-400/80 dark:border-white/30 bg-white/60 dark:bg-white/[0.08] backdrop-blur-md text-gray-950 dark:text-white text-xs font-semibold shadow-xs active:scale-95 transition-all cursor-pointer"
+            className="p-2 text-gray-950 dark:text-white hover:text-[#00C4D4] dark:hover:text-[#5CE1D6] active:scale-90 transition-transform cursor-pointer"
             aria-label="Order via WhatsApp"
           >
-            <WhatsAppIcon className="w-3.5 h-3.5" />
-            <span>WhatsApp</span>
+            <WhatsAppIcon className="w-5 h-5" />
           </a>
 
           <button
@@ -241,7 +236,7 @@ export default function Navbar() {
             {/* Menu Preferences: Language Toggle & Dark/Light Mode */}
             <div className="pt-4 mt-3 border-t border-gray-200/80 dark:border-white/10 flex items-center justify-between px-2">
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                Preferences
+                {locale === "en" ? "Preferences" : "Pengaturan"}
               </span>
               <div className="flex items-center gap-3">
                 <LanguageToggle />

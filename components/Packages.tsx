@@ -22,20 +22,31 @@ export default function Packages({ items }: PackagesProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-gray-900 dark:text-white tracking-tight">
+        <div data-aos="fade-down" className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="font-headline font-[family-name:var(--font-headline)] font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 dark:text-white tracking-tight">
             {t("packages.title")}
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-gray-600 dark:text-slate-200">
+          <p className="mt-3 font-subheadline font-[family-name:var(--font-subheadline)] text-lg sm:text-xl text-gray-700 dark:text-slate-200">
             {t("packages.subtitle")}
           </p>
         </div>
 
         {/* Package Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-          {displayPackages.map((pkg) => (
-            <PackageCard key={pkg.id} pkg={pkg} />
-          ))}
+          {displayPackages.map((pkg, idx) => {
+            const anim = idx === 0 ? "fade-right" : idx === 1 ? "zoom-in" : "fade-left";
+            const delay = (idx + 1) * 150;
+            return (
+              <div
+                key={pkg.id}
+                data-aos={anim}
+                data-aos-delay={delay}
+                className="flex flex-col"
+              >
+                <PackageCard pkg={pkg} />
+              </div>
+            );
+          })}
         </div>
 
       </div>

@@ -124,15 +124,15 @@ export interface TranslationDictionary {
 export const translations: Record<Locale, TranslationDictionary> = {
   id: {
     nav: {
-      home: "Home",
-      philosophy: "Our Philosophy",
-      about: "Our Philosophy",
+      home: "Beranda",
+      philosophy: "Filosofi Kami",
+      about: "Filosofi Kami",
       process: "Cara Kerja",
-      services: "Services",
-      products: "Products",
-      packages: "Products",
+      services: "Layanan",
+      products: "Pilihan Paket",
+      packages: "Pilihan Paket",
       faq: "FAQ",
-      bookWhatsapp: "Order via WhatsApp",
+      bookWhatsapp: "Pesan via WhatsApp",
       selectOutlet: "Pilih Outlet",
     },
     hero: {
@@ -253,8 +253,8 @@ export const translations: Record<Locale, TranslationDictionary> = {
       about: "Our Philosophy",
       process: "How It Works",
       services: "Services",
-      products: "Products",
-      packages: "Products",
+      products: "Packages",
+      packages: "Packages",
       faq: "FAQ",
       bookWhatsapp: "Order via WhatsApp",
       selectOutlet: "Select Outlet",
