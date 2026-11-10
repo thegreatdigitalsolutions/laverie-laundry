@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, Clock, MapPin } from "lucide-react";
+import { MessageCircle, ArrowRight, Clock, MapPin } from "lucide-react";
 import { useOutlets } from "@/context/OutletsContext";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -20,14 +20,14 @@ export default function CTA() {
   const chatMessage = t("common.chatPrompt");
 
   return (
-    <section className="py-24 bg-white dark:bg-[#020508] text-gray-900 dark:text-white relative overflow-hidden transition-colors duration-300">
+    <section className="py-24 bg-white dark:bg-[#020508] text-gray-900 dark:text-white relative overflow-hidden border-b border-gray-100 dark:border-transparent transition-colors duration-300">
       {/* Ambient background aura */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(0,196,212,0.12),transparent_70%)] blur-3xl pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 font-body font-[family-name:var(--font-body)]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         
         {/* Main Headline */}
-        <h2 className="font-headline font-[family-name:var(--font-headline)] font-bold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
+        <h2 className="font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
           {locale === "en" ? (
             <>Ready to give your <br /> clothes some care?</>
           ) : (
@@ -35,7 +35,7 @@ export default function CTA() {
           )}
         </h2>
 
-        <p className="font-body font-[family-name:var(--font-body)] text-base sm:text-xl text-gray-600 dark:text-slate-200 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+        <p className="text-base sm:text-xl text-gray-600 dark:text-slate-200 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
           {locale === "en" ? (
             <>Let Laverie handle the laundry so you can focus on what matters. Book before <strong className="text-gray-900 dark:text-white font-bold">10:00 AM</strong> for evening delivery straight to your hotel lobby or doorstep.</>
           ) : (
@@ -43,26 +43,25 @@ export default function CTA() {
           )}
         </p>
 
-        {/* Primary & Secondary Action Buttons — Elevated Luxury Pair */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 font-body font-[family-name:var(--font-body)]">
+        {/* Primary Action Button - Solid White Luxury Dark Styling */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href={getNearestChatUrl(chatMessage)}
             onClick={(e) => {
               e.preventDefault();
               openNearestChat(chatMessage);
             }}
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-[#00838F] hover:bg-[#0096A4] active:bg-[#00707B] text-white font-semibold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-md shadow-[#00838F]/25 hover:shadow-lg hover:shadow-[#00838F]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 font-bold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-md shadow-[#00C4D4]/25 hover:shadow-lg hover:shadow-[#00C4D4]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
-            <WhatsAppIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-transform duration-200" />
+            <MessageCircle className="w-5 h-5 fill-current text-gray-950" />
             <span>{t("nav.bookWhatsapp")}</span>
           </a>
 
           <a
             href="#packages"
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-white/80 hover:bg-white dark:bg-white/[0.08] dark:hover:bg-white/[0.14] text-gray-950 dark:text-white border border-gray-300/80 hover:border-gray-500 dark:border-white/20 dark:hover:border-white/35 backdrop-blur-md font-semibold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-gray-200 dark:border-white/15 hover:border-gray-300 dark:hover:border-white/30 bg-white dark:bg-white/[0.06] hover:bg-gray-50 dark:hover:bg-white/[0.1] text-gray-700 dark:text-white font-semibold text-sm sm:text-base transition-all duration-200 shadow-xs hover:-translate-y-0.5 active:translate-y-0"
           >
             <span>{t("hero.exploreBtn")}</span>
-            <ArrowRight className="w-4 h-4 text-gray-700 dark:text-slate-300 group-hover:translate-x-0.5 transition-transform duration-200" />
           </a>
         </div>
 

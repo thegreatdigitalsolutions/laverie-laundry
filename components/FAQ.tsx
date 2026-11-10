@@ -21,47 +21,38 @@ export default function FAQ({ items }: FAQProps) {
   };
 
   return (
-    <section id="faq" className="relative isolate overflow-hidden py-24 sm:py-32 bg-[#F8F7F2] dark:bg-[#0A1417] transition-colors duration-500">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-[0.17] dark:opacity-[0.10]" style={{ backgroundImage: "url('/images/hero/laverie-hero-clean.jpg')" }} />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-[#F8F7F2]/90 via-[#F8F7F2]/95 to-[#F8F7F2]/90 dark:from-[#0A1417]/90 dark:via-[#0A1417]/95 dark:to-[#0A1417]/90" />
-      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-20 bg-white dark:bg-[#03070C] border-b border-gray-100 dark:border-white/[0.06] transition-colors duration-300">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div data-aos="fade-down" className="mx-auto mb-14 grid max-w-4xl gap-5 text-center md:grid-cols-[0.85fr_1.15fr] md:items-end md:text-left">
-          <div><span className="mb-5 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.28em] text-[#78958F] dark:text-[#9CC8BE]"><span className="h-px w-8 bg-current" />THE LAVERIE EXPERIENCE · 03</span>
-          <h2 className="font-headline font-[family-name:var(--font-headline)] font-light text-4xl sm:text-5xl lg:text-6xl text-[#26312E] dark:text-white tracking-tight">
+        <div className="text-center max-w-xl mx-auto mb-16">
+          <h2 className="font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white tracking-tight">
             {t("faq.title")}
-          </h2></div>
-          <p className="mx-auto max-w-xl text-sm leading-8 text-[#68736D] dark:text-slate-300 md:pb-1">
-            {locale === "en" ? "A little clarity makes every experience more comfortable. Here are a few things you may want to know before placing your garments in our care." : "Kami percaya pengalaman yang nyaman dimulai dari informasi yang jelas. Temukan jawaban atas hal-hal yang mungkin ingin Anda ketahui sebelum mempercayakan pakaian kepada kami."}
+          </h2>
+          <p className="mt-3 text-base sm:text-lg text-gray-600 dark:text-slate-200">
+            {t("faq.subtitle")}
           </p>
         </div>
 
         {/* Accordion List */}
-        <div data-aos="fade-up" data-aos-delay="100" className="divide-y divide-[#DCDDD4] border-y border-[#DCDDD4] font-body font-[family-name:var(--font-body)] dark:divide-white/10 dark:border-white/10">
+        <div className="divide-y divide-gray-200 dark:divide-white/10 border-y border-gray-200 dark:border-white/10">
           {displayFaqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             const question = localize(faq, "question");
             const answer = localize(faq, "answer");
-            const delay = Math.min((idx + 1) * 70, 400);
 
             return (
-              <div
-                key={idx}
-                data-aos="fade-up"
-                data-aos-delay={delay}
-                className="transition-colors"
-              >
+              <div key={idx} className="transition-colors">
                 <button
                   type="button"
                   onClick={() => toggleAccordion(idx)}
-                  className="w-full py-6 text-left flex items-center justify-between gap-4 font-subheadline font-[family-name:var(--font-subheadline)] font-medium text-lg sm:text-xl text-[#303B36] dark:text-white hover:text-[#78958F] dark:hover:text-[#9CC8BE] transition-colors cursor-pointer tracking-tight"
+                  className="w-full py-6 text-left flex items-center justify-between gap-4 font-semibold text-base sm:text-lg text-gray-900 dark:text-white hover:text-[#00C4D4] dark:hover:text-[#5CE1D6] transition-colors cursor-pointer"
                   aria-expanded={isOpen}
                 >
                   <span>{question}</span>
                   <span
-                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ease-out bg-[#E9ECE5] dark:bg-white/10 text-[#78958F] dark:text-slate-300 ${
-                      isOpen ? "rotate-180 text-[#78958F] dark:text-[#9CC8BE]" : ""
+                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ease-out bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-slate-300 ${
+                      isOpen ? "rotate-180 text-[#00C4D4] dark:text-[#5CE1D6]" : ""
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -76,7 +67,7 @@ export default function FAQ({ items }: FAQProps) {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <div className="pb-6 pt-1 text-sm sm:text-base text-[#68736D] dark:text-slate-300 leading-8">
+                    <div className="pb-6 pt-1 text-sm sm:text-base text-gray-600 dark:text-slate-200 leading-relaxed">
                       <p>{answer}</p>
                     </div>
                   </div>
@@ -84,6 +75,29 @@ export default function FAQ({ items }: FAQProps) {
               </div>
             );
           })}
+        </div>
+
+        {/* Support Banner */}
+        <div className="mt-14 p-7 rounded-3xl bg-[#F8F9FA] dark:bg-gradient-to-b dark:from-[#132431] dark:to-[#0E1A24] border border-gray-200 dark:border-white/[0.06] shadow-sm dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_10px_30px_-10px_rgba(0,0,0,0.5)] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div>
+            <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
+              {locale === "en" ? "Have a special garment or custom hotel request?" : "Punya permintaan khusus pakaian atau penjemputan hotel?"}
+            </h4>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-slate-300 mt-1">
+              {locale === "en" ? "Our concierge team is available on WhatsApp daily from 07:30 to 21:00." : "Tim concierge kami siap melayani di WhatsApp setiap hari mulai pukul 07:30 hingga 21:00."}
+            </p>
+          </div>
+          <a
+            href={getNearestChatUrl(t("common.chatPrompt"))}
+            onClick={(e) => {
+              e.preventDefault();
+              openNearestChat(t("common.chatPrompt"));
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#00C4D4] hover:bg-[#00B4C3] text-gray-950 text-xs font-bold uppercase tracking-wider transition-all shrink-0 shadow-md shadow-[#00C4D4]/20 hover:shadow-lg hover:shadow-[#00C4D4]/35 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4 fill-current text-gray-950" />
+            <span>{t("faq.chatBtn")}</span>
+          </a>
         </div>
 
       </div>

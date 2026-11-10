@@ -20,15 +20,6 @@ function doGet(e) {
         faqs: getFaqsData(),
         testimonials: getTestimonialsData(),
         outlets: getOutletsData(),
-        products: getProductsData(),
-        timestamp: new Date().toISOString(),
-      });
-    }
-
-    if (action === "getProducts") {
-      return createJsonResponse({
-        success: true,
-        products: getProductsData(),
         timestamp: new Date().toISOString(),
       });
     }
@@ -69,16 +60,11 @@ function doPost(e) {
         faqs: getFaqsData(),
         testimonials: getTestimonialsData(),
         outlets: getOutletsData(),
-        products: getProductsData(),
       });
     }
 
     if (action === "updatePackages") {
       return savePackagesData(payload.packages);
-    }
-
-    if (action === "updateProducts") {
-      return saveProductsData(payload.products);
     }
 
     if (action === "updateOutlets") {
@@ -725,117 +711,7 @@ function initSpreadsheet() {
     seedDefaultOutlets(outletSheet);
   }
 
-  // Products sheet
-  let prodSheet = ss.getSheetByName("products") || ss.getSheetByName("Products");
-  if (!prodSheet) {
-    prodSheet = ss.insertSheet("products");
-    seedDefaultProducts(prodSheet);
-  }
-
-  return "All 6 sheets (Auth, Packages, Outlets, FAQs, Testimonials, products) initialized successfully.";
-}
-
-// ==========================================
-// PRODUCTS MODULE
-// ==========================================
-
-function getProductsSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = ss.getSheetByName("products") || ss.getSheetByName("Products");
-  if (!sheet) {
-    sheet = ss.insertSheet("products");
-    seedDefaultProducts(sheet);
-  }
-  return sheet;
-}
-
-function getProductsData() {
-  try {
-    const sheet = getProductsSheet();
-    const data = sheet.getDataRange().getValues();
-    if (data.length < 2) {
-      seedDefaultProducts(sheet);
-      return getDefaultProductsList();
-    }
-
-    const headers = data[0].map(function (h) {
-      return String(h).trim().toLowerCase();
-    });
-
-    const idCol = headers.indexOf("id");
-    const nameCol = headers.indexOf("name");
-    const priceCol = headers.indexOf("price");
-
-    const products = [];
-    for (let i = 1; i < data.length; i++) {
-      const row = data[i];
-      const name = String(row[nameCol !== -1 ? nameCol : 1] || "").trim();
-      const id = String(row[idCol !== -1 ? idCol : 0] || "PROD-" + i).trim();
-      const price = String(row[priceCol !== -1 ? priceCol : 2] || "").trim();
-
-      if (!name && !id && !price) continue;
-
-      products.push({
-        id: id || "PROD-" + i,
-        name: name,
-        price: price,
-      });
-    }
-
-    return products.length > 0 ? products : getDefaultProductsList();
-  } catch (err) {
-    Logger.log("getProductsData error: " + err.toString());
-    return getDefaultProductsList();
-  }
-}
-
-function saveProductsData(productsList) {
-  if (!productsList || !Array.isArray(productsList)) {
-    return createJsonResponse({ success: false, error: "products array is required." });
-  }
-
-  const sheet = getProductsSheet();
-  sheet.clearContents();
-
-  const headers = ["id", "name", "price"];
-  const rows = [headers];
-
-  for (let i = 0; i < productsList.length; i++) {
-    const prod = productsList[i];
-    rows.push([
-      prod.id || "PROD-" + (i + 1),
-      prod.name || "",
-      prod.price !== undefined && prod.price !== null ? String(prod.price) : "",
-    ]);
-  }
-
-  sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
-  return createJsonResponse({
-    success: true,
-    message: "Products updated successfully in Google Sheet.",
-    count: productsList.length,
-  });
-}
-
-function seedDefaultProducts(sheet) {
-  const headers = ["id", "name", "price"];
-  const defaults = getDefaultProductsList();
-  const rows = [headers];
-  for (let i = 0; i < defaults.length; i++) {
-    rows.push([defaults[i].id, defaults[i].name, defaults[i].price]);
-  }
-  sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
-}
-
-function getDefaultProductsList() {
-  return [
-    { id: "PROD-001", name: "Premium Canvas Laundry Bag", price: "Rp 75.000" },
-    { id: "PROD-002", name: "Breathable Garment Dust Cover", price: "Rp 45.000" },
-    { id: "PROD-003", name: "Artisan Fabric Care & Linen Spray 250ml", price: "Rp 65.000" },
-    { id: "PROD-004", name: "Sneaker & Shoe Protection Travel Bag", price: "Rp 35.000" },
-    { id: "PROD-005", name: "Delicate Wash Mesh Bag Set (3 Sizes)", price: "Rp 50.000" },
-    { id: "PROD-006", name: "Luxury Wooden Suit Hanger (Set of 3)", price: "Rp 85.000" },
-  ];
+  return "All 5 sheets (Auth, Packages, Outlets, FAQs, Testimonials) initialized successfully.";
 }
 
 function getOutletsSheet() {

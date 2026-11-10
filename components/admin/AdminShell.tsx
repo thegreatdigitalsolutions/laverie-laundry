@@ -21,7 +21,6 @@ export default function AdminShell({ children }: AdminShellProps) {
   const navLinks = [
     { name: "Dashboard", href: "/admin" },
     { name: "Packages", href: "/admin/packages" },
-    { name: "Products", href: "/admin/products" },
     { name: "Outlets", href: "/admin/outlets" },
     { name: "FAQs", href: "/admin/faqs" },
     { name: "Reviews", href: "/admin/testimonials" },

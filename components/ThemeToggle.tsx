@@ -23,16 +23,16 @@ export default function ThemeToggle({ className = "" }: ThemeToggleProps) {
       type="button"
       onClick={toggleTheme}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className={`w-9 h-9 rounded-full transition-all duration-200 border flex items-center justify-center cursor-pointer shadow-xs ${
+      className={`w-9 h-9 rounded-full transition-all duration-200 border flex items-center justify-center ${
         isDark
-          ? "bg-white/[0.08] hover:bg-white/[0.18] backdrop-blur-md text-slate-200 border-white/30 hover:border-white/50"
-          : "bg-white/60 hover:bg-white/90 backdrop-blur-md text-gray-950 border-gray-400/70 hover:border-gray-600"
+          ? "bg-white/[0.07] hover:bg-white/[0.12] text-slate-200 border-white/15 hover:border-white/25 shadow-xs hover:scale-105 active:scale-95"
+          : "bg-gray-50 hover:bg-gray-100 text-gray-700 border-gray-200 hover:border-gray-300 shadow-xs hover:scale-105 active:scale-95"
       } ${className}`}
     >
       {isDark ? (
         <Sun className="w-4 h-4 text-slate-200 hover:text-white transition-colors" />
       ) : (
-        <Moon className="w-4 h-4 text-gray-950 transition-colors" />
+        <Moon className="w-4 h-4 text-gray-700 transition-colors" />
       )}
     </button>
   );

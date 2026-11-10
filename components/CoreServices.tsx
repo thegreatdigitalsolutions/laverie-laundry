@@ -1,131 +1,132 @@
 "use client";
 
 import React from "react";
-import {
-  Baby, BedDouble, BriefcaseBusiness,
-  Footprints, Shirt, Sparkles, ShoppingBag,
-} from "lucide-react";
+import { Clock, Shirt, Sparkles, BedDouble } from "lucide-react";
+import { useOutlets } from "@/context/OutletsContext";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function CoreServices() {
-  const { locale } = useLanguage();
-  const isEn = locale === "en";
+  const { openNearestChat, getNearestChatUrl } = useOutlets();
+  const { locale, t } = useLanguage();
 
   const services = [
     {
-      number: "01", icon: Shirt,
-      title: isEn ? "Everyday Garment Care" : "Perawatan Pakaian Harian",
-      description: isEn
-        ? "Thoughtful cleaning for the pieces you reach for every day, from shirts and blouses to trousers, skirts, knitwear and more."
-        : "Perawatan untuk pakaian yang menemani keseharian Anda, mulai dari kemeja, blus, celana, rok, hingga sweater.",
-      examples: isEn ? "Shirts · Blouses · Trousers · Skirts · Knitwear" : "Kemeja · Blus · Celana · Rok · Sweater",
-      tone: "from-[#D9E3DC] to-[#F1EEE5]",
+      icon: Clock,
+      title: locale === "en" ? "12-Hour Hotel Express" : "Kilat Hotel 12 Jam",
+      description:
+        locale === "en"
+          ? "Specifically designed for travelers and business itineraries. Picked up before 10 AM, returned fresh before 10 PM."
+          : "Dirancang khusus untuk tamu hotel dan perjalanan bisnis. Dijemput sebelum 10:00 pagi, diantar kembali segar sebelum 22:00 malam.",
+      features:
+        locale === "en"
+          ? ["Lobby pickup & delivery", "Ozone antibacterial wash", "Evening return guarantee"]
+          : ["Antar jemput lobi hotel", "Cuci antibakteri ozon", "Jaminan selesai sore/malam"],
     },
     {
-      number: "02", icon: Sparkles,
-      title: isEn ? "Batik & Delicate Wear" : "Batik & Pakaian Istimewa",
-      description: isEn
-        ? "Special garments receive considered attention, including batik, kebaya, dresses, blazers, suits and formalwear."
-        : "Pakaian istimewa mendapatkan perhatian lebih, termasuk batik, kebaya, gaun, blazer, jas, dan busana formal.",
-      examples: isEn ? "Batik · Kebaya · Dresses · Blazers · Suits" : "Batik · Kebaya · Gaun · Blazer · Jas",
-      tone: "from-[#E8DCCB] to-[#F4EEE5]",
+      icon: Shirt,
+      title: locale === "en" ? "Wash, Dry & Fold" : "Cuci, Kering & Lipat",
+      description:
+        locale === "en"
+          ? "The ultimate everyday convenience. Temperature-controlled wash, delicate tumble dry, and hotel-crisp folding."
+          : "Solusi praktis pakaian sehari-hari. Pencucian dengan suhu terkontrol, pengeringan halus, dan lipatan rapi standar hotel.",
+      features:
+        locale === "en"
+          ? ["Color sorting", "Dermatological detergent", "Sealed hygienic bundles"]
+          : ["Pemisahan warna kain", "Deterjen ramah kulit", "Kemasan steril higienis"],
     },
     {
-      number: "03", icon: BriefcaseBusiness,
-      title: isEn ? "Bag & Accessory Care" : "Perawatan Tas & Aksesori",
-      description: isEn
-        ? "From compact everyday pieces to larger bags, plus selected accessories that complete your look."
-        : "Dari tas kecil untuk kebutuhan harian hingga tas berukuran besar, serta aksesori pilihan yang melengkapi penampilan.",
-      examples: isEn ? "Small · Medium · Large bags · Scarves · Ties · Hats" : "Tas kecil · Sedang · Besar · Syal · Dasi · Topi",
-      tone: "from-[#D9E1E3] to-[#F1F0E9]",
+      icon: Sparkles,
+      title: locale === "en" ? "Delicate & Dry Cleaning" : "Pakaian Halus & Dry Clean",
+      description:
+        locale === "en"
+          ? "Artisan hand-pressing and gentle solvent-free dry care for suits, silk dresses, cashmere, and designer garments."
+          : "Setrika uap manual presisi dan perawatan lembut bebas pelarut keras untuk jas, gaun sutra, kasmir, dan pakaian pesta.",
+      features:
+        locale === "en"
+          ? ["Individual stain treatment", "Hand steam finishing", "Delivered on hangers"]
+          : ["Penanganan noda khusus", "Setrika uap manual presisi", "Diantar dengan hanger & cover"],
     },
     {
-      number: "04", icon: BedDouble,
-      title: isEn ? "Home Linen & Bedding" : "Linen & Perlengkapan Rumah",
-      description: isEn
-        ? "A fresh start for the comforts of home: bed covers, sheets, blankets, duvets, towels and mattress protectors."
-        : "Kesegaran untuk kenyamanan rumah: bed cover, sprei, selimut, duvet, handuk, hingga pelindung kasur.",
-      examples: isEn ? "Bed covers · Sheets · Duvets · Towels · Blankets" : "Bed cover · Sprei · Duvet · Handuk · Selimut",
-      tone: "from-[#DCE5DD] to-[#F3F0E7]",
-    },
-    {
-      number: "05", icon: Footprints,
-      title: isEn ? "Footwear Care" : "Perawatan Alas Kaki",
-      description: isEn
-        ? "Give your footwear a little extra attention, from everyday sandals to shoes, boots and leather footwear."
-        : "Berikan perhatian lebih pada alas kaki Anda, mulai dari sandal, sepatu, boots, hingga sepatu kulit.",
-      examples: isEn ? "Shoes · Sandals · Boots · Leather shoes" : "Sepatu · Sandal · Boots · Sepatu kulit",
-      tone: "from-[#E6DFD3] to-[#F5F0E7]",
-    },
-    {
-      number: "06", icon: Baby,
-      title: isEn ? "Baby Gear & Stroller Care" : "Perawatan Perlengkapan Bayi",
-      description: isEn
-        ? "Care for the essentials that travel with your little one, including strollers and car seats."
-        : "Perawatan untuk perlengkapan yang menemani si kecil bepergian, termasuk stroller dan car seat.",
-      examples: isEn ? "Strollers · Car seats" : "Stroller · Car seat",
-      tone: "from-[#DDE4E1] to-[#F5F0E8]",
-    },
-    {
-      number: "07", icon: ShoppingBag,
-      title: isEn ? "Curtains & Home Textiles" : "Gorden & Tekstil Interior",
-      description: isEn
-        ? "Refresh the details that shape your space, including curtains, vitrage, carpets and rugs."
-        : "Segarkan detail yang membentuk suasana ruang, termasuk gorden, vitrage, karpet, dan keset.",
-      examples: isEn ? "Curtains · Vitrage · Carpets · Rugs" : "Gorden · Vitrase · Karpet · Keset",
-      tone: "from-[#E3E2D7] to-[#F4EFE6]",
+      icon: BedDouble,
+      title: locale === "en" ? "Linen & Duvet Care" : "Perawatan Linen & Selimut",
+      description:
+        locale === "en"
+          ? "Deep thermal sanitization for bed linens, fluffy towels, duvets, and blankets restoring fresh loft and softness."
+          : "Sanitasi termal mendalam untuk sprei, handuk tebal, duvet, dan selimut, mengembalikan kelembutan dan kesegaran serat.",
+      features:
+        locale === "en"
+          ? ["High-capacity equipment", "Aroma-free hypoallergenic", "Vacuum packaging available"]
+          : ["Mesin kapasitas besar", "Formula hipoalergenik", "Tersedia kemasan vakum"],
     },
   ];
 
-  return (
-    <section id="services" className="relative isolate overflow-hidden bg-[#F3F1EA] py-24 text-[#26312E] transition-colors duration-700 dark:bg-[#0B1719] dark:text-[#F3F2EC] sm:py-32">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-[0.16] dark:opacity-[0.10]" style={{ backgroundImage: "url('/images/about/laverie-atelier.jpg')" }} />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#F3F1EA]/90 via-[#F3F1EA]/95 to-[#F3F1EA]/90 dark:from-[#0B1719]/90 dark:via-[#0B1719]/95 dark:to-[#0B1719]/90" />
-      <div className="pointer-events-none absolute -right-40 top-20 h-[500px] w-[500px] rounded-full bg-[#B9C9B9]/25 blur-[120px] dark:bg-[#28524B]/20" />
+  const chatMessage = t("common.chatPrompt");
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 border-b border-[#D8D9CF] pb-10 dark:border-white/10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-16">
-          <div className="service-heading-reveal">
-            <h2 className="font-headline text-4xl font-light leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-              {isEn ? <>Care for the things <em className="text-[#78958F] dark:text-[#9CC8BE]">you value.</em></> : <>Perawatan untuk pakaian dan <em className="text-[#78958F] dark:text-[#9CC8BE]">barang kesayangan.</em></>}
+  return (
+    <section id="services" className="py-20 bg-white dark:bg-[#020508] border-b border-gray-100 dark:border-white/[0.06] transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
+          <div className="max-w-xl">
+            <h2 className="font-extrabold text-3xl sm:text-4xl text-gray-900 dark:text-white tracking-tight">
+              {locale === "en" ? "Core Services" : "Layanan Utama"}
             </h2>
-          </div>
-          <div className="max-w-2xl service-heading-reveal service-heading-reveal-delay">
-            <p className="text-sm leading-8 text-[#68736D] dark:text-slate-300 sm:text-base">
-              {isEn
-                ? "Clothing, bags, shoes and home essentials are handled with care, so the things you use every day stay ready for what comes next."
-                : "Pakaian, tas, sepatu, dan perlengkapan rumah Anda kami rawat dengan cermat agar selalu siap digunakan kembali."}
+            <p className="mt-3 text-base sm:text-lg text-gray-600 dark:text-slate-200">
+              {locale === "en"
+                ? "Expert garment treatment and laundry solutions for every textile requirement."
+                : "Perawatan pakaian profesional dan solusi laundry untuk setiap jenis serat kain."}
             </p>
+          </div>
+
+          <div className="mt-4 md:mt-0">
+            <a
+              href={getNearestChatUrl(chatMessage)}
+              onClick={(e) => {
+                e.preventDefault();
+                openNearestChat(chatMessage);
+              }}
+              className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-gray-900 dark:text-[#5CE1D6] hover:text-[#00C4D4] dark:hover:text-[#80EFE7] transition-colors cursor-pointer"
+            >
+              <span>{locale === "en" ? "Consult with our garment specialist" : "Konsultasi dengan spesialis laundry kami"}</span>
+            </a>
           </div>
         </div>
 
-        <div className="service-marquee-viewport mt-12">
-          <div className="service-marquee-track">
-            {[0, 1].map((copy) => (
-              <div key={copy} className="service-marquee-group" aria-hidden={copy === 1}>
-                {services.map((svc) => {
-                  const Icon = svc.icon;
-                  return (
-                    <article key={`${copy}-${svc.number}`} className="service-card group relative flex min-h-[390px] w-[82vw] max-w-[360px] shrink-0 flex-col overflow-hidden rounded-[26px] border border-white/70 bg-white/65 p-6 shadow-[0_16px_45px_-35px_rgba(35,55,47,0.35)] backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-[#9EB7A9] hover:bg-white/90 hover:shadow-[0_28px_65px_-38px_rgba(35,55,47,0.48)] dark:border-white/10 dark:bg-[#142321]/75 dark:hover:bg-[#192D2A] sm:min-h-[410px] sm:w-[340px] sm:p-7">
-                      <div className={`pointer-events-none absolute inset-0 -z-0 bg-gradient-to-br ${svc.tone} opacity-35 transition-opacity duration-500 group-hover:opacity-60 dark:opacity-[0.10]`} />
-                      <div className="relative z-10 flex items-center justify-between">
-                        <span className="font-headline text-sm tracking-widest text-[#9AA69C] dark:text-[#9BB9AC]">{svc.number}</span>
-                        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#B9C9BD]/80 bg-white/65 text-[#66877A] shadow-sm transition duration-500 group-hover:rotate-[-8deg] group-hover:scale-110 group-hover:bg-[#78958F] group-hover:text-white dark:border-white/15 dark:bg-white/5 dark:text-[#B6D3C7]"><Icon className="h-6 w-6" strokeWidth={1.55} /></span>
-                      </div>
-                      <div className="relative z-10 mt-14">
-                        <h3 className="font-subheadline text-[25px] font-medium leading-tight tracking-tight text-[#283430] dark:text-white">{svc.title}</h3>
-                        <p className="mt-4 text-sm leading-7 text-[#68736D] dark:text-slate-300">{svc.description}</p>
-                      </div>
-                      <div className="relative z-10 mt-auto border-t border-[#BFCBBF]/60 pt-5 dark:border-white/10">
-                        <p className="text-[9px] font-bold uppercase tracking-[0.19em] text-[#84958A] dark:text-[#A4C1B4]">{isEn ? "Service includes" : "Jenis perawatan"}</p>
-                        <p className="mt-2 text-xs leading-6 text-[#56675E] dark:text-slate-300">{svc.examples}</p>
-                      </div>
-                    </article>
-                  );
-                })}
+        {/* 4 Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((svc, idx) => {
+            const Icon = svc.icon;
+            return (
+              <div
+                key={idx}
+                className="group relative bg-[#F8F9FA] dark:bg-gradient-to-b dark:from-[#132431] dark:to-[#0E1A24] hover:bg-white dark:hover:from-[#172B3A] dark:hover:to-[#11202C] rounded-2xl p-7 border border-gray-200/80 dark:border-white/[0.06] hover:border-gray-300 dark:hover:border-white/[0.14] transition-all duration-300 hover:shadow-xl dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_10px_30px_-10px_rgba(0,0,0,0.5)] dark:hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_20px_40px_-15px_rgba(0,0,0,0.7)] flex flex-col justify-between hover:-translate-y-1"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-xl bg-white dark:bg-[#152B3A] border border-gray-200/80 dark:border-transparent dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] group-hover:bg-[#00C4D4] dark:group-hover:bg-[#00C4D4] group-hover:text-white dark:group-hover:text-gray-950 text-gray-800 dark:text-slate-200 flex items-center justify-center mb-5 transition-colors shadow-xs">
+                    <Icon className="w-6 h-6" />
+                  </div>
+
+                  <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-3 group-hover:text-[#00C4D4] dark:group-hover:text-[#5CE1D6] transition-colors">
+                    {svc.title}
+                  </h3>
+
+                  <p className="text-sm text-gray-600 dark:text-slate-300 leading-relaxed mb-6">
+                    {svc.description}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-gray-200/60 dark:border-white/10 space-y-2.5">
+                  {svc.features.map((item, fIdx) => (
+                    <div key={fIdx} className="flex items-center gap-2.5 text-xs sm:text-sm text-gray-700 dark:text-slate-200 font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#00C4D4] dark:bg-[#5CE1D6]" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
       </div>

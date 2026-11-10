@@ -27,12 +27,12 @@ export default function Footer({ outlets }: FooterProps) {
   const chatMessage = t("common.chatPrompt");
 
   return (
-    <footer className="bg-[#020406] text-gray-400 pt-16 pb-12 font-body font-[family-name:var(--font-body)]">
+    <footer className="bg-[#020406] text-gray-400 pt-16 pb-12 border-t border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/[0.06]">
           
           {/* Brand Info */}
-          <div data-aos="fade-right" data-aos-delay="100" className="md:col-span-5 space-y-4">
+          <div className="md:col-span-5 space-y-4">
             <Link href="/" className="inline-block group" aria-label="Laverie Premium Laundry">
               <div className="relative h-10 w-[207px] transition-transform duration-200 group-hover:scale-[1.02]">
                 <Image
@@ -81,8 +81,8 @@ export default function Footer({ outlets }: FooterProps) {
           </div>
 
           {/* Navigation Links */}
-          <div data-aos="fade-up" data-aos-delay="200" className="md:col-span-3 space-y-3">
-            <h4 className="font-subheadline font-[family-name:var(--font-subheadline)] font-medium text-base text-white tracking-wide">
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="font-bold text-sm text-white uppercase tracking-wider">
               {t("footer.quickLinks")}
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -110,8 +110,8 @@ export default function Footer({ outlets }: FooterProps) {
           </div>
 
           {/* Location & Operating Hours */}
-          <div data-aos="fade-left" data-aos-delay="300" className="md:col-span-4 space-y-3">
-            <h4 className="font-subheadline font-[family-name:var(--font-subheadline)] font-medium text-base text-white tracking-wide">
+          <div className="md:col-span-4 space-y-3">
+            <h4 className="font-bold text-sm text-white uppercase tracking-wider">
               {t("footer.locations")}
             </h4>
 

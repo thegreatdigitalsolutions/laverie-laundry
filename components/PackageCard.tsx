@@ -47,10 +47,10 @@ export default function PackageCard({ pkg }: PackageCardProps) {
 
         {/* Package Header */}
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-subheadline font-[family-name:var(--font-subheadline)] font-medium text-2xl sm:text-3xl text-gray-900 dark:text-white tracking-tight">
+          <h3 className="font-extrabold text-2xl text-gray-900 dark:text-white tracking-tight">
             {pkg.name}
           </h3>
-          <div className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg border font-body font-[family-name:var(--font-body)] ${
+          <div className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg border ${
             pkg.popular
               ? "bg-[#00C4D4]/15 dark:bg-[#00C4D4]/20 text-[#00838F] dark:text-[#38D9CD] border-[#00C4D4]/30"
               : "bg-gray-100 dark:bg-white/[0.06] text-gray-700 dark:text-slate-200 border-gray-200/80 dark:border-white/10"
@@ -61,14 +61,14 @@ export default function PackageCard({ pkg }: PackageCardProps) {
         </div>
 
         {/* Short Description */}
-        <p className="font-body font-[family-name:var(--font-body)] text-sm sm:text-base text-gray-600 dark:text-slate-300 mb-6 leading-relaxed font-normal">
+        <p className="text-sm sm:text-base text-gray-600 dark:text-slate-300 mb-6 leading-relaxed">
           {description}
         </p>
 
         {/* Pricing Block */}
-        <div className={`pb-6 mb-6 border-b font-body font-[family-name:var(--font-body)] ${pkg.popular ? "border-[#00C4D4]/20 dark:border-[#00C4D4]/30" : "border-gray-100 dark:border-white/10"}`}>
+        <div className={`pb-6 mb-6 border-b ${pkg.popular ? "border-[#00C4D4]/20 dark:border-[#00C4D4]/30" : "border-gray-100 dark:border-white/10"}`}>
           <div className="flex items-baseline gap-2">
-            <span className={`font-subheadline font-[family-name:var(--font-subheadline)] font-bold tracking-tight ${
+            <span className={`font-extrabold tracking-tight ${
               pkg.popular
                 ? "text-3xl sm:text-4xl lg:text-5xl text-gray-900 dark:text-[#5CE1D6]"
                 : "text-3xl sm:text-4xl text-gray-900 dark:text-white"
@@ -85,7 +85,7 @@ export default function PackageCard({ pkg }: PackageCardProps) {
         </div>
 
         {/* Feature List */}
-        <div className="space-y-3.5 mb-8 font-body font-[family-name:var(--font-body)]">
+        <div className="space-y-3.5 mb-8">
           <p className="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-slate-200">
             {locale === "en" ? "What’s included:" : "Termasuk dalam paket:"}
           </p>

@@ -3,7 +3,6 @@ import { PackageItem, packages as defaultPackages } from "@/data/packages";
 import { FAQItem, faqs as defaultFaqs } from "@/data/faq";
 import { TestimonialItem, defaultTestimonials } from "@/data/testimonials";
 import { OutletItem, defaultOutlets } from "@/data/outlets";
-import { ProductItem, defaultProducts } from "@/data/products";
 import { translateIdToEn, translateListIdToEn } from "@/lib/translator";
 
 export interface AuthResponse {
@@ -194,7 +193,7 @@ async function enrichContentWithTranslations(raw: {
 }
 
 /**
- * Fetch all CMS content from Google Sheets (Packages, FAQs, Testimonials, Outlets, Products)
+ * Fetch all CMS content from Google Sheets (Packages, FAQs, Testimonials, Outlets)
  * Falls back to local default data if endpoint is unavailable or fails.
  */
 export async function getCMSContent(): Promise<{
@@ -202,19 +201,14 @@ export async function getCMSContent(): Promise<{
   faqs: FAQItem[];
   testimonials: TestimonialItem[];
   outlets: OutletItem[];
-  products: ProductItem[];
 }> {
   if (!GOOGLE_SCRIPT_URL) {
-    const enriched = await enrichContentWithTranslations({
+    return enrichContentWithTranslations({
       packages: defaultPackages,
       faqs: defaultFaqs,
       testimonials: defaultTestimonials,
       outlets: defaultOutlets,
     });
-    return {
-      ...enriched,
-      products: defaultProducts,
-    };
   }
 
   try {
@@ -224,16 +218,12 @@ export async function getCMSContent(): Promise<{
     });
 
     if (!response.ok) {
-      const enriched = await enrichContentWithTranslations({
+      return enrichContentWithTranslations({
         packages: defaultPackages,
         faqs: defaultFaqs,
         testimonials: defaultTestimonials,
         outlets: defaultOutlets,
       });
-      return {
-        ...enriched,
-        products: defaultProducts,
-      };
     }
 
     const data = await response.json();
@@ -250,34 +240,15 @@ export async function getCMSContent(): Promise<{
           : defaultOutlets,
     };
 
-    const enriched = await enrichContentWithTranslations(rawData);
-    return {
-      ...enriched,
-      products:
-        Array.isArray(data.products) && data.products.length > 0
-          ? data.products
-          : defaultProducts,
-    };
+    return enrichContentWithTranslations(rawData);
   } catch {
-    const enriched = await enrichContentWithTranslations({
+    return enrichContentWithTranslations({
       packages: defaultPackages,
       faqs: defaultFaqs,
       testimonials: defaultTestimonials,
       outlets: defaultOutlets,
     });
-    return {
-      ...enriched,
-      products: defaultProducts,
-    };
   }
-}
-
-/**
- * Fetch Products from Google Sheets
- */
-export async function getProducts(): Promise<ProductItem[]> {
-  const content = await getCMSContent();
-  return content.products || defaultProducts;
 }
 
 /**
@@ -511,46 +482,5 @@ export async function saveTestimonialsToSheet(
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Connection failed";
     return { success: false, error: `Failed to save testimonials: ${message}` };
-  }
-}
-
-/**
- * Save Products to Google Sheet (Sheet name: products)
- */
-export async function saveProductsToSheet(
-  productsList: ProductItem[]
-): Promise<{ success: boolean; message?: string; error?: string }> {
-  if (!GOOGLE_SCRIPT_URL) {
-    return { success: false, error: "GOOGLE_SCRIPT_URL is not configured in environment variables." };
-  }
-
-  try {
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-      body: JSON.stringify({
-        action: "updateProducts",
-        products: productsList,
-      }),
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      return { success: false, error: `Server returned status ${response.status}` };
-    }
-
-    const data = await response.json();
-    if (!data.success && data.error && data.error.includes("Unknown action")) {
-      return {
-        success: false,
-        error: "Google Apps Script Web App is running an older deployment. In Apps Script, click Deploy > Manage deployments > Edit (pencil icon) > Version: New version > Deploy.",
-      };
-    }
-    return data;
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Connection failed";
-    return { success: false, error: `Failed to save products: ${message}` };
   }
 }
