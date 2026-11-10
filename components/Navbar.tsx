@@ -43,7 +43,7 @@ export default function Navbar() {
       setIsScrolled(scrollY > 20);
 
       // Determine active section based on current scroll position
-      const sections = ["hero", "about", "services", "packages", "faq"];
+      const sections = ["hero", "about", "services", "packages", "faq", "outlets"];
       const scrollOffset = scrollY + 160;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -66,8 +66,9 @@ export default function Navbar() {
     { name: t("nav.home") || (locale === "en" ? "Home" : "Beranda"), href: "#hero", id: "hero" },
     { name: t("nav.philosophy") || (locale === "en" ? "Our Philosophy" : "Filosofi Kami"), href: "#about", id: "about" },
     { name: t("nav.services") || (locale === "en" ? "Services" : "Layanan"), href: "#services", id: "services" },
-    { name: t("nav.packages") || t("nav.products") || (locale === "en" ? "Packages" : "Pilihan Paket"), href: "#packages", id: "packages" },
+    { name: locale === "en" ? "Price List" : "Pricelist", href: "#packages", id: "packages" },
     { name: t("nav.faq") || "FAQ", href: "#faq", id: "faq" },
+    { name: locale === "en" ? "Outlets" : "Outlet", href: "#outlets", id: "outlets" },
   ];
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {

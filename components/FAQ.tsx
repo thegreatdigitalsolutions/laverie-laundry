@@ -21,21 +21,22 @@ export default function FAQ({ items }: FAQProps) {
   };
 
   return (
-    <section id="faq" className="py-20 bg-white dark:bg-[#03070C] transition-colors duration-300">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="relative overflow-hidden py-24 sm:py-32 bg-[#F8F7F2] dark:bg-[#0A1417] transition-colors duration-500">
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div data-aos="fade-down" className="text-center max-w-xl mx-auto mb-16">
-          <h2 className="font-headline font-[family-name:var(--font-headline)] font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 dark:text-white tracking-tight">
+        <div data-aos="fade-down" className="mx-auto mb-14 grid max-w-4xl gap-5 text-center md:grid-cols-[0.85fr_1.15fr] md:items-end md:text-left">
+          <div><span className="mb-5 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.28em] text-[#78958F] dark:text-[#9CC8BE]"><span className="h-px w-8 bg-current" />THE LAVERIE EXPERIENCE · 03</span>
+          <h2 className="font-headline font-[family-name:var(--font-headline)] font-light text-4xl sm:text-5xl lg:text-6xl text-[#26312E] dark:text-white tracking-tight">
             {t("faq.title")}
-          </h2>
-          <p className="mt-3 font-subheadline font-[family-name:var(--font-subheadline)] text-lg sm:text-xl text-gray-700 dark:text-slate-200">
-            {t("faq.subtitle")}
+          </h2></div>
+          <p className="mx-auto max-w-xl text-sm leading-8 text-[#68736D] dark:text-slate-300 md:pb-1">
+            {locale === "en" ? "A little clarity makes every experience more comfortable. Here are a few things you may want to know before placing your garments in our care." : "Kami percaya pengalaman yang nyaman dimulai dari informasi yang jelas. Temukan jawaban atas hal-hal yang mungkin ingin Anda ketahui sebelum mempercayakan pakaian kepada kami."}
           </p>
         </div>
 
         {/* Accordion List */}
-        <div data-aos="fade-up" data-aos-delay="100" className="divide-y divide-gray-200 dark:divide-white/10 border-y border-gray-200 dark:border-white/10 font-body font-[family-name:var(--font-body)]">
+        <div data-aos="fade-up" data-aos-delay="100" className="divide-y divide-[#DCDDD4] border-y border-[#DCDDD4] font-body font-[family-name:var(--font-body)] dark:divide-white/10 dark:border-white/10">
           {displayFaqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             const question = localize(faq, "question");
@@ -52,12 +53,12 @@ export default function FAQ({ items }: FAQProps) {
                 <button
                   type="button"
                   onClick={() => toggleAccordion(idx)}
-                  className="w-full py-6 text-left flex items-center justify-between gap-4 font-subheadline font-[family-name:var(--font-subheadline)] font-medium text-lg sm:text-xl text-gray-900 dark:text-white hover:text-[#00C4D4] dark:hover:text-[#5CE1D6] transition-colors cursor-pointer tracking-tight"
+                  className="w-full py-6 text-left flex items-center justify-between gap-4 font-subheadline font-[family-name:var(--font-subheadline)] font-medium text-lg sm:text-xl text-[#303B36] dark:text-white hover:text-[#78958F] dark:hover:text-[#9CC8BE] transition-colors cursor-pointer tracking-tight"
                   aria-expanded={isOpen}
                 >
                   <span>{question}</span>
                   <span
-                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ease-out bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-slate-300 ${
+                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ease-out bg-[#E9ECE5] dark:bg-white/10 text-[#78958F] dark:text-slate-300 ${
                       isOpen ? "rotate-180 text-[#00C4D4] dark:text-[#5CE1D6]" : ""
                     }`}
                   >
@@ -73,7 +74,7 @@ export default function FAQ({ items }: FAQProps) {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <div className="pb-6 pt-1 text-sm sm:text-base text-gray-600 dark:text-slate-200 leading-relaxed">
+                    <div className="pb-6 pt-1 text-sm sm:text-base text-[#68736D] dark:text-slate-300 leading-8">
                       <p>{answer}</p>
                     </div>
                   </div>

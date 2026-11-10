@@ -99,16 +99,15 @@ export default async function Home() {
         <main className="flex-1">
           <Hero />
           <Philosophy />
-          <OutletsSection outlets={outlets} />
-          <SectionDivider />
-          <CoreServices />
-          <StatsDark />
-          <Packages items={packages} />
-          <SectionDivider />
           <Testimonials items={testimonials} />
+          <StatsDark />
+          <CoreServices />
+          <SectionDivider />
+          <Packages items={packages} />
           <SectionDivider />
           <FAQ items={faqs} />
           <SectionDivider />
+          <OutletsSection outlets={outlets} />
         </main>
         <Footer outlets={outlets} />
       </div>
