@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, Clock, MapPin } from "lucide-react";
+import { Clock, MapPin, Truck } from "lucide-react";
 import { useOutlets } from "@/context/OutletsContext";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -14,10 +14,15 @@ function WhatsAppIcon({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export default function CTA() {
-  const { openNearestChat, getNearestChatUrl } = useOutlets();
+  const { openNearestChat, getNearestChatUrl, isWithin5km } = useOutlets();
   const { t, locale } = useLanguage();
 
   const chatMessage = t("common.chatPrompt");
+  const buttonText = isWithin5km
+    ? t("nav.bookWhatsapp")
+    : locale === "en"
+    ? "Chat with Us"
+    : "Chat dengan Kami";
 
   return (
     <section className="py-24 bg-white dark:bg-[#020508] text-gray-900 dark:text-white relative overflow-hidden transition-colors duration-300">
@@ -51,31 +56,30 @@ export default function CTA() {
               e.preventDefault();
               openNearestChat(chatMessage);
             }}
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-[#00838F] hover:bg-[#0096A4] active:bg-[#00707B] text-white font-semibold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-md shadow-[#00838F]/25 hover:shadow-lg hover:shadow-[#00838F]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-[#607F78] hover:bg-[#4D6962] active:bg-[#3E554F] text-white font-semibold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-md shadow-[#607F78]/25 hover:shadow-lg hover:shadow-[#607F78]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
             <WhatsAppIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-transform duration-200" />
-            <span>{t("nav.bookWhatsapp")}</span>
+            <span>{buttonText}</span>
           </a>
 
           <a
             href="#packages"
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-white/80 hover:bg-white dark:bg-white/[0.08] dark:hover:bg-white/[0.14] text-gray-950 dark:text-white border border-gray-300/80 hover:border-gray-500 dark:border-white/20 dark:hover:border-white/35 backdrop-blur-md font-semibold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0"
+            className="group w-full sm:w-auto inline-flex items-center justify-center px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-white/80 hover:bg-white dark:bg-white/[0.08] dark:hover:bg-white/[0.14] text-gray-950 dark:text-white border border-gray-300/80 hover:border-gray-500 dark:border-white/20 dark:hover:border-white/35 backdrop-blur-md font-semibold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0"
           >
             <span>{t("hero.exploreBtn")}</span>
-            <ArrowRight className="w-4 h-4 text-gray-700 dark:text-slate-300 group-hover:translate-x-0.5 transition-transform duration-200" />
           </a>
         </div>
 
         {/* Trust Points */}
         <div className="mt-14 pt-8 border-t border-gray-100 dark:border-white/10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-gray-500 dark:text-slate-300">
+          <span className="flex items-center gap-2 font-bold text-emerald-700 dark:text-emerald-300">
+            <Truck className="w-4 h-4 text-[#25D366]" /> {locale === "en" ? "FREE Pickup & Delivery (Radius 5 km: PIK & Pluit)" : "GRATIS Antar Jemput (Radius 5 km: PIK & Pluit)"}
+          </span>
           <span className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> {locale === "en" ? "12-Hour Express Turnaround" : "Layanan Kilat 12 Jam"}
           </span>
           <span className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> {locale === "en" ? "Selected Hotels & Doorstep Areas" : "Area Hotel & Penjemputan Pilihan"}
-          </span>
-          <span className="flex items-center gap-2">
-            <WhatsAppIcon className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6] shrink-0" /> {locale === "en" ? "Instant WhatsApp Confirmation" : "Konfirmasi Cepat via WhatsApp"}
+            <MapPin className="w-4 h-4 text-[#00C4D4] dark:text-[#5CE1D6]" /> {locale === "en" ? "PIK 1, PIK 2, Muara Karang, Pluit, Greenbay, Pantai Mutiara" : "PIK 1, PIK 2, Muara Karang, Pluit, Greenbay, Pantai Mutiara"}
           </span>
         </div>
       </div>

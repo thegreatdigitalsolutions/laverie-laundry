@@ -8,7 +8,6 @@ import Packages from "@/components/Packages";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
-import SectionDivider from "@/components/SectionDivider";
 import { getCMSContent } from "@/lib/sheets";
 import { OutletsProvider } from "@/context/OutletsContext";
 
@@ -82,7 +81,7 @@ const structuredData = {
 };
 
 export default async function Home() {
-  const { packages, faqs, testimonials, outlets } = await getCMSContent();
+  const { packages, faqs, testimonials, outlets, products } = await getCMSContent();
 
   return (
     <OutletsProvider outlets={outlets}>
@@ -98,11 +97,8 @@ export default async function Home() {
           <Hero />
           <Philosophy />
           <CoreServices />
-          <SectionDivider />
-          <Packages items={packages} />
-          <SectionDivider />
+          <Packages items={packages} products={products} />
           <FAQ items={faqs} />
-          <SectionDivider />
           <OutletsSection outlets={outlets} />
           <Testimonials items={testimonials} />
           <StatsDark />

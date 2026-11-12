@@ -5,6 +5,7 @@ import { ChevronDown, MessageCircle } from "lucide-react";
 import { faqs, FAQItem } from "@/data/faq";
 import { useOutlets } from "@/context/OutletsContext";
 import { useLanguage } from "@/context/LanguageContext";
+import SectionHeader from "@/components/SectionHeader";
 
 interface FAQProps {
   items?: FAQItem[];
@@ -27,15 +28,20 @@ export default function FAQ({ items }: FAQProps) {
       <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div data-aos="fade-down" className="mx-auto mb-14 grid max-w-4xl gap-5 text-center md:grid-cols-[0.85fr_1.15fr] md:items-end md:text-left">
-          <div><span className="mb-5 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.28em] text-[#78958F] dark:text-[#9CC8BE]"><span className="h-px w-8 bg-current" />THE LAVERIE EXPERIENCE · 03</span>
-          <h2 className="font-headline font-[family-name:var(--font-headline)] font-light text-4xl sm:text-5xl lg:text-6xl text-[#26312E] dark:text-white tracking-tight">
-            {t("faq.title")}
-          </h2></div>
-          <p className="mx-auto max-w-xl text-sm leading-8 text-[#68736D] dark:text-slate-300 md:pb-1">
-            {locale === "en" ? "A little clarity makes every experience more comfortable. Here are a few things you may want to know before placing your garments in our care." : "Kami percaya pengalaman yang nyaman dimulai dari informasi yang jelas. Temukan jawaban atas hal-hal yang mungkin ingin Anda ketahui sebelum mempercayakan pakaian kepada kami."}
-          </p>
-        </div>
+        <SectionHeader
+          title={t("faq.title")}
+          quote={t("faq.subtitle")}
+          p1={
+            locale === "en"
+              ? "A little clarity makes every experience more comfortable. Here are answers to common questions about our services, pickup coordination, and garment hygiene."
+              : "Kami percaya pengalaman yang nyaman dimulai dari informasi yang transparan. Temukan jawaban seputar layanan penjemputan, waktu pengerjaan, dan standar higienitas kami."
+          }
+          p2={
+            locale === "en"
+              ? "Free pickup and delivery is available within a 5 km radius across PIK and Pluit. If your location is further, our concierge is always ready via WhatsApp."
+              : "Fasilitas gratis antar jemput berlaku untuk radius 5 km di area PIK dan Pluit. Jika Anda berada di luar radius tersebut, tim kami siap membantu via WhatsApp."
+          }
+        />
 
         {/* Accordion List */}
         <div data-aos="fade-up" data-aos-delay="100" className="divide-y divide-[#DCDDD4] border-y border-[#DCDDD4] font-body font-[family-name:var(--font-body)] dark:divide-white/10 dark:border-white/10">

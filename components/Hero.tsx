@@ -2,7 +2,7 @@
 
 import React, { useCallback } from "react";
 import Image from "next/image";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useOutlets } from "@/context/OutletsContext";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -15,10 +15,15 @@ function WhatsAppIcon({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export default function Hero() {
-  const { openNearestChat, getNearestChatUrl } = useOutlets();
-  const { t } = useLanguage();
+  const { openNearestChat, getNearestChatUrl, isWithin5km } = useOutlets();
+  const { t, locale } = useLanguage();
 
   const chatMessage = t("common.chatPrompt");
+  const bookBtnText = isWithin5km
+    ? t("hero.bookBtn")
+    : locale === "en"
+    ? "Chat with Us"
+    : "Chat dengan Kami";
 
   const scrollToNextSection = useCallback(() => {
     const nextSection = document.getElementById("about") || document.getElementById("process");
@@ -100,10 +105,10 @@ export default function Hero() {
                   e.preventDefault();
                   openNearestChat(chatMessage);
                 }}
-                className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#607F78] hover:bg-[#0096A4] active:bg-[#00707B] text-white text-sm font-semibold tracking-wide transition-all duration-200 shadow-md shadow-[#607F78]/25 hover:shadow-lg hover:shadow-[#607F78]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#607F78] hover:bg-[#4D6962] active:bg-[#3E554F] text-white text-sm font-semibold tracking-wide transition-all duration-200 shadow-md shadow-[#607F78]/25 hover:shadow-lg hover:shadow-[#607F78]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
                 <WhatsAppIcon className="w-4 h-4 text-white group-hover:scale-110 transition-transform duration-200" />
-                <span>{t("hero.bookBtn")}</span>
+                <span>{bookBtnText}</span>
               </a>
 
               {/* Secondary: High-contrast frosted glass with micro-arrow */}
@@ -119,10 +124,9 @@ export default function Hero() {
                     window.scrollTo({ top: targetY, behavior: "smooth" });
                   }
                 }}
-                className="group inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/80 hover:bg-white dark:bg-white/[0.08] dark:hover:bg-white/[0.14] text-gray-950 dark:text-white border border-gray-300/80 hover:border-gray-500 dark:border-white/20 dark:hover:border-white/35 backdrop-blur-md font-semibold text-sm tracking-wide transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-xs hover:shadow-sm"
+                className="group inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/80 hover:bg-white dark:bg-white/[0.08] dark:hover:bg-white/[0.14] text-gray-950 dark:text-white border border-gray-300/80 hover:border-gray-500 dark:border-white/20 dark:hover:border-white/35 backdrop-blur-md font-semibold text-sm tracking-wide transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-xs hover:shadow-sm"
               >
                 <span>{t("hero.exploreBtn")}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-gray-700 dark:text-slate-300 group-hover:translate-x-0.5 transition-transform duration-200" />
               </a>
             </div>
           </div>

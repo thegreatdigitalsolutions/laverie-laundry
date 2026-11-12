@@ -4,13 +4,14 @@ import React from "react";
 import { Star } from "lucide-react";
 import { TestimonialItem, defaultTestimonials } from "@/data/testimonials";
 import { useLanguage } from "@/context/LanguageContext";
+import SectionHeader from "@/components/SectionHeader";
 
 interface TestimonialsProps {
   items?: TestimonialItem[];
 }
 
 export default function Testimonials({ items }: TestimonialsProps) {
-  const { t, localize } = useLanguage();
+  const { t, localize, locale } = useLanguage();
   const reviews = items && items.length > 0 ? items : defaultTestimonials;
 
   return (
@@ -18,14 +19,20 @@ export default function Testimonials({ items }: TestimonialsProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div data-aos="fade-down" className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="font-headline font-[family-name:var(--font-headline)] font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 dark:text-white tracking-tight">
-            {t("testimonials.title")}
-          </h2>
-          <p className="mt-3 font-subheadline font-[family-name:var(--font-subheadline)] text-lg sm:text-xl text-gray-700 dark:text-slate-200">
-            {t("testimonials.subtitle")}
-          </p>
-        </div>
+        <SectionHeader
+          title={t("testimonials.title")}
+          quote={t("testimonials.subtitle")}
+          p1={
+            locale === "en"
+              ? "We take pride in earning the trust of discerning guests and residents who demand immaculate fabric care and punctual service."
+              : "Sebuah kehormatan bagi kami dipercaya oleh tamu hotel berbintang, wisatawan, dan residen lokal yang mengutamakan kualitas dan ketepatan waktu."
+          }
+          p2={
+            locale === "en"
+              ? "Discover how our attentive approach transforms everyday laundry into effortless peace of mind."
+              : "Simak bagaimana kepedulian kami pada setiap detail memberikan rasa nyaman dan kepraktisan tanpa rasa khawatir."
+          }
+        />
 
         {/* 3 Review Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-body font-[family-name:var(--font-body)]">
