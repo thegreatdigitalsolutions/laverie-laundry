@@ -212,7 +212,7 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
                 
                 const buttonText = isWithin5km
                   ? (locale === "en" ? "Order Pickup (Free 5 km)" : "Pesan Antar Jemput")
-                  : t("about.chatHub");
+                  : (locale === "en" ? "Chat with Us" : "Chat dengan Kami");
 
                 const directMsg = isWithin5km
                   ? (locale === "en"

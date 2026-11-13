@@ -237,7 +237,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       hoursLabel: "Jam Operasional",
       dispatchLabel: "Jangkauan Pengantaran",
       openMaps: "Maps",
-      chatHub: "Chat with Us",
+      chatHub: "Chat dengan Kami",
       changeLocation: "Ganti Lokasi",
     },
     cta: {
