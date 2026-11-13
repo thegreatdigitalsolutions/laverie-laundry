@@ -32,7 +32,7 @@ export default function StatsDark() {
 
   const metrics = [
     {
-      value: `${totalTons}+ Ton`,
+      value: isEn ? `${totalTons}+ Tons` : `${totalTons}+ Ton`,
       label: isEn ? "Tons of Laundry Processed" : "Ton Cucian Diproses",
       description: isEn
         ? `Over ${formattedKg} kg of everyday clothes and fine home linens washed with eco-friendly formulas since Jan 2024.`
@@ -46,14 +46,14 @@ export default function StatsDark() {
         : "Puluhan ribu gaun sutra, jas, batik tulis, sepatu, dan tas berharga dirawat satuan dengan standar atelier.",
     },
     {
-      value: "100% Free",
+      value: isEn ? "100% Free" : "100% Gratis",
       label: isEn ? "Free Pickup & Delivery (5 km)" : "Gratis Antar Jemput (5 km)",
       description: isEn
         ? "Complimentary doorstep service for PIK 1, PIK 2, Muara Karang, Pluit, Greenbay, and Pantai Mutiara."
         : "Layanan penjemputan gratis untuk PIK 1, PIK 2, Muara Karang, Pluit, Greenbay, dan Pantai Mutiara.",
     },
     {
-      value: "12 Jam",
+      value: isEn ? "12 Hours" : "12 Jam",
       label: isEn ? "Same-Day Express" : "Layanan Kilat Hari yang Sama",
       description: isEn
         ? "Picked up before 10 AM, returned fresh, crisp, and sealed before 10 PM dinner."
