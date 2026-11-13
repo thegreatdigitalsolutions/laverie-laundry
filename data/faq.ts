@@ -42,9 +42,9 @@ export const faqs: FAQItem[] = [
     question: "Apa saja metode pembayaran yang diterima?",
     question_en: "What are the payment methods accepted?",
     answer:
-      "Kami mendukung pembayaran digital praktis termasuk QRIS (GoPay, OVO, Dana, BCA Mobile), Transfer Bank, Kartu Kredit/Debit, serta tagihan kamar hotel bagi tamu hotel mitra.",
+      "Untuk saat ini, metode pembayaran yang tersedia hanya dapat dilakukan melalui transfer bank atau pembayaran tunai (cash).",
     answer_en:
-      "We support seamless digital payments including Indonesian QRIS (GoPay, OVO, Dana, BCA Mobile), Bank Transfer, Credit/Debit cards, and room billing charge agreements for partner hotel guests.",
+      "Currently, the available payment methods are only via bank transfer or cash.",
   },
   {
     question: "Berapa jumlah minimum pesanan untuk penjemputan laundry?",

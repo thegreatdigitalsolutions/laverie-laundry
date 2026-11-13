@@ -11,36 +11,36 @@ export interface TestimonialItem {
 export const defaultTestimonials: TestimonialItem[] = [
   {
     name: "Marcus Vance",
-    role: "Wisatawan Bisnis & Tamu Hotel",
+    role: "Pelaku Perjalanan Bisnis & Tamu Hotel",
     role_en: "Business Traveler & Hotel Guest",
-    hotel: "The Seminyak Suite Hotel",
+    hotel: "Swissôtel Jakarta PIK Avenue",
     rating: 5,
     content:
-      "Menyerahkan jas dan kemeja saya ke resepsionis jam 9:30 pagi sebelum rapat. Jam 7 malam saat kembali ke hotel, semuanya sudah digantung rapi dalam dust bag, disetrika uap sempurna, dan wangi segar. Layanan luar biasa!",
+      "Saya menyerahkan jas dan kemeja saya ke resepsionis hotel pukul 09.30 sebelum menghadiri beberapa pertemuan. Saat kembali ke hotel pukul 19.00, semuanya sudah tergantung rapi dalam kantong pelindung pakaian, disetrika dengan sempurna menggunakan uap, dan beraroma segar. Pelayanan yang luar biasa!",
     content_en:
-      "Handed my suit and shirts to the front desk at 9:30 AM before my meetings. By 7 PM when I returned to the hotel, everything was neatly hung in dust bags, steamed to perfection, and smelled wonderful. Exceptional service!",
+      "I dropped off my suit jacket and shirts at the hotel reception at 9:30 AM before attending meetings. When I returned to the hotel at 7:00 PM, everything was neatly hung in protective garment bags, perfectly steam-pressed, and smelling fresh. Excellent service!",
   },
   {
     name: "Sophia Chen",
-    role: "Digital Nomad & Penghuni Villa",
-    role_en: "Digital Nomad & Villa Resident",
-    hotel: "Canggu Eco Villas",
+    role: "Penghuni Apartemen & Konsultan",
+    role_en: "Apartment Resident & Consultant",
+    hotel: "Green Bay Pluit SeaView",
     rating: 5,
     content:
-      "Sangat jarang menemukan layanan laundry yang benar-benar menjaga pakaian berbahan halus dan sutra. Kemasan dan kualitas deterjen Laverie sangat mengesankan. Pengalaman laundry terbaik di Bali sejauh ini.",
+      "Menemukan layanan laundry yang benar-benar memperhatikan perawatan bahan halus dan sutra bukanlah hal mudah. Kualitas kemasan dan deterjen Laverie benar-benar di luar ekspektasi saya. Sejauh ini, pengalaman laundry terbaik di PIK dan Jakarta Utara!",
     content_en:
-      "Finding a laundry service that genuinely respects delicate fabrics and silks is rare. Laverie’s packaging and detergent quality blew me away. Best laundry experience in Bali by far.",
+      "Finding a laundry service that truly cares for delicate fabrics and silks is no easy feat. The quality of Laverie packaging and detergents truly exceeded my expectations. By far the best laundry experience in PIK and North Jakarta!",
   },
   {
     name: "David & Claire Miller",
-    role: "Wisatawan Liburan",
-    role_en: "Holiday Getaway Travelers",
-    hotel: "Alila Resort & Villas",
+    role: "Wisatawan Liburan & Tamu Hotel",
+    role_en: "Holiday Travelers & Hotel Guests",
+    hotel: "The Oakwood PIK Jakarta",
     rating: 5,
     content:
-      "Kami tidak ingin pulang dengan koper penuh baju liburan kotor. Laverie menjemput koper laundry kami langsung dari resepsionis resor dan mengantarkan semuanya segar serta terkemas rapi. Sangat sebanding dengan kualitasnya!",
+      "Kami tidak ingin pulang dengan koper penuh pakaian kotor setelah staycation di PIK. Laverie menjemput langsung tas laundry kami dari lobi hotel dan mengantarkannya kembali dalam keadaan bersih, segar, dan tertata ringkas. Sangat sepadan dengan kualitasnya!",
     content_en:
-      "We didn't want to fly back with a suitcase full of dirty holiday clothes. Laverie picked up our luggage bags directly from our resort reception and delivered everything fresh and compact. Worth every Rupiah!",
+      "We did not want to leave with suitcases full of dirty clothes after our staycation in PIK. Laverie picked up our laundry bags directly from the hotel lobby and delivered them clean, fresh, and neatly organized. Well worth every penny!",
   },
 ];
 

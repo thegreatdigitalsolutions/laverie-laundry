@@ -199,14 +199,16 @@ export default function Packages({ products }: PackagesProps) {
 
           {/* Download Brochure Button */}
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={handleDownloadBrochure}
+            <a
+              href="/laverie-price-list-brochure.png"
+              download="Laverie-Price-List-Brochure.png"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-2xl bg-[#607F78] hover:bg-[#4D6962] text-white font-semibold text-xs tracking-wider uppercase shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group"
             >
               <Download className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
-              <span>{isEn ? "Download Brochure (PDF)" : "Unduh Brosur (PDF)"}</span>
-            </button>
+              <span>{isEn ? "Download Brochure" : "Unduh Brosur"}</span>
+            </a>
           </div>
         </div>
 

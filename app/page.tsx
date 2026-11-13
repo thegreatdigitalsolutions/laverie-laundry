@@ -44,7 +44,7 @@ const structuredData = {
         addressRegion: "DKI Jakarta",
         addressCountry: "ID",
       },
-      openingHours: "Mo-Su 07:30-21:00",
+      openingHours: "Mo-Su 08:00-20:00",
       areaServed: [
         { "@type": "Place", name: "Pantai Indah Kapuk, Jakarta Utara" },
         { "@type": "City", name: "Jakarta Utara" },
@@ -68,7 +68,7 @@ const structuredData = {
         postalCode: "14450",
         addressCountry: "ID",
       },
-      openingHours: "Mo-Su 07:00-22:00",
+      openingHours: "Mo-Su 08:00-20:00",
       areaServed: [
         { "@type": "Place", name: "GreenBay Pluit, Jakarta Utara" },
         { "@type": "Place", name: "Pluit, Penjaringan" },

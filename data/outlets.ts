@@ -39,7 +39,7 @@ export const defaultOutlets: OutletItem[] = [
     description_en:
       "Serving prime areas of PIK 1, PIK 2, and Muara Karang within a 5 km radius. Enjoy complimentary FREE pickup and delivery directly to your doorstep or hotel lobby.",
     address: "Pantai Indah Kapuk (PIK), Jakarta Utara, DKI Jakarta",
-    openingHours: "07:30 AM – 09:00 PM Daily (Express cutoff 10:00 AM)",
+    openingHours: "08:00 AM – 08:00 PM Daily (Express cutoff 10:00 AM)",
     dispatch:
       "GRATIS Antar Jemput (Radius maks. 5 km): PIK 1, PIK 2, Muara Karang. Di luar 5 km silakan chat outlet.",
     dispatch_en:
@@ -65,7 +65,7 @@ export const defaultOutlets: OutletItem[] = [
       "Express valet hub at Bay Walk Mall, serving Greenbay, Pluit, Pantai Mutiara, and Muara Karang within 5 km with complimentary FREE pickup and delivery.",
     address:
       "Bay Walk Mall, Jl. Pluit Karang Ayu Barat LGMF 3, RT.20/RW.2, Pluit, Penjaringan, Jakarta Utara, DKI Jakarta 14450",
-    openingHours: "07:00 AM – 10:00 PM Daily (Express cutoff 10:00 AM)",
+    openingHours: "08:00 AM – 08:00 PM Daily (Express cutoff 10:00 AM)",
     dispatch:
       "GRATIS Antar Jemput (Radius maks. 5 km): Greenbay, Pluit, Pantai Mutiara, Muara Karang. Di luar 5 km silakan chat outlet.",
     dispatch_en:
