@@ -23,23 +23,12 @@ export function getOutletCoordinates(outlet: OutletItem): Coordinates {
     return { lat: parseFloat(coordMatch[1]), lng: parseFloat(coordMatch[2]) };
   }
 
-  // 3. Fallback based on city/district keywords
-  const text = `${outlet.tabName} ${outlet.name} ${outlet.address} ${combined}`.toLowerCase();
-
-  if (text.includes("pik") || text.includes("pantai indah kapuk") || text.includes("jakarta")) {
-    return { lat: -6.1105, lng: 106.7408 }; // PIK, North Jakarta
-  }
-  if (text.includes("seminyak")) {
-    return { lat: -8.6883, lng: 115.1580 }; // Seminyak, Bali
-  }
-  if (text.includes("canggu") || text.includes("pererenan") || text.includes("berawa")) {
-    return { lat: -8.6500, lng: 115.1333 }; // Canggu, Bali
-  }
-  if (text.includes("bali")) {
-    return { lat: -8.5069, lng: 115.2625 }; // Bali region
+  // 3. Fallback based on outlet identifier
+  if (outlet.id === "outlet-greenbay" || outlet.tabName.toLowerCase().includes("greenbay")) {
+    return { lat: -6.1097, lng: 106.7797 }; // Bay Walk Mall, GreenBay Pluit
   }
 
-  // Default coordinate (Jakarta)
+  // Default to PIK coordinates
   return { lat: -6.1105, lng: 106.7408 };
 }
 
@@ -83,6 +72,38 @@ export function findNearestOutlet(outlets: OutletItem[], userCoords: Coordinates
 }
 
 /**
+ * Check if coordinates are within the 5 km target service radius of any active outlet
+ */
+export function checkServiceRadius(
+  userCoords: Coordinates | null,
+  outlets: OutletItem[],
+  maxRadiusKm = 5
+): { isWithinRange: boolean; distanceKm: number | null; nearestOutlet: OutletItem | null } {
+  const activeOutlets = outlets.filter((o) => o.status !== "Inactive");
+  if (!userCoords || activeOutlets.length === 0) {
+    return { isWithinRange: true, distanceKm: null, nearestOutlet: activeOutlets[0] || null };
+  }
+
+  let minDistance = Infinity;
+  let nearest: OutletItem | null = null;
+
+  for (const outlet of activeOutlets) {
+    const coords = getOutletCoordinates(outlet);
+    const dist = calculateDistance(userCoords, coords);
+    if (dist < minDistance) {
+      minDistance = dist;
+      nearest = outlet;
+    }
+  }
+
+  return {
+    isWithinRange: minDistance <= maxRadiusKm,
+    distanceKm: Math.round(minDistance * 10) / 10,
+    nearestOutlet: nearest || activeOutlets[0] || null,
+  };
+}
+
+/**
  * Format a clean international WhatsApp URL
  */
 export function formatWhatsAppUrl(phone?: string, message?: string): string {
@@ -95,4 +116,3 @@ export function formatWhatsAppUrl(phone?: string, message?: string): string {
   }
   return encodedMsg ? `https://wa.me/?text=${encodedMsg}` : "https://wa.me/";
 }
-

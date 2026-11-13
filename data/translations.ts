@@ -2,9 +2,12 @@ export type Locale = "id" | "en";
 
 export interface TranslationDictionary {
   nav: {
+    home: string;
+    philosophy: string;
     about: string;
     process: string;
     services: string;
+    products: string;
     packages: string;
     faq: string;
     bookWhatsapp: string;
@@ -36,6 +39,10 @@ export interface TranslationDictionary {
     tag: string;
     title: string;
     subtitle: string;
+    introP1: string;
+    introP2: string;
+    priceLabel: string;
+    inquireBtn: string;
   };
   packages: {
     tag: string;
@@ -62,6 +69,17 @@ export interface TranslationDictionary {
     tag: string;
     title: string;
     subtitle: string;
+  };
+  philosophy: {
+    tag: string;
+    headline: string;
+    subheadline: string;
+    p1: string;
+    p2: string;
+    p3: string;
+    tagline: string;
+    brand: string;
+    brandTagline: string;
   };
   about: {
     tag: string;
@@ -110,10 +128,13 @@ export interface TranslationDictionary {
 export const translations: Record<Locale, TranslationDictionary> = {
   id: {
     nav: {
-      about: "Tentang",
+      home: "Beranda",
+      philosophy: "Filosofi Kami",
+      about: "Filosofi Kami",
       process: "Cara Kerja",
       services: "Layanan",
-      packages: "Paket",
+      products: "Pilihan Paket",
+      packages: "Pilihan Paket",
       faq: "FAQ",
       bookWhatsapp: "Pesan via WhatsApp",
       selectOutlet: "Pilih Outlet",
@@ -127,7 +148,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       bookBtn: "Pesan via WhatsApp",
       exploreBtn: "Lihat Pilihan Paket",
       expressBadge: "Layanan Kilat Hotel 12 Jam",
-      pickupBadge: "Antar Jemput Lobi & Pintu",
+      pickupBadge: "GRATIS Antar Jemput (Radius 5 km) · PIK & Pluit",
       careBadge: "Sanitasi Kain Berstandar Hotel",
     },
     process: {
@@ -142,9 +163,16 @@ export const translations: Record<Locale, TranslationDictionary> = {
       step3Desc: "Pakaian Anda dikembalikan dalam kemasan steril pelindung debu siap pakai sebelum jam 10 malam.",
     },
     services: {
-      tag: "Keahlian Perawatan Pakaian",
-      title: "Layanan Utama Kami",
-      subtitle: "Disesuaikan untuk pakaian harian, setelan bisnis, hingga kain sutra dan busana pesta mewah.",
+      tag: "Pengalaman Laverie · 01",
+      title: "Layanan Kami",
+      subtitle:
+        "Setiap pakaian memiliki ceritanya sendiri, dan setiap serat kain berhak mendapatkan perawatan yang memahami karakternya.",
+      introP1:
+        "Di Laverie, kami percaya perawatan pakaian istimewa lebih dari sekadar kebersihan. Ini tentang menjaga kualitas, menghargai detail, dan mengembalikan kenyamanan pada hal-hal yang Anda hargai.",
+      introP2:
+        "Dari kebutuhan harian hingga pakaian halus, linen istimewa, dan koleksi pribadi, setiap layanan dirancang dengan penuh kehati-hatian berdasarkan seni merawat. Temukan pendekatan perawatan laundry yang lebih bermakna, di mana setiap detail diperhatikan dan setiap pengalaman terasa elegan tanpa beban.",
+      priceLabel: "Harga",
+      inquireBtn: "Konsultasi & Pesan",
     },
     packages: {
       tag: "Harga Transparan Tanpa Biaya Tersembunyi",
@@ -173,6 +201,17 @@ export const translations: Record<Locale, TranslationDictionary> = {
       title: "Apa Kata Mereka Tentang Laverie",
       subtitle: "Dipercaya oleh wisatawan, tamu hotel berbintang, dan residen lokal yang mengutamakan kerapian.",
     },
+    philosophy: {
+      tag: "OUR PHILOSOPHY",
+      headline: "Simplify Your Day.",
+      subheadline: "Hidup selayaknya dinikmati, bukan dihabiskan untuk rutinitas tanpa henti.",
+      p1: "Kami percaya kemewahan sejati adalah memiliki lebih banyak waktu untuk hal-hal yang benar-benar bermakna. Momen tenang, hubungan yang hangat, kesenangan kecil, dan kebebasan menikmati setiap hari tanpa kekhawatiran tak perlu.",
+      p2: "Di Laverie, kami merawat setiap detail agar keseharian Anda terasa lebih ringan. Dari pakaian sehari-hari hingga busana paling istimewa, setiap helai kain dirawat dengan perhatian penuh dan keahlian terbaik.",
+      p3: "Karena kami memahami bahwa merawat pakaian Anda juga tentang merawat waktu berharga Anda.",
+      tagline: "Lebih sedikit kekhawatiran. Lebih banyak kenikmatan. Lebih banyak ruang untuk hidup.",
+      brand: "LAVERIE PREMIUM LAUNDRY",
+      brandTagline: "Simplify Your Day.",
+    },
     about: {
       tag: "Tentang Laverie Laundry",
       title: "Standar Baru Kenyamanan & Higienitas",
@@ -197,8 +236,8 @@ export const translations: Record<Locale, TranslationDictionary> = {
       addressLabel: "Alamat",
       hoursLabel: "Jam Operasional",
       dispatchLabel: "Jangkauan Pengantaran",
-      openMaps: "Buka Google Maps",
-      chatHub: "Chat Outlet Ini",
+      openMaps: "Maps",
+      chatHub: "Chat with Us",
       changeLocation: "Ganti Lokasi",
     },
     cta: {
@@ -220,12 +259,15 @@ export const translations: Record<Locale, TranslationDictionary> = {
   },
   en: {
     nav: {
-      about: "About",
+      home: "Home",
+      philosophy: "Our Philosophy",
+      about: "Our Philosophy",
       process: "How It Works",
       services: "Services",
+      products: "Packages",
       packages: "Packages",
       faq: "FAQ",
-      bookWhatsapp: "Book via WhatsApp",
+      bookWhatsapp: "Order via WhatsApp",
       selectOutlet: "Select Outlet",
     },
     hero: {
@@ -237,7 +279,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       bookBtn: "Book via WhatsApp",
       exploreBtn: "Explore Packages",
       expressBadge: "12H Hotel Express",
-      pickupBadge: "Lobby & Doorstep Pickup",
+      pickupBadge: "FREE Pickup & Delivery (5 km Radius) · PIK & Pluit",
       careBadge: "Hospitality Grade Sanitization",
     },
     process: {
@@ -252,9 +294,16 @@ export const translations: Record<Locale, TranslationDictionary> = {
       step3Desc: "Fresh, neatly folded, and travel-sealed garments are delivered back to your lobby or door before 10 PM.",
     },
     services: {
-      tag: "Garment Care Expertise",
-      title: "Our Core Services",
-      subtitle: "Custom-tailored for everyday essentials, business attire, delicate silks, and formal evening wear.",
+      tag: "The Laverie Experience · 01",
+      title: "Our Services",
+      subtitle:
+        "Every piece has its own story, and every fabric deserves care that understands its nature.",
+      introP1:
+        "At Laverie, we believe exceptional garment care goes beyond cleanliness. It is about preserving quality, respecting details, and bringing comfort back to the things you value.",
+      introP2:
+        "From everyday essentials to delicate garments, cherished linens, and personal collections, each service is thoughtfully designed around the art of caring. Discover a more considered approach to laundry, where every detail matters and every experience feels effortlessly refined.",
+      priceLabel: "Price",
+      inquireBtn: "Inquire & Book",
     },
     packages: {
       tag: "Transparent Pricing With No Hidden Fees",
@@ -283,6 +332,17 @@ export const translations: Record<Locale, TranslationDictionary> = {
       title: "Here’s what people are saying",
       subtitle: "Trusted by travelers, hotel guests, and local residents who demand immaculate fabric care.",
     },
+    philosophy: {
+      tag: "OUR PHILOSOPHY",
+      headline: "Simplify Your Day.",
+      subheadline: "Life is meant to be lived, not spent on endless routines.",
+      p1: "We believe that the finest luxury is having more time for what truly matters. The quiet moments, the meaningful connections, the little pleasures, and the freedom to enjoy each day without unnecessary worries.",
+      p2: "At Laverie, we take care of the details that make everyday life feel lighter. From your everyday essentials to your most delicate garments, every piece receives thoughtful attention and considered care.",
+      p3: "Because we understand that taking care of your clothes is also about taking care of your time.",
+      tagline: "Less to worry about. More to enjoy. More room for life.",
+      brand: "LAVERIE PREMIUM LAUNDRY",
+      brandTagline: "Simplify Your Day.",
+    },
     about: {
       tag: "About Laverie Laundry",
       title: "A New Standard in Convenience & Hygiene",
@@ -307,8 +367,8 @@ export const translations: Record<Locale, TranslationDictionary> = {
       addressLabel: "Address",
       hoursLabel: "Opening Hours",
       dispatchLabel: "Concierge Dispatch",
-      openMaps: "Open Google Maps",
-      chatHub: "Chat With This Hub",
+      openMaps: "Maps",
+      chatHub: "Chat with Us",
       changeLocation: "Change Location",
     },
     cta: {

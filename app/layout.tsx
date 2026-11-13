@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Libre_Baskerville, Manrope } from "next/font/google"
 import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 const SITE_URL = "https://www.laveriepremiumlaundry.com";
 const jakarta = Plus_Jakarta_Sans({
@@ -147,30 +148,29 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* Initialize dataLayer before loading the GTM container. */}
+        {/* Google Tag Manager */}
         <Script
-          id="google-tag-manager-init"
-          strategy="beforeInteractive"
+          id="google-tag-manager"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){window.dataLayer.push(arguments);}
               gtag('js', new Date());
-              window.dataLayer.push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-              });
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-PXH657QD');
             `,
           }}
         />
-        <Script
-          id="google-tag-manager"
-          src="https://www.googletagmanager.com/gtm.js?id=GTM-PXH657QD"
-          strategy="afterInteractive"
-        />
 
         <ThemeProvider>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            <BackgroundMusic />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
