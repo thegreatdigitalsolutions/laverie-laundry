@@ -8,6 +8,7 @@ import {
   Phone,
   Truck,
   MessageCircle,
+  Check,
 } from "lucide-react";
 import { OutletItem, defaultOutlets } from "@/data/outlets";
 import { useOutlets } from "@/context/OutletsContext";
@@ -23,29 +24,20 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
   const { t, localize, locale } = useLanguage();
   const visibleOutlets = outlets.filter((o) => o.status !== "Inactive");
 
-  const [activeOutletIndex, setActiveOutletIndex] = useState(() => {
-    if (nearestOutlet) {
-      const idx = visibleOutlets.findIndex((o) => o.id === nearestOutlet.id);
-      if (idx !== -1) return idx;
-    }
-    return 0;
-  });
+  const currentOutlet =
+    nearestOutlet ||
+    visibleOutlets[0] ||
+    outlets[0];
 
-  useEffect(() => {
-    if (nearestOutlet) {
-      const idx = visibleOutlets.findIndex((o) => o.id === nearestOutlet.id);
-      if (idx !== -1 && idx !== activeOutletIndex) {
-        setActiveOutletIndex(idx);
-      }
-    }
-  }, [nearestOutlet, visibleOutlets, activeOutletIndex]);
-
-  const currentOutlet = visibleOutlets[activeOutletIndex] || visibleOutlets[0] || outlets[0];
   const [isMapLoading, setIsMapLoading] = useState(true);
 
   useEffect(() => {
     setIsMapLoading(true);
-  }, [currentOutlet.id]);
+  }, [currentOutlet?.id]);
+
+  const handleSelectOutlet = (outlet: OutletItem) => {
+    selectOutlet(outlet);
+  };
 
   return (
     <section id="outlets" className="relative isolate overflow-hidden bg-[#F6F5F1] py-24 transition-colors duration-500 dark:bg-[#071018] sm:py-28">
@@ -76,19 +68,20 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
         {visibleOutlets.length > 1 && (
           <div data-aos="fade-up" data-aos-delay="80" className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {visibleOutlets.map((outlet, idx) => {
-              const isActive = idx === activeOutletIndex;
+              const isActive = outlet.id === currentOutlet.id;
+              const isPik =
+                outlet.id.toLowerCase().includes("pik") ||
+                outlet.tabName.toLowerCase().includes("pik");
+
               return (
                 <button
                   key={outlet.id}
                   type="button"
-                  onClick={() => {
-                    setActiveOutletIndex(idx);
-                    selectOutlet(outlet);
-                  }}
+                  onClick={() => handleSelectOutlet(outlet)}
                   aria-pressed={isActive}
                   className={`group flex items-center justify-between rounded-2xl border px-5 py-4 text-left transition-all duration-300 sm:px-6 cursor-pointer ${
                     isActive
-                      ? "border-[#78958F] bg-white shadow-[0_12px_35px_-24px_rgba(36,61,56,0.45)] dark:border-[#5D9991] dark:bg-[#10212A]"
+                      ? "border-[#607F78] bg-white shadow-[0_12px_35px_-24px_rgba(36,61,56,0.45)] dark:border-[#8BC9C1] dark:bg-[#10212A]"
                       : "border-[#E1E0D9] bg-white/45 hover:border-[#B6C7C1] hover:bg-white/80 dark:border-white/10 dark:bg-white/[0.025] dark:hover:bg-white/[0.06]"
                   }`}
                 >
@@ -96,7 +89,7 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
                     <span
                       className={`flex h-10 w-10 items-center justify-center rounded-full text-xs font-semibold transition-colors ${
                         isActive
-                          ? "bg-[#78958F] text-white"
+                          ? "bg-[#607F78] text-white"
                           : "bg-[#EAEDE8] text-[#75827C] dark:bg-white/10 dark:text-slate-300"
                       }`}
                     >
@@ -111,20 +104,24 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
                         {outlet.tabName}
                       </span>
                       <span className="mt-1 block text-xs text-[#929A95]">
-                        {outlet.id === "outlet-pik"
-                          ? "Coverage: PIK 1, PIK 2, Muara Karang (Radius 5 km)"
-                          : "Coverage: Greenbay, Pluit, Pantai Mutiara (Radius 5 km)"}
+                        {isPik
+                          ? locale === "en"
+                            ? "Coverage: PIK 1, PIK 2, Muara Karang (5 km Radius)"
+                            : "Cakupan: PIK 1, PIK 2, Muara Karang (Radius 5 km)"
+                          : locale === "en"
+                          ? "Coverage: Greenbay, Pluit, Pantai Mutiara (5 km Radius)"
+                          : "Cakupan: Greenbay, Pluit, Pantai Mutiara (Radius 5 km)"}
                       </span>
                     </span>
                   </span>
                   <span
                     className={`ml-3 flex h-8 w-8 items-center justify-center rounded-full border transition-all ${
                       isActive
-                        ? "border-[#78958F] text-[#78958F] dark:border-[#8BC9C1] dark:text-[#8BC9C1]"
-                        : "border-[#E3E5DF] text-[#A3AAA5] group-hover:translate-x-1 dark:border-white/10"
+                        ? "border-[#607F78] bg-[#607F78]/10 text-[#607F78] dark:border-[#8BC9C1] dark:bg-[#8BC9C1]/15 dark:text-[#8BC9C1]"
+                        : "border-[#E3E5DF] text-transparent group-hover:border-[#607F78]/50 dark:border-white/10"
                     }`}
                   >
-                    <ExternalLink className="h-3.5 w-3.5" />
+                    <Check className={`h-4 w-4 transition-transform duration-200 ${isActive ? "scale-100" : "scale-75 opacity-0"}`} />
                   </span>
                 </button>
               );
@@ -133,19 +130,16 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
         )}
 
         {/* Selected Outlet Details & Map Card */}
-        <div key={currentOutlet.id} className="grid overflow-hidden rounded-[28px] border border-[#E1E0D9] bg-white shadow-[0_24px_70px_-48px_rgba(30,47,43,0.35)] dark:border-white/10 dark:bg-[#0C1922] lg:grid-cols-[0.88fr_1.12fr] animate-outlet-change">
+        <div key={currentOutlet.id} className="grid overflow-hidden rounded-[28px] border border-[#E1E0D9] bg-white shadow-[0_24px_70px_-48px_rgba(30,47,43,0.35)] dark:border-white/10 dark:bg-[#0C1922] lg:grid-cols-[0.88fr_1.12fr] transition-all duration-300">
           <div className="flex flex-col p-6 sm:p-9 lg:p-11">
-            <div data-aos="fade-up">
-              <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-[#78958F] dark:text-[#8BC9C1]">
-                <MapPin className="h-3.5 w-3.5" /> {locale === "en" ? "Our location" : "Lokasi kami"}
-              </span>
-              <h3 className="mt-4 font-headline font-[family-name:var(--font-headline)] text-3xl font-light leading-tight tracking-tight text-[#202A29] dark:text-white sm:text-4xl">
+            <div>
+              <h3 className="font-headline font-[family-name:var(--font-headline)] text-3xl font-light leading-tight tracking-tight text-[#202A29] dark:text-white sm:text-4xl">
                 {currentOutlet.name}
               </h3>
               {currentOutlet.phone && (
                 <a
                   href={`tel:${currentOutlet.phone.replace(/[^0-9+]/g, "")}`}
-                  className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-[#78958F] transition-colors hover:text-[#426C64] dark:text-[#8BC9C1]"
+                  className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-[#607F78] transition-colors hover:text-[#4D6962] dark:text-[#8BC9C1]"
                 >
                   <Phone className="h-3.5 w-3.5" />
                   {currentOutlet.phone}
@@ -158,8 +152,8 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
 
             <div className="my-8 h-px w-full bg-[#E9E9E3] dark:bg-white/10" />
             <div className="space-y-6">
-              <div className="flex gap-4" data-aos="fade-up" data-aos-delay="100">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2ED] text-[#78958F] dark:bg-[#18313A] dark:text-[#8BC9C1]">
+              <div className="flex gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2ED] text-[#607F78] dark:bg-[#18313A] dark:text-[#8BC9C1]">
                   <MapPin className="h-4 w-4" />
                 </div>
                 <div>
@@ -171,8 +165,8 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
                   </p>
                 </div>
               </div>
-              <div className="flex gap-4" data-aos="fade-up" data-aos-delay="160">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2ED] text-[#78958F] dark:bg-[#18313A] dark:text-[#8BC9C1]">
+              <div className="flex gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2ED] text-[#607F78] dark:bg-[#18313A] dark:text-[#8BC9C1]">
                   <Clock className="h-4 w-4" />
                 </div>
                 <div>
@@ -184,8 +178,8 @@ export default function OutletsSection({ outlets = defaultOutlets }: OutletsSect
                   </p>
                 </div>
               </div>
-              <div className="flex gap-4" data-aos="fade-up" data-aos-delay="220">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2ED] text-[#78958F] dark:bg-[#18313A] dark:text-[#8BC9C1]">
+              <div className="flex gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2ED] text-[#607F78] dark:bg-[#18313A] dark:text-[#8BC9C1]">
                   <Truck className="h-4 w-4" />
                 </div>
                 <div>

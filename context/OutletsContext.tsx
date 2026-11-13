@@ -1,6 +1,14 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import { OutletItem, defaultOutlets } from "@/data/outlets";
 import {
   findNearestOutlet,
@@ -37,11 +45,18 @@ export function OutletsProvider({
   children: React.ReactNode;
 }) {
   const { locale } = useLanguage();
-  const activeOutlets = outlets.filter((o) => o.status !== "Inactive");
+  const activeOutlets = useMemo(
+    () => outlets.filter((o) => o.status !== "Inactive"),
+    [outlets]
+  );
 
   const [nearestOutlet, setNearestOutlet] = useState<OutletItem | null>(() => {
     return activeOutlets.length > 0 ? activeOutlets[0] : null;
   });
+
+  // Track if user explicitly selected an outlet
+  const userHasSelectedManually = useRef<boolean>(false);
+  const hasRunGeo = useRef<boolean>(false);
 
   // Default: always expect > 5 km unless verified by location
   const [isWithin5km, setIsWithin5km] = useState<boolean>(false);
@@ -93,12 +108,17 @@ export function OutletsProvider({
   // Auto-detect location on client mount: read from location, otherwise always expect > 5km
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (hasRunGeo.current) return;
+    hasRunGeo.current = true;
 
     // Restore saved outlet preference if any
     const savedOutletId = localStorage.getItem(STORAGE_OUTLET_KEY);
     if (savedOutletId) {
       const match = activeOutlets.find((o) => o.id === savedOutletId);
-      if (match) setNearestOutlet(match);
+      if (match) {
+        setNearestOutlet(match);
+        userHasSelectedManually.current = true;
+      }
     }
 
     if (navigator.geolocation) {
@@ -115,7 +135,8 @@ export function OutletsProvider({
           setIsWithin5km(radiusCheck.isWithinRange);
           setUserDistance(radiusCheck.distanceKm);
 
-          if (radiusCheck.nearestOutlet) {
+          // Only set nearestOutlet if user has not manually chosen an outlet
+          if (radiusCheck.nearestOutlet && !userHasSelectedManually.current && !savedOutletId) {
             setNearestOutlet(radiusCheck.nearestOutlet);
             localStorage.setItem(STORAGE_OUTLET_KEY, radiusCheck.nearestOutlet.id);
           }
@@ -136,6 +157,7 @@ export function OutletsProvider({
 
   const selectOutlet = useCallback(
     (outlet: OutletItem, openChat = false) => {
+      userHasSelectedManually.current = true;
       setNearestOutlet(outlet);
       if (typeof window !== "undefined") {
         localStorage.setItem(STORAGE_OUTLET_KEY, outlet.id);
